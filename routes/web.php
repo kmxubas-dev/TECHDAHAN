@@ -1,6 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
+
+use App\Models\UsersGadget;
+use App\Http\Controllers\UsersGadgetController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,7 +24,7 @@ Route::get('/', function () {
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     // return view('dashboard');
-    return redirect('/admin');
+    return redirect('/index');
 })->name('dashboard');
 
 
@@ -30,16 +34,22 @@ Route::get('/home', function () {
 });
 
 
+
+Route::get('/index', function () {
+    $gadgets = UsersGadget::where('user_id', '!=', Auth::user()->id)->get();
+    return view('user.index', compact('gadgets'));
+})->name('index')->middleware(['auth:sanctum', 'verified']);
+Route::get('/settings', function () { return view('user.settings'); })->name('user.settings');
+
+Route::resource('gadget', UsersGadgetController::class)->middleware(['auth:sanctum', 'verified']);
+
+
+
+// ADMIN ROUTES
 Route::group(['prefix'=>'admin', 'as'=>'admin.', 'middleware'=>['auth:sanctum']], function() {
     Route::get('/', function () {
         return view('admin.index');
     });
-    // Route::get('/create', function () {
-    //     return view('welcome');
-    // });
-    // Route::get('/create', function () {
-    //     return view('welcome');
-    // });
     // Route::get('/create', function () {
     //     return view('welcome');
     // });

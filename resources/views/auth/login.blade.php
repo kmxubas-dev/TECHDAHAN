@@ -2,7 +2,7 @@
     <x-jet-authentication-card>
         <x-slot name="logo">
             <h1 class="text-4xl">Techdahan</h1>
-            <div class="w-full text-center">Admin</div> 
+            {{-- <div class="w-full text-center">Admin</div> --}}
             {{-- <x-jet-authentication-card-logo /> --}}
         </x-slot>
 
