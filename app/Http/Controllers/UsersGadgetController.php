@@ -43,26 +43,45 @@ class UsersGadgetController extends Controller
         //
         $request->validate([
             'name' => 'required|string|max:50',
+            'category' => 'required|string|max:50',
+            'description' => 'required|string|nullable',
             'color' => 'required|string|max:50',
             'model' => 'required|string|max:50',
             'storage' => 'required|string|max:50',
             'condition' => 'required|string|max:50',
             'price_original' => 'required|integer',
             'price_selling' => 'required|integer',
-            'receipt' => 'required|string|max:50'
+            'img_receipt' => 'required|file',
+            'img' => 'required|file'
         ]);
 
+        $bidding = isset($request->bidding) ? true:false;
         $gadget = new UsersGadget;
         $gadget->status = 'available';
         $gadget->name = $request->name;
+        $gadget->category = $request->category;
+        $gadget->description = $request->description;
         $gadget->color = $request->color;
         $gadget->model = $request->model;
         $gadget->storage = $request->storage;
         $gadget->condition = $request->condition;
         $gadget->price_original = $request->price_original;
         $gadget->price_selling = $request->price_selling;
+        $gadget->bidding = $bidding;
+        $gadget->bidding_min = $request->bidding_min;
+        $gadget->bidding_start = $request->bidding_start;
+        $gadget->bidding_end = $request->bidding_end;
         $gadget->payment = 'cash';
-        $gadget->receipt = $request->receipt;
+        $gadget->img_receipt = 'storage/receipts/'.$request->user()->id.'/'.time().'.'.$request->file('img_receipt')->getClientOriginalExtension();
+        $request->file('img_receipt')->storeAs(
+            'public/receipts/'.$request->user()->id, 
+            time().'.'.$request->file('img_receipt')->getClientOriginalExtension()
+        );
+        $gadget->img = 'storage/products/'.$request->user()->id.'/'.time().'.'.$request->file('img')->getClientOriginalExtension();
+        $request->file('img')->storeAs(
+            'public/products/'.$request->user()->id, 
+            time().'.'.$request->file('img')->getClientOriginalExtension()
+        );
         $gadget->user_id = Auth::user()->id;
         $gadget->save();
 
@@ -105,25 +124,31 @@ class UsersGadgetController extends Controller
         //
         $request->validate([
             'name' => 'required|string|max:50',
+            'category' => 'required|string|max:50',
+            'description' => 'required|string|nullable',
             'color' => 'required|string|max:50',
             'model' => 'required|string|max:50',
             'storage' => 'required|string|max:50',
             'condition' => 'required|string|max:50',
             'price_original' => 'required|integer',
             'price_selling' => 'required|integer',
-            'receipt' => 'required|string|max:50'
         ]);
 
         $gadget->status = 'available';
         $gadget->name = $request->name;
+        $gadget->category = $request->category;
+        $gadget->description = $request->description;
         $gadget->color = $request->color;
         $gadget->model = $request->model;
         $gadget->storage = $request->storage;
         $gadget->condition = $request->condition;
         $gadget->price_original = $request->price_original;
         $gadget->price_selling = $request->price_selling;
+        $gadget->bidding = $bidding;
+        $gadget->bidding_min = $request->bidding_min;
+        $gadget->bidding_start = $request->bidding_start;
+        $gadget->bidding_end = $request->bidding_end;
         $gadget->payment = 'cash';
-        $gadget->receipt = $request->receipt;
         $gadget->save();
 
         return view('user_gadget.success');

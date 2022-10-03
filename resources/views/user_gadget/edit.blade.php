@@ -26,14 +26,17 @@
             <form action="{{route('gadget.update', $gadget->id)}}" method="POST">
                 @method('PUT')
                 @csrf
-                {{-- <div class="mb-5">
-                    <label for="name" class="mb-3 block text-base font-medium text-[#07074D]">
-                        Full Name
-                    </label>
-                    <input type="text" name="name" id="name" placeholder="Full Name" class="w-full rounded-md border-2 border-[#2557D6] bg-white py-3 px-6 text-base font-medium text-[#2557D6] outline-none focus:border-[#6A64F1] focus:shadow-md"/>
-                </div> --}}
+                <a href="#" class="flex justify-center">
+                    <img class="rounded-lg w-80 h-80" src="{{ asset($gadget->img) }}" alt="">
+                </a>
                 <div class="mb-3">
                     <input type="text" name="name" placeholder="Product Name" value="{{ $gadget->name }}" class="w-full rounded-md border-2 border-[#2557D6] bg-white py-3 px-6 text-base font-medium text-[#2557D6] outline-none focus:border-[#6A64F1] focus:shadow-md"/>
+                </div>
+                <div class="mb-3">
+                    <input type="text" name="category" placeholder="Category" value="{{ $gadget->category }}" class="w-full rounded-md border-2 border-[#2557D6] bg-white py-3 px-6 text-base font-medium text-[#2557D6] outline-none focus:border-[#6A64F1] focus:shadow-md"/>
+                </div>
+                <div class="mb-3">
+                    <input type="text" name="description" placeholder="Description" value="{{ $gadget->description }}" class="w-full rounded-md border-2 border-[#2557D6] bg-white py-3 px-6 text-base font-medium text-[#2557D6] outline-none focus:border-[#6A64F1] focus:shadow-md"/>
                 </div>
                 <div class="mb-3">
                     <input type="text" name="color" placeholder="Product Color" value="{{ $gadget->color }}" class="w-full rounded-md border-2 border-[#2557D6] bg-white py-3 px-6 text-base font-medium text-[#2557D6] outline-none focus:border-[#6A64F1] focus:shadow-md"/>
@@ -53,24 +56,29 @@
                 <div class="mb-3">
                     <input type="text" name="price_selling" placeholder="Selling Price" value="{{ $gadget->price_selling }}"class="w-full rounded-md border-2 border-[#2557D6] bg-white py-3 px-6 text-base font-medium text-[#2557D6] outline-none focus:border-[#6A64F1] focus:shadow-md"/>
                 </div>
-                {{-- <div class="mb-3">
-                    <label for="name" class="mb-1 block text-base font-medium text-[#2557D6]">
-                        Mode of Payment
-                    </label>
-                    <select type="text" name="name" class="w-full rounded-md border-2 border-[#2557D6] bg-white py-3 px-6 text-base font-medium text-[#2557D6] outline-none focus:border-[#6A64F1] focus:shadow-md">
-                        <option value="">--- Select Mode of Payment ---</option>
-                    </select>
-                </div> --}}
+                <div class="my-3"><hr></div>
                 <div class="mb-3">
-                    <label for="name" class="mb-1 block text-base font-medium text-[#2557D6]">
-                        Availability of the original receipt
-                    </label>
-                    <select type="text" name="receipt" class="w-full rounded-md border-2 border-[#2557D6] bg-white py-3 px-6 text-base font-medium text-[#2557D6] outline-none focus:border-[#6A64F1] focus:shadow-md">
-                        <option value="" disabled selected>--- Select Availability ---</option>
-                        <option value="Available" @if ($gadget->receipt == 'Available') selected @endif>Available</option>
-                        <option value="Not Available" @if ($gadget->receipt == 'Not Available') selected @endif>Not Available</option>
-                    </select>
+                    <div class='flex flex-row p-3'>
+                        <input type="checkbox" name="bidding" id="cb1" class='appearance-none h-6 w-6 bg-gray-400 rounded-full checked:bg-[#2557D6] checked:scale-75 transition-all duration-200 peer'/>
+                        <div class='h-6 w-6 absolute rounded-full pointer-events-none
+                        peer-checked:border-[#2557D6] peer-checked:border-2'>
+                        </div>
+                        <label for='cb1' class='flex flex-col justify-center px-2 peer-checked:text-[#2557D6] select-none'>Enable bidding on this product</label>
+                    </div>
                 </div>
+                <div class="mb-3">
+                    <input type="text" name="bidding_min" value="{{ $gadget->bidding_min }}" placeholder="Minimum Bidding Price" class="w-full rounded-md border-2 border-[#2557D6] bg-white py-3 px-6 text-base font-medium text-[#2557D6] outline-none focus:border-[#6A64F1] focus:shadow-md"/>
+                </div>
+                <div class="mb-3">
+                    <label for="">Starting Bidding Date</label>
+                    <input type="date" name="bidding_start" value="{{ $gadget->bidding_start }}" placeholder="Minimum Bidding Price" class="w-full rounded-md border-2 border-[#2557D6] bg-white py-3 px-6 text-base font-medium text-[#2557D6] outline-none focus:border-[#6A64F1] focus:shadow-md"/>
+                </div>
+                <div class="mb-3">
+                    <label for="">End Bidding Date</label>
+                    <input type="date" name="bidding_end" value="{{ $gadget->bidding_end }}" placeholder="Minimum Bidding Price" class="w-full rounded-md border-2 border-[#2557D6] bg-white py-3 px-6 text-base font-medium text-[#2557D6] outline-none focus:border-[#6A64F1] focus:shadow-md"/>
+                </div>
+                <div class="my-3"><hr></div>
+
                 <div class="mt-6 mb-2">
                     <button type="submit" class="w-full py-2 px-8 hover:shadow-form rounded-lg bg-[#2557D6] text-base font-semibold text-white outline-none">
                         Submit

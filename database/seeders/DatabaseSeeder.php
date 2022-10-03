@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 
 use  Database\Seeders\SeederUser;
+use  Database\Seeders\SeederUsersGadget;
 
 class DatabaseSeeder extends Seeder
 {
@@ -18,6 +19,7 @@ class DatabaseSeeder extends Seeder
         // \App\Models\User::factory(10)->create();
 
         $this->call([
+            SeederUser::class,
             SeederUser::class
         ]);
     }

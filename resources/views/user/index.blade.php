@@ -35,16 +35,16 @@
 
             <div class="grid grid-cols-2 gap-3 mt-3 md:grid-cols-3">
                 @foreach ($gadgets as $gadget)
-                <div class="bg-white shadow-md border border-gray-200 rounded-lg max-w-sm dark:bg-gray-800 dark:border-gray-700">
-                    <a href="#">
-                        <img class="rounded-t-lg" src="https://flowbite.com/docs/images/blog/image-1.jpg" alt="">
-                    </a>
+                <a href="{{ route('gadget.show', $gadget->id) }}" class="bg-white shadow-md border border-gray-200 rounded-lg max-w-sm dark:bg-gray-800 dark:border-gray-700">
+                    <div href="#">
+                        <img class="rounded-t-lg" src="{{ asset($gadget->img) }}" alt="">
+                    </div>
                     <div class="p-2">
-                        <a href="#">
+                        <div href="#">
                             <h5 class="text-gray-900 font-bold tracking-tight mb-1 dark:text-white multiline-ellipsis-2">
                                 {{ $gadget->name }}
                             </h5>
-                        </a>
+                        </div>
                         <p class="font-normal text-gray-700 mb-3 dark:text-gray-400">
                             Php {{ number_format($gadget->price_selling, 2) }}
                         </p>
@@ -60,7 +60,7 @@
                         </div>
                         <p class="float-right font-bold text-xs text-gray-700 mb-2 dark:text-gray-400">See Details</p>
                     </div>
-                </div>
+                </a>
                 @endforeach
             </div>
         </div>

@@ -35,10 +35,10 @@
                                     {{ $gadget->name  }}
                                 </p>
                                 <p class="text-sm text-gray-500 truncate dark:text-gray-400">
-                                    Original Price PHP {{ $gadget->price_original }}
+                                    Original Price PHP {{ number_format($gadget->price_original, 2) }}
                                 </p>
                                 <p class="text-sm text-gray-500 truncate dark:text-gray-400">
-                                    Selling Price PHP {{ $gadget->price_selling }}
+                                    Selling Price PHP {{ number_format($gadget->price_selling, 2) }}
                                 </p>
                             </div>
                             <form action="{{ route('gadget.destroy', $gadget->id) }}" method="POST" class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white" onsubmit="return confirm('Are you sure you want to delete this gadget?')">

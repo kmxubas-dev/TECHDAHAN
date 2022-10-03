@@ -34,14 +34,17 @@ Route::get('/home', function () {
 });
 
 
+Route::group(['prefix'=>'', 'as'=>'', 'middleware'=>['auth:sanctum']], function () {
+    Route::get('/index', function () {
+        $gadgets = UsersGadget::where('user_id', '!=', Auth::user()->id)->get();
+        return view('user.index', compact('gadgets'));
+    })->name('index');
+    Route::get('/settings', function () { return view('user.settings'); })->name('user.settings');
+    Route::resource('gadget', UsersGadgetController::class);
+});
 
-Route::get('/index', function () {
-    $gadgets = UsersGadget::where('user_id', '!=', Auth::user()->id)->get();
-    return view('user.index', compact('gadgets'));
-})->name('index')->middleware(['auth:sanctum', 'verified']);
-Route::get('/settings', function () { return view('user.settings'); })->name('user.settings');
 
-Route::resource('gadget', UsersGadgetController::class)->middleware(['auth:sanctum', 'verified']);
+
 
 
 

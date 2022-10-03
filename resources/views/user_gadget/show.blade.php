@@ -23,12 +23,12 @@
 
         <div class="w-full p-4 bg-white shadow-md border border-gray-200 rounded-lg">
             <a href="#" class="flex justify-center">
-                <img class="rounded-lg w-80 h-80" src="https://flowbite.com/docs/images/blog/image-1.jpg" alt="">
+                <img class="rounded-lg w-80 h-80" src="{{ asset($gadget->img) }}" alt="">
             </a>
             <div class="p-2">
                 <a href="#">
                     <h5 class="mb-3 text-[#2557D6] text-xl text-center font-bold tracking-tight multiline-ellipsis-2">
-                        {{ $gadget->name  }}
+                        {{ $gadget->name }}
                     </h5>
                 </a>
                 <p class="font-normal text-[#2557D6] mb-3">
@@ -41,6 +41,14 @@
                 
                 <h5 class="text-[#2557D6] font-bold">Product Details</h5>
                 <div class="flex flex-col gap-3 text-[#2557D6]">
+                    <div class="flex justify-between">
+                        <div class="flex-1">
+                            Category
+                        </div>
+                        <div class="flex-1">
+                            {{ $gadget->category }}
+                        </div>
+                    </div>
                     <div class="flex justify-between">
                         <div class="flex-1">
                             Brand
@@ -94,7 +102,7 @@
                             Description
                         </div>
                         <div class="flex-1">
-                            Description
+                            {{ $gadget->description }}
                         </div>
                     </div>
                     <div class="flex justify-between">
@@ -107,9 +115,18 @@
                     </div>
 
                     <div class="mt-6">
-                        <a href="{{ route('gadget.edit', $gadget->id) }}" class="flex justify-center w-full py-2 px-8 hover:shadow-form rounded-lg bg-[#2557D6] text-base font-semibold text-white outline-none">
-                            Edit
-                        </a>
+                        @if (auth()->user()->id == $gadget->user_id)
+                            <a href="{{ route('gadget.edit', $gadget->id) }}" class="flex justify-center w-full py-2 px-8 hover:shadow-form rounded-lg bg-[#2557D6] text-base font-semibold text-white outline-none">Edit</a>
+                        @else
+                        <div class="flex mb-3">
+                            <a class="flex-1 justify-center w-1/2 mr-2 py-2 px-8 hover:shadow-form rounded-lg bg-[#2557D6] text-center text-base font-semibold text-white outline-none">Place a Bid</a>
+                            <a class="flex-1 justify-center w-1/2 py-2 px-8 hover:shadow-form rounded-lg bg-[#2557D6] text-center text-base font-semibold text-white outline-none">Make Offer</a>
+                        </div>
+                        <div class="flex">
+                            <a class="flex-1 justify-center w-1/2 mr-2 py-2 px-2 hover:shadow-form rounded-lg bg-[#2557D6] text-center text-base font-semibold text-white outline-none">Proceed Payment</a>
+                            <a class="flex-1 justify-center w-1/2 py-2 px-2 hover:shadow-form rounded-lg bg-[#2557D6] text-center text-base font-semibold text-white outline-none">Contact Seller</a>
+                        </div>
+                        @endif
                     </div>
                 </div>
             </div>
