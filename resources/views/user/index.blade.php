@@ -30,7 +30,7 @@
     
     <!-- Content -->
     <section class="">
-        <div class="container px-3 py-3 mx-auto">
+        <div class="container px-3 py-3 pb-20 mx-auto">
             <h1 class="text-xl font-semibold text-gray-800 capitalize lg:text-4xl dark:text-white">Gadgets</h1>
 
             <div class="grid grid-cols-2 gap-3 mt-3 md:grid-cols-3">

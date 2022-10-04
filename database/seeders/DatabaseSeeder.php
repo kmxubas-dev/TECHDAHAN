@@ -20,7 +20,7 @@ class DatabaseSeeder extends Seeder
 
         $this->call([
             SeederUser::class,
-            SeederUser::class
+            SeederUsersGadget::class
         ]);
     }
 }

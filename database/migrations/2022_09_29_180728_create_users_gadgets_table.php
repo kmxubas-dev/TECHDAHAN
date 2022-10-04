@@ -32,7 +32,8 @@ class CreateUsersGadgetsTable extends Migration
             $table->string('payment')->nullable();
             $table->string('img_receipt', 2048)->nullable();
             $table->string('img', 2048)->nullable();
-            $table->foreignId ('user_id');
+            $table->foreignId('user_id');
+            $table->foreignId('buyer_id')->nullable();
             $table->timestamps();
         });
     }

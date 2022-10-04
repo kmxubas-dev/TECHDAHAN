@@ -71,7 +71,7 @@ class UsersGadgetController extends Controller
         $gadget->bidding_min = $request->bidding_min;
         $gadget->bidding_start = $request->bidding_start;
         $gadget->bidding_end = $request->bidding_end;
-        $gadget->payment = 'cash';
+        $gadget->payment = 'all';
         $gadget->img_receipt = 'storage/receipts/'.$request->user()->id.'/'.time().'.'.$request->file('img_receipt')->getClientOriginalExtension();
         $request->file('img_receipt')->storeAs(
             'public/receipts/'.$request->user()->id, 
@@ -85,7 +85,7 @@ class UsersGadgetController extends Controller
         $gadget->user_id = Auth::user()->id;
         $gadget->save();
 
-        return view('user_gadget.success');
+        return redirect()->route('gadget.show', compact('gadget'))->with('success', 'Successfully created product.');
     }
 
     /**
@@ -134,7 +134,7 @@ class UsersGadgetController extends Controller
             'price_selling' => 'required|integer',
         ]);
 
-        $gadget->status = 'available';
+        $bidding = isset($request->bidding) ? true:false;
         $gadget->name = $request->name;
         $gadget->category = $request->category;
         $gadget->description = $request->description;
@@ -148,10 +148,12 @@ class UsersGadgetController extends Controller
         $gadget->bidding_min = $request->bidding_min;
         $gadget->bidding_start = $request->bidding_start;
         $gadget->bidding_end = $request->bidding_end;
-        $gadget->payment = 'cash';
+        $gadget->payment = 'all';
         $gadget->save();
 
-        return view('user_gadget.success');
+        return redirect()->route('gadget.edit', compact('gadget'))->with('success', 'Successfully edited product.');
+        
+        // $transaction->tracking_code = 'JOG'.rand(1000, 9999).'-'.strtoupper(substr(md5(microtime()),rand(0,26),4)).'-TST';
     }
 
     /**
@@ -164,6 +166,16 @@ class UsersGadgetController extends Controller
     {
         //
         $gadget->delete();
-        return view('user_gadget.success');
+        return redirect()->route('gadget.index')->with('success', 'Successfully deleted product.');
+    }
+
+
+
+    // ==================================================
+
+    public function proceed(UsersGadget $gadget)
+    {
+        //
+        return view('user_gadget.show_proceed', compact('gadget'));
     }
 }
