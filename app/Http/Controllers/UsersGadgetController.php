@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\UsersGadget;
+use App\Models\UsersPayment;
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\Auth;
@@ -176,6 +177,17 @@ class UsersGadgetController extends Controller
     public function proceed(UsersGadget $gadget)
     {
         //
-        return view('user_gadget.show_proceed', compact('gadget'));
+        $payments = UsersPayment::where('user_id', Auth::user()->id)->get();
+        return view('user_gadget.show_proceed', compact('gadget', 'payments'));
+    }
+
+    public function proceed_post(Request $request, UsersGadget $gadget)
+    {
+        //
+        $gadget->status = 'purchased';
+        $gadget->payment = $request->payment;
+        $gadget->buyer_id = Auth::user()->id;
+        $gadget->save();
+        return redirect()->route('index')->with('success', 'Successfully purchased product.');
     }
 }

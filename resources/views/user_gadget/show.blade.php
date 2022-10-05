@@ -1,4 +1,5 @@
 @extends('layouts.user')
+
 @section('main')
 <section class="">
     <!-- Header -->
@@ -128,7 +129,7 @@
                         </div>
                         <div class="flex">
                             @if (!$gadget->bidding)
-                                <a href="" class="flex-1 justify-center w-1/2 mr-2 py-2 px-2 hover:shadow-form rounded-lg bg-[#2557D6] text-center text-base font-semibold text-white outline-none">Proceed Payment</a>
+                                <a href="{{ route('gadget.proceed', $gadget->id) }}" class="flex-1 justify-center w-1/2 mr-2 py-2 px-2 hover:shadow-form rounded-lg bg-[#2557D6] text-center text-base font-semibold text-white outline-none">Proceed Payment</a>
                             @else
                                 <button disabled class="flex-1 justify-center w-1/2 mr-2 py-2 px-2 hover:shadow-form rounded-lg bg-gray-500 text-center text-base font-semibold text-white outline-none">Proceed Payment</button>
                             @endif

@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\UserPayment;
+use App\Models\UsersGadgetsOffer;
 use Illuminate\Http\Request;
 
-class UserPaymentController extends Controller
+class UsersGadgetsOfferController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -41,10 +41,10 @@ class UserPaymentController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\UserPayment  $userPayment
+     * @param  \App\Models\UsersGadgetsOffer  $usersGadgetsOffer
      * @return \Illuminate\Http\Response
      */
-    public function show(UserPayment $userPayment)
+    public function show(UsersGadgetsOffer $usersGadgetsOffer)
     {
         //
     }
@@ -52,10 +52,10 @@ class UserPaymentController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\UserPayment  $userPayment
+     * @param  \App\Models\UsersGadgetsOffer  $usersGadgetsOffer
      * @return \Illuminate\Http\Response
      */
-    public function edit(UserPayment $userPayment)
+    public function edit(UsersGadgetsOffer $usersGadgetsOffer)
     {
         //
     }
@@ -64,10 +64,10 @@ class UserPaymentController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\UserPayment  $userPayment
+     * @param  \App\Models\UsersGadgetsOffer  $usersGadgetsOffer
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, UserPayment $userPayment)
+    public function update(Request $request, UsersGadgetsOffer $usersGadgetsOffer)
     {
         //
     }
@@ -75,10 +75,10 @@ class UserPaymentController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\UserPayment  $userPayment
+     * @param  \App\Models\UsersGadgetsOffer  $usersGadgetsOffer
      * @return \Illuminate\Http\Response
      */
-    public function destroy(UserPayment $userPayment)
+    public function destroy(UsersGadgetsOffer $usersGadgetsOffer)
     {
         //
     }

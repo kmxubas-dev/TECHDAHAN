@@ -15,7 +15,26 @@ class SeederUsersGadget extends Seeder
     public function run()
     {
         //
-        for($i=0; $i<5; $i++) {
+        DB::table('users_gadgets')->insert([
+            'status' => 'available',
+            'name' => 'Gadget0',
+            'category' => 'Phone',
+            'description' => 'Description',
+            'color' => 'Black',
+            'model' => 'X123',
+            'storage' => '258gb',
+            'price_original' => '20000',
+            'price_selling' => '15000',
+            'condition' => '80',
+            'bidding' => false,
+            // 'bidding_min' => '',
+            // 'bidding_start' => '',
+            // 'bidding_end' => '',
+            'img_receipt' => 'img/placeholder.jpg',
+            'img' => 'img/placeholder.jpg',
+            'user_id' => '2'
+        ]);
+        for($i=1; $i<6; $i++) {
             DB::table('users_gadgets')->insert([
                 'status' => 'admin',
                 'name' => 'Gadget'.$i,
@@ -33,7 +52,7 @@ class SeederUsersGadget extends Seeder
                 // 'bidding_end' => '',
                 'img_receipt' => 'img/placeholder.jpg',
                 'img' => 'img/placeholder.jpg',
-                'user_id' => '3'
+                'user_id' => '2'
             ]);
         }
     }

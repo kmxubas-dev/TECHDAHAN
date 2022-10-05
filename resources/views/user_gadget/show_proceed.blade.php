@@ -1,143 +1,104 @@
 @extends('layouts.user')
+
 @section('main')
 <section class="">
     <!-- Header -->
     <div>
         <div class="relative grid grid-cols-1 gap-4 p-4 mb-3 bg-white shadow-lg">
-            <div class="relative flex gap-4">
-                <img src="https://icons.iconarchive.com/icons/diversity-avatars/avatars/256/charlie-chaplin-icon.png" class="relative rounded-lg bg-white border border-blue-800 h-14 w-14" alt="" loading="lazy">
-                <div class="flex flex-col w-full">
-                    <p class="mb-1 text-x text-blue-800 whitespace-nowrap truncate overflow-hidden">Hello,</p>
-                    <div class="flex flex-row justify-between">
-                        <p class="relative text-xl whitespace-nowrap truncate overflow-hidden">{{auth()->user()->name}}</p>
-                        <a class="text-gray-500 text-xl" href="#"><i class="fa-solid fa-trash"></i></a>
-                    </div>
-                </div>
+            <div class="relative flex gap-4 text-[#2557D6]">
+                <a href="{{ route('gadget.show', $gadget->id) }}">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-arrow-left-short" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M12 8a.5.5 0 0 1-.5.5H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5a.5.5 0 0 1 .5.5z"/>
+                    </svg>
+                </a>
+                <h1 class="text-xl font-semibold capitalize">Order Summary</h1>
             </div>
         </div>
     </div>
     
     <!-- Content -->
-    <section class="flex flex-col mb-20 p-3 items-center justify-center">
-        <h1 class="text-xl mb-3 font-semibold text-gray-800 capitalize dark:text-white">Show Gadget</h1>
-
-        <div class="w-full p-4 bg-white shadow-md border border-gray-200 rounded-lg">
-            <a href="#" class="flex justify-center">
-                <img class="rounded-lg w-80 h-80" src="{{ asset($gadget->img) }}" alt="">
-            </a>
-            <div class="p-2">
-                <a href="#">
+    <section class="flex flex-col px-3 pb-20 items-center justify-center">
+        <div class="w-full mb-3 p-4 bg-white shadow-md border border-gray-200 rounded-lg">
+            <div class="p-3 text-[#2557D6] border-2 border-[#2557D6] rounded-lg">
+                <div class="flex flex-col text-center">
+                    <p>{{ '@'.auth()->user()->name }}</p>
                     <h5 class="mb-3 text-[#2557D6] text-xl text-center font-bold tracking-tight multiline-ellipsis-2">
                         {{ $gadget->name }}
                     </h5>
-                </a>
-                <p class="font-normal text-[#2557D6] mb-3">
-                    Original Price PHP {{ $gadget->price_original }}
-                </p>
-                <p class="font-normal text-[#2557D6] mb-3">
-                    Selling Price PHP {{ $gadget->price_selling }}
-                </p>
-
-                
-                <h5 class="text-[#2557D6] font-bold">Product Details</h5>
-                <div class="flex flex-col gap-3 text-[#2557D6]">
-                    <div class="flex justify-between">
-                        <div class="flex-1">
-                            Category
-                        </div>
-                        <div class="flex-1">
-                            {{ $gadget->category }}
-                        </div>
+                </div>
+                <div class="flex">
+                    <div href="#" class="justify-center w-1/3 mr-3">
+                        <img class="rounded-lg" src="{{ asset($gadget->img) }}" alt="">
                     </div>
-                    <div class="flex justify-between">
-                        <div class="flex-1">
-                            Brand
+                    <div class="flex flex-col">
+                        <div href="#" class="flex-1 justify-center">
+                            <div class="flex-1">
+                                {{ $gadget->model }}
+                            </div>
+                            <div class="flex-1">
+                                {{ $gadget->storage }}
+                            </div>
+                            <div class="flex-1">
+                                {{ $gadget->color }}
+                            </div>
                         </div>
-                        <div class="flex-1">
-                            {{ $gadget->model }}
-                        </div>
-                    </div>
-                    <div class="flex justify-between">
-                        <div class="flex-1">
-                            Color
-                        </div>
-                        <div class="flex-1">
-                            {{ $gadget->color }}
-                        </div>
-                    </div>
-                    <div class="flex justify-between">
-                        <div class="flex-1">
-                            Model
-                        </div>
-                        <div class="flex-1">
-                            {{ $gadget->model }}
-                        </div>
-                    </div>
-                    <div class="flex justify-between">
-                        <div class="flex-1">
-                            Storage
-                        </div>
-                        <div class="flex-1">
-                            {{ $gadget->storage }}
-                        </div>
-                    </div>
-                    <div class="flex justify-between">
-                        <div class="flex-1">
-                            Type
-                        </div>
-                        <div class="flex-1">
-                            Type
-                        </div>
-                    </div>
-                    <div class="flex justify-between">
-                        <div class="flex-1">
-                            Condition
-                        </div>
-                        <div class="flex-1">
-                            {{ $gadget->condition }}
-                        </div>
-                    </div>
-                    <div class="flex justify-between">
-                        <div class="flex-1">
-                            Description
-                        </div>
-                        <div class="flex-1">
-                            {{ $gadget->description }}
-                        </div>
-                    </div>
-                    <div class="flex justify-between">
-                        <div class="flex-1">
-                            Location
-                        </div>
-                        <div class="flex-1">
-                            Location
-                        </div>
-                    </div>
-
-                    <div class="mt-6">
-                        @if (auth()->user()->id == $gadget->user_id)
-                            <a href="{{ route('gadget.edit', $gadget->id) }}" class="flex justify-center w-full py-2 px-8 hover:shadow-form rounded-lg bg-[#2557D6] text-base font-semibold text-white outline-none">Edit</a>
-                        @else
-                        <div class="flex mb-3">
-                            @if ($gadget->bidding)
-                                <a class="flex-1 justify-center w-1/2 mr-2 py-2 px-8 hover:shadow-form rounded-lg bg-[#2557D6] text-center text-base font-semibold text-white outline-none">Place a Bid</a>
-                            @else
-                                <button disabled class="flex-1 justify-center w-1/2 mr-2 py-2 px-8 hover:shadow-form rounded-lg bg-gray-500 text-center text-base font-semibold text-white outline-none">Place a Bid</button>
-                            @endif
-                            <a class="flex-1 justify-center w-1/2 py-2 px-8 hover:shadow-form rounded-lg bg-[#2557D6] text-center text-base font-semibold text-white outline-none">Make Offer</a>
-                        </div>
-                        <div class="flex">
-                            @if (!$gadget->bidding)
-                                <a href="" class="flex-1 justify-center w-1/2 mr-2 py-2 px-2 hover:shadow-form rounded-lg bg-[#2557D6] text-center text-base font-semibold text-white outline-none">Proceed Payment</a>
-                            @else
-                                <button disabled class="flex-1 justify-center w-1/2 mr-2 py-2 px-2 hover:shadow-form rounded-lg bg-gray-500 text-center text-base font-semibold text-white outline-none">Proceed Payment</button>
-                            @endif
-                            <a class="flex-1 justify-center w-1/2 py-2 px-2 hover:shadow-form rounded-lg bg-[#2557D6] text-center text-base font-semibold text-white outline-none">Contact Seller</a>
-                        </div>
-                        @endif
                     </div>
                 </div>
             </div>
+
+            <div class="p-3">
+                <p class="font-normal text-[#2557D6]">
+                    Total Payment: <b>{{ $gadget->price_selling }} PHP</b>
+                </p>
+
+                <p class="font-normal text-[#2557D6]">
+                    Purchase Order ID: <b>{{ '#22'.strtoupper(substr(md5(microtime()),rand(0,26),6)).'TD'; }}</b>
+                </p>
+            </div>
+        </div>
+
+        <div class="w-full p-4 bg-white text-[#2557D6] border border-gray-200 rounded-lg shadow-md">
+            <h5 class="text-lg font-semibold capitalize">Payment Method</h5>
+            <form action="{{ route('gadget.proceed_post', $gadget->id) }}" method="POST">
+                @csrf
+                <div class="flex mb-3">
+                    <div class='flex flex-row p-3'>
+                        <input type="radio" name="amount" id="amount1" class='appearance-none h-6 w-6 bg-gray-400 rounded-full checked:bg-[#2557D6] checked:scale-75 transition-all duration-200 peer' required/>
+                        <div class='h-6 w-6 absolute rounded-full pointer-events-none peer-checked:border-[#2557D6] peer-checked:border-2'></div>
+                        <label for='amount1' class='flex flex-col justify-center px-2 peer-checked:text-[#2557D6] select-none'>Full Payment</label>
+                    </div>
+                    <div class='flex flex-row p-3'>
+                        <input type="radio" name="amount" id="amount2" class='appearance-none h-6 w-6 bg-gray-400 rounded-full checked:bg-[#2557D6] checked:scale-75 transition-all duration-200 peer' required/>
+                        <div class='h-6 w-6 absolute rounded-full pointer-events-none peer-checked:border-[#2557D6] peer-checked:border-2'></div>
+                        <label for='amount2' class='flex flex-col justify-center px-2 peer-checked:text-[#2557D6] select-none'>Installment</label>
+                    </div>
+                </div>
+
+                <ul role="list" style="min-height: 125px">
+                    <li class="mb-2 text-white border- border-[#2557D6] rounded-lg hover:bg-[#2557D6">
+                        <input type="radio" name="payment" id="payment1" value="gcash" class='sr-only appearance-none h-6 w-6 bg-gray-400 rounded-full checked:bg-[#2557D6] checked:scale-75 transition-all duration-200 peer' required/>
+                        <label for='payment1' class="flex px-3 py-2 items-center space-x-4 text-[#2557D6] border-2 border-[#2557D6] peer-checked:bg-[#2557D6] peer-checked:text-white rounded-lg">
+                            <div class="w-10 mr-3">
+                                <img src="{{ asset('img/placeholder.jpg') }}" class="rounded-lg">
+                            </div>
+                            Gcash
+                        </label>
+                    </li>
+                    <li class="mb-2 text-white border- border-[#2557D6] rounded-lg hover:bg-[#2557D6">
+                        <input type="radio" name="payment" id="payment2" value="credit" class='sr-only appearance-none h-6 w-6 bg-gray-400 rounded-full checked:bg-[#2557D6] checked:scale-75 transition-all duration-200 peer' required/>
+                        <label for='payment2' class="flex px-3 py-2 items-center space-x-4 text-[#2557D6] border-2 border-[#2557D6] peer-checked:bg-[#2557D6] peer-checked:text-white rounded-lg">
+                            <div class="w-10 mr-3">
+                                <img src="{{ asset('img/placeholder.jpg') }}" class="rounded-lg">
+                            </div>
+                            Credit Card
+                        </label>
+                    </li>
+                </ul>
+
+                <div class="">
+                    <button type="submit" class="flex justify-center w-full py-2 px-8 hover:shadow-form rounded-lg bg-[#2557D6] text-base font-semibold text-white outline-none">Proceed to payment</button>
+                </div>
+            </form>
         </div>
     </section>
 </section>

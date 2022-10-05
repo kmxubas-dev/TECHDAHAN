@@ -36,11 +36,19 @@ Route::get('/home', function () {
 
 Route::group(['prefix'=>'', 'as'=>'', 'middleware'=>['auth:sanctum']], function () {
     Route::get('/index', function () {
-        $gadgets = UsersGadget::where('user_id', '!=', Auth::user()->id)->get();
+        $gadgets = UsersGadget::where('user_id', '!=', Auth::user()->id)
+            ->where('status', 'available')->get();
         return view('user.index', compact('gadgets'));
     })->name('index');
     Route::get('/settings', function () { return view('user.settings'); })->name('user.settings');
+
     Route::resource('gadget', UsersGadgetController::class);
+    Route::get('gadget/{gadget}/proceed',  [UsersGadgetController::class, 'proceed'])
+        ->name('gadget.proceed');
+    Route::post('gadget/{gadget}/proceed',  [UsersGadgetController::class, 'proceed_post'])
+        ->name('gadget.proceed_post');
+
+    // Route::resource('gadget_bid')
 });
 
 

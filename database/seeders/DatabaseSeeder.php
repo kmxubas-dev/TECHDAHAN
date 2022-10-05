@@ -6,6 +6,7 @@ use Illuminate\Database\Seeder;
 
 use  Database\Seeders\SeederUser;
 use  Database\Seeders\SeederUsersGadget;
+use  Database\Seeders\SeederUsersPayment;
 
 class DatabaseSeeder extends Seeder
 {
@@ -20,7 +21,8 @@ class DatabaseSeeder extends Seeder
 
         $this->call([
             SeederUser::class,
-            SeederUsersGadget::class
+            SeederUsersGadget::class,
+            SeederUsersPayment::class
         ]);
     }
 }
