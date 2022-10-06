@@ -18,7 +18,6 @@ class CreateUsersGadgetsBidsTable extends Migration
             $table->foreignId('gadget_id')->nullable();
             $table->foreignId('user_id')->nullable();
             $table->unsignedInteger('amount');
-            $table->text('note');
             $table->timestamps();
         });
     }

@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\UsersGadgetsBid;
+use App\Models\UsersGadget;
 use Illuminate\Http\Request;
+
+use Illuminate\Support\Facades\Auth;
 
 class UsersGadgetsBidController extends Controller
 {
@@ -78,8 +81,40 @@ class UsersGadgetsBidController extends Controller
      * @param  \App\Models\UsersGadgetsBid  $usersGadgetsBid
      * @return \Illuminate\Http\Response
      */
-    public function destroy(UsersGadgetsBid $usersGadgetsBid)
+    public function destroy(UsersGadgetsBid $gadget_bid)
     {
         //
+        $gadget_bid->delete();
+        return redirect()->route('gadget.show', $gadget_bid->gadget_id)
+            ->with('success', 'Successfully cancelled bid.');
+    }
+
+
+
+    // ==================================================
+
+    public function add(UsersGadget $gadget)
+    {
+        //
+        $bid = UsersGadgetsBid::where('gadget_id', $gadget->id)
+            ->where('user_id', Auth::user()->id)->first();
+        $bids = UsersGadgetsBid::where('gadget_id', $gadget->id)
+            ->orderBy('amount', 'desc')->take(10)->get();
+        return view('user_gadget_bid.add', compact('gadget', 'bid', 'bids'));
+    }
+
+    public function add_post(Request $request, UsersGadget $gadget)
+    {
+        //
+        $request->validate([
+            'amount' => 'required|numeric'
+        ]);
+        $offer = UsersGadgetsBid::updateOrCreate(
+            ['gadget_id' => $gadget->id, 'user_id' => Auth::user()->id],
+            ['amount' => $request->amount]
+        );
+
+        return redirect()->route('gadget.bid.add', compact('gadget'))
+            ->with('success', 'Successfully submitted bid.');
     }
 }

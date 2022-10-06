@@ -8,4 +8,37 @@ use Illuminate\Database\Eloquent\Model;
 class UsersGadgetsOffer extends Model
 {
     use HasFactory;
+
+
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var string[]
+     */
+    protected $fillable = [
+        'gadget_id',
+        'user_id',
+        'amount',
+        'note',
+    ];
+
+    /**
+     * The attributes that should be cast.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'amount' => 'decimal:2',
+    ];
+
+    public function getAmountAttribute($value)
+    {
+        return $value*0.01;
+    }
+
+    public function setAmountAttribute($value)
+    {
+        $this->attributes['amount'] = $value*100;
+    }
 }

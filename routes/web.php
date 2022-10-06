@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Auth;
 
 use App\Models\UsersGadget;
 use App\Http\Controllers\UsersGadgetController;
+use App\Http\Controllers\UsersGadgetsBidController;
+use App\Http\Controllers\UsersGadgetsOfferController;
 
 /*
 |--------------------------------------------------------------------------
@@ -43,12 +45,20 @@ Route::group(['prefix'=>'', 'as'=>'', 'middleware'=>['auth:sanctum']], function 
     Route::get('/settings', function () { return view('user.settings'); })->name('user.settings');
 
     Route::resource('gadget', UsersGadgetController::class);
-    Route::get('gadget/{gadget}/proceed',  [UsersGadgetController::class, 'proceed'])
+    Route::get('gadget/{gadget}/proceed', [UsersGadgetController::class, 'proceed'])
         ->name('gadget.proceed');
-    Route::post('gadget/{gadget}/proceed',  [UsersGadgetController::class, 'proceed_post'])
+    Route::post('gadget/{gadget}/proceed', [UsersGadgetController::class, 'proceed_post'])
         ->name('gadget.proceed_post');
+    Route::get('gadget/{gadget}/offer/add',[UsersGadgetsOfferController::class, 'add'])
+        ->name('gadget.offer.add');
+    Route::post('gadget/{gadget}/offer/add',[UsersGadgetsOfferController::class, 'add_post'])
+        ->name('gadget.offer.add_post');
+    Route::get('gadget/{gadget}/bid/add',[UsersGadgetsBidController::class, 'add'])
+        ->name('gadget.bid.add');
+    Route::post('gadget/{gadget}/bid/add',[UsersGadgetsBidController::class, 'add_post'])
+        ->name('gadget.bid.add_post');
 
-    // Route::resource('gadget_bid')
+    Route::resource('gadget_bid', UsersGadgetsBidController::class);
 });
 
 

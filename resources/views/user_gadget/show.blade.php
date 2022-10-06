@@ -17,7 +17,7 @@
             </div>
         </div>
     </div>
-    
+
     <!-- Content -->
     <section class="flex flex-col mb-20 p-3 items-center justify-center">
         <h1 class="text-xl mb-3 font-semibold text-gray-800 capitalize dark:text-white">Show Gadget</h1>
@@ -33,10 +33,10 @@
                     </h5>
                 </a>
                 <p class="font-normal text-[#2557D6] mb-3">
-                    Original Price PHP {{ $gadget->price_original }}
+                    Original Price PHP {{ number_format($gadget->price_original, 2, ".", ",") }}
                 </p>
                 <p class="font-normal text-[#2557D6] mb-3">
-                    Selling Price PHP {{ $gadget->price_selling }}
+                    Selling Price PHP {{ number_format($gadget->price_selling, 2, ".", ",") }}
                 </p>
 
                 
@@ -117,19 +117,19 @@
 
                     <div class="mt-6">
                         @if (auth()->user()->id == $gadget->user_id)
-                            <a href="{{ route('gadget.edit', $gadget->id) }}" class="flex justify-center w-full py-2 px-8 hover:shadow-form rounded-lg bg-[#2557D6] text-base font-semibold text-white outline-none">Edit</a>
+                            <a href="{{ route('gadget.edit', $gadget) }}" class="flex justify-center w-full py-2 px-8 hover:shadow-form rounded-lg bg-[#2557D6] text-base font-semibold text-white outline-none">Edit</a>
                         @else
                         <div class="flex mb-3">
                             @if ($gadget->bidding)
-                                <a class="flex-1 justify-center w-1/2 mr-2 py-2 px-8 hover:shadow-form rounded-lg bg-[#2557D6] text-center text-base font-semibold text-white outline-none">Place a Bid</a>
+                                <a href="{{ route('gadget.bid.add', $gadget) }}" class="flex-1 justify-center w-1/2 mr-2 py-2 px-8 hover:shadow-form rounded-lg bg-[#2557D6] text-center text-base font-semibold text-white outline-none">Place a Bid</a>
                             @else
                                 <button disabled class="flex-1 justify-center w-1/2 mr-2 py-2 px-8 hover:shadow-form rounded-lg bg-gray-500 text-center text-base font-semibold text-white outline-none">Place a Bid</button>
                             @endif
-                            <a class="flex-1 justify-center w-1/2 py-2 px-8 hover:shadow-form rounded-lg bg-[#2557D6] text-center text-base font-semibold text-white outline-none">Make Offer</a>
+                            <a href="{{ route('gadget.offer.add', $gadget) }}" class="flex-1 justify-center w-1/2 py-2 px-8 hover:shadow-form rounded-lg bg-[#2557D6] text-center text-base font-semibold text-white outline-none">Make Offer</a>
                         </div>
                         <div class="flex">
                             @if (!$gadget->bidding)
-                                <a href="{{ route('gadget.proceed', $gadget->id) }}" class="flex-1 justify-center w-1/2 mr-2 py-2 px-2 hover:shadow-form rounded-lg bg-[#2557D6] text-center text-base font-semibold text-white outline-none">Proceed Payment</a>
+                                <a href="{{ route('gadget.proceed', $gadget) }}" class="flex-1 justify-center w-1/2 mr-2 py-2 px-2 hover:shadow-form rounded-lg bg-[#2557D6] text-center text-base font-semibold text-white outline-none">Proceed Payment</a>
                             @else
                                 <button disabled class="flex-1 justify-center w-1/2 mr-2 py-2 px-2 hover:shadow-form rounded-lg bg-gray-500 text-center text-base font-semibold text-white outline-none">Proceed Payment</button>
                             @endif

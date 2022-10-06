@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\UsersGadgetsOffer;
+use App\Models\UsersGadget;
 use Illuminate\Http\Request;
+
+use Illuminate\Support\Facades\Auth;
 
 class UsersGadgetsOfferController extends Controller
 {
@@ -81,5 +84,33 @@ class UsersGadgetsOfferController extends Controller
     public function destroy(UsersGadgetsOffer $usersGadgetsOffer)
     {
         //
+    }
+
+
+
+    // ==================================================
+
+    public function add(UsersGadget $gadget)
+    {
+        //
+        $offer = UsersGadgetsOffer::where('gadget_id', $gadget->id)
+            ->where('user_id', Auth::user()->id)->first();
+        return view('user_gadget_offer.add', compact('gadget', 'offer'));
+    }
+
+    public function add_post(Request $request, UsersGadget $gadget)
+    {
+        //
+        $request->validate([
+            'amount' => 'required|numeric',
+            'note' => 'required|string'
+        ]);
+        $offer = UsersGadgetsOffer::updateOrCreate(
+            ['gadget_id' => $gadget->id, 'user_id' => Auth::user()->id],
+            ['amount' => $request->amount, 'note' => $request->note]
+        );
+
+        return redirect()->route('gadget.show', compact('gadget'))
+            ->with('success', 'Successfully submitted offer.');
     }
 }
