@@ -1,4 +1,5 @@
 @extends('layouts.user')
+
 @section('main')
 <section class="">
     <!-- Header -->
@@ -54,6 +55,16 @@
                         </a>
                     </li>
                     
+                    <li class="mb-4 text-white border-2 border-[#2557D6] rounded-lg hover:bg-[#2557D6]">
+                        <a href="{{ route('message_group.index', ['type'=>'seller']) }}" class="flex p-3 items-center space-x-4">
+                            <div class="flex-1 min-w-0">
+                                <p class="text-lg font-medium text-[#2557D6] truncate hover:text-white">
+                                    Product Messages
+                                </p>
+                            </div>
+                        </a>
+                    </li>
+
                     <li class="mb-4 text-white border-2 border-[#2557D6] rounded-lg hover:bg-[#2557D6]">
                         <a href="" class="flex p-3 items-center space-x-4">
                             <div class="flex-1 min-w-0">

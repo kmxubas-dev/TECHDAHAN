@@ -81,9 +81,12 @@ class UsersGadgetsOfferController extends Controller
      * @param  \App\Models\UsersGadgetsOffer  $usersGadgetsOffer
      * @return \Illuminate\Http\Response
      */
-    public function destroy(UsersGadgetsOffer $usersGadgetsOffer)
+    public function destroy(UsersGadgetsOffer $gadget_offer)
     {
         //
+        $gadget_offer->delete();
+        return redirect()->route('gadget.show', $gadget_offer->gadget_id)
+            ->with('success', 'Successfully cancelled offer.');
     }
 
 

@@ -7,6 +7,8 @@ use App\Models\UsersGadget;
 use App\Http\Controllers\UsersGadgetController;
 use App\Http\Controllers\UsersGadgetsBidController;
 use App\Http\Controllers\UsersGadgetsOfferController;
+use App\Http\Controllers\UsersMessagesGroupController;
+use App\Http\Controllers\UsersMessageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -58,7 +60,15 @@ Route::group(['prefix'=>'', 'as'=>'', 'middleware'=>['auth:sanctum']], function 
     Route::post('gadget/{gadget}/bid/add',[UsersGadgetsBidController::class, 'add_post'])
         ->name('gadget.bid.add_post');
 
+    Route::get('gadget/{gadget}/message_group', [UsersMessagesGroupController::class, 'message'])
+        ->name('message_group');
+    Route::post('message_group/{group}/message', [UsersMessageController::class, 'add'])
+        ->name('message_group.message.add');
+
     Route::resource('gadget_bid', UsersGadgetsBidController::class);
+    Route::resource('gadget_offer', UsersGadgetsOfferController::class);
+    Route::resource('message', UsersMessageController::class);
+    Route::resource('message_group', UsersMessagesGroupController::class);
 });
 
 

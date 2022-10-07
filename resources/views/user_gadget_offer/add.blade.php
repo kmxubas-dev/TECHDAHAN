@@ -53,16 +53,32 @@
                     <label for="name">Note: <b>One offer at a time only.</b></label>
                     <input type="text" name="amount" placeholder="Input price offer" @isset($offer) value="{{ $offer->amount }}" @endisset class="w-full rounded-md border-2 border-[#2557D6] bg-white py-3 px-6 text-base font-medium text-[#2557D6] outline-none focus:border-[#6A64F1] focus:shadow-md"/>
                 </div>
+
                 <div class="mb-3">
                     <label for="note"><b>Input additional note here.</b></label>
                     <textarea name="note" id="note" cols="30" rows="8" placeholder="Input price offer" class="w-full rounded-md border-2 border-[#2557D6] bg-gray-200 py-3 text-base font-medium text-[#2557D6] outline-none focus:border-[#6A64F1] focus:shadow-md">@isset($offer){{ $offer->note }}@endisset</textarea>
                 </div>
 
                 <div class="">
-                    <button type="submit" class="flex justify-center w-full mb-3 py-2 px-8 hover:shadow-form rounded-lg bg-[#2557D6] text-base font-semibold text-white outline-none">Submit offer</button>
-                    <a href="{{ route('gadget.show', $gadget->id) }}" type="button" class="flex justify-center w-full py-2 px-8 hover:shadow-form rounded-lg bg-gray-500 text-base font-semibold text-white outline-none">Back</a>
+                    <button type="submit" class="flex justify-center w-full mb-3 py-2 px-8 hover:shadow-form rounded-lg bg-[#2557D6] text-base font-semibold text-white outline-none">
+                        @if (!isset($offer))
+                            Submit Offer
+                        @else
+                            Update Offer  
+                        @endif 
+                    </button>
                 </div>
             </form>
+
+            @isset($offer)
+            <form action="{{ route('gadget_offer.destroy', $offer) }}" method="POST" class="flex items-center text-base font-semibold text-gray-900 dark:text-white" onsubmit="return confirm('Are you sure you want to cancel your offer?')">
+                @method('DELETE')
+                @csrf
+                <button class="w-full mb-2 border-2 border-red-500 p-2 text-sm shadow-sm font-bold tracking-wider text-red-500 rounded-lg hover:shadow-lg hover:bg-red-500 hover:text-white">Cancel Offer</button>
+            </form>
+            @endisset
+
+            <a href="{{ route('gadget.show', $gadget->id) }}" type="button" class="flex justify-center w-full py-2 px-8 hover:shadow-form rounded-lg bg-gray-500 text-base font-semibold text-white outline-none">Back</a>
         </div>
     </section>
 </section>

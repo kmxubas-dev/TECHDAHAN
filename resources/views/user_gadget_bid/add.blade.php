@@ -67,10 +67,10 @@
             </form>
             <div class="">
                 @isset($bid)
-                <form action="{{ route('gadget_bid.destroy', $bid) }}" method="POST" class="flex items-center text-base font-semibold text-gray-900 dark:text-white" onsubmit="return confirm('Are you sure you want to delete this gadget?')">
+                <form action="{{ route('gadget_bid.destroy', $bid) }}" method="POST" class="flex items-center text-base font-semibold text-gray-900 dark:text-white" onsubmit="return confirm('Are you sure you want to cancel your bid?')">
                     @method('DELETE')
                     @csrf
-                    <button class="w-full mb-2 border-2 border-red-500 p-2 text-sm shadow-sm font-bold tracking-wider text-red-500 rounded-full hover:shadow-lg hover:bg-red-500 hover:text-white">Delete</button>
+                    <button class="w-full mb-2 border-2 border-red-500 p-2 text-sm shadow-sm font-bold tracking-wider text-red-500 rounded-lg hover:shadow-lg hover:bg-red-500 hover:text-white">Cancel Bid</button>
                 </form>
                 @endisset
                 <a href="{{ route('gadget.show', $gadget->id) }}" type="button" class="flex justify-center w-full py-2 px-8 hover:shadow-form rounded-lg bg-gray-500 text-base font-semibold text-white outline-none">Back</a>
