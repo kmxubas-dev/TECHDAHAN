@@ -26,9 +26,15 @@
             <form action="{{route('gadget.update', $gadget->id)}}" method="POST">
                 @method('PUT')
                 @csrf
-                <a href="#" class="flex justify-center">
+                <a href="#" class="flex justify-center mb-3">
                     <img class="rounded-lg w-80 h-80" src="{{ asset($gadget->img) }}" alt="">
                 </a>
+                <div class="mb-3">
+                    <select name="status" class="w-full rounded-md border-2 border-[#2557D6] bg-white py-3 px-6 text-base font-medium text-[#2557D6] outline-none focus:border-[#6A64F1] focus:shadow-md">
+                        <option value="available" @if ($gadget->status == 'available') selected @endif>Enable</option>
+                        <option value="unavailable" @if ($gadget->status == 'unavailable') selected @endif>Disable</option>
+                    </select>
+                </div>
                 <div class="mb-3">
                     <input type="text" name="name" placeholder="Product Name" value="{{ $gadget->name }}" class="w-full rounded-md border-2 border-[#2557D6] bg-white py-3 px-6 text-base font-medium text-[#2557D6] outline-none focus:border-[#6A64F1] focus:shadow-md"/>
                 </div>
@@ -39,13 +45,13 @@
                     <input type="text" name="description" placeholder="Description" value="{{ $gadget->description }}" class="w-full rounded-md border-2 border-[#2557D6] bg-white py-3 px-6 text-base font-medium text-[#2557D6] outline-none focus:border-[#6A64F1] focus:shadow-md"/>
                 </div>
                 <div class="mb-3">
-                    <input type="text" name="color" placeholder="Product Color" value="{{ $gadget->color }}" class="w-full rounded-md border-2 border-[#2557D6] bg-white py-3 px-6 text-base font-medium text-[#2557D6] outline-none focus:border-[#6A64F1] focus:shadow-md"/>
+                    <input type="text" name="color" placeholder="Product Color" value="{{ $gadget->details->color }}" class="w-full rounded-md border-2 border-[#2557D6] bg-white py-3 px-6 text-base font-medium text-[#2557D6] outline-none focus:border-[#6A64F1] focus:shadow-md"/>
                 </div>
                 <div class="mb-3">
-                    <input type="text" name="model" placeholder="Product Model" value="{{ $gadget->model }}" class="w-full rounded-md border-2 border-[#2557D6] bg-white py-3 px-6 text-base font-medium text-[#2557D6] outline-none focus:border-[#6A64F1] focus:shadow-md"/>
+                    <input type="text" name="model" placeholder="Product Model" value="{{ $gadget->details->model }}" class="w-full rounded-md border-2 border-[#2557D6] bg-white py-3 px-6 text-base font-medium text-[#2557D6] outline-none focus:border-[#6A64F1] focus:shadow-md"/>
                 </div>
                 <div class="mb-3">
-                    <input type="text" name="storage" placeholder="Product Storage" value="{{ $gadget->storage }}" class="w-full rounded-md border-2 border-[#2557D6] bg-white py-3 px-6 text-base font-medium text-[#2557D6] outline-none focus:border-[#6A64F1] focus:shadow-md"/>
+                    <input type="text" name="storage" placeholder="Product Storage" value="{{ $gadget->details->storage }}" class="w-full rounded-md border-2 border-[#2557D6] bg-white py-3 px-6 text-base font-medium text-[#2557D6] outline-none focus:border-[#6A64F1] focus:shadow-md"/>
                 </div>
                 <div class="mb-3">
                     <input type="text" name="condition" placeholder="Condition" value="{{ $gadget->condition }}" class="w-full rounded-md border-2 border-[#2557D6] bg-white py-3 px-6 text-base font-medium text-[#2557D6] outline-none focus:border-[#6A64F1] focus:shadow-md"/>

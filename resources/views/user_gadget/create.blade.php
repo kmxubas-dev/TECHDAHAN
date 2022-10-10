@@ -37,31 +37,31 @@
                     <input type="file" name="img" id="input-file-now" class="dropify" data-height="150"/>
                 </div>
                 <div class="mb-3">
-                    <input type="text" name="name" placeholder="Product Name" class="w-full rounded-md border-2 border-[#2557D6] bg-white py-3 px-6 text-base font-medium text-[#2557D6] outline-none focus:border-[#6A64F1] focus:shadow-md"/>
+                    <input type="text" name="name" placeholder="Product Name" value="{{ old('name') }}" class="w-full rounded-md border-2 border-[#2557D6] bg-white py-3 px-6 text-base font-medium text-[#2557D6] outline-none focus:border-[#6A64F1] focus:shadow-md"/>
                 </div>
                 <div class="mb-3">
-                    <input type="text" name="category" placeholder="Category" class="w-full rounded-md border-2 border-[#2557D6] bg-white py-3 px-6 text-base font-medium text-[#2557D6] outline-none focus:border-[#6A64F1] focus:shadow-md"/>
+                    <input type="text" name="category" placeholder="Category" value="{{ old('category') }}" class="w-full rounded-md border-2 border-[#2557D6] bg-white py-3 px-6 text-base font-medium text-[#2557D6] outline-none focus:border-[#6A64F1] focus:shadow-md"/>
                 </div>
                 <div class="mb-3">
-                    <input type="text" name="description" placeholder="Description" class="w-full rounded-md border-2 border-[#2557D6] bg-white py-3 px-6 text-base font-medium text-[#2557D6] outline-none focus:border-[#6A64F1] focus:shadow-md"/>
+                    <input type="text" name="description" placeholder="Description" value="{{ old('description') }}" class="w-full rounded-md border-2 border-[#2557D6] bg-white py-3 px-6 text-base font-medium text-[#2557D6] outline-none focus:border-[#6A64F1] focus:shadow-md"/>
                 </div>
                 <div class="mb-3">
-                    <input type="text" name="color" placeholder="Product Color" class="w-full rounded-md border-2 border-[#2557D6] bg-white py-3 px-6 text-base font-medium text-[#2557D6] outline-none focus:border-[#6A64F1] focus:shadow-md"/>
+                    <input type="text" name="color" placeholder="Product Color" value="{{ old('description') }}" class="w-full rounded-md border-2 border-[#2557D6] bg-white py-3 px-6 text-base font-medium text-[#2557D6] outline-none focus:border-[#6A64F1] focus:shadow-md"/>
                 </div>
                 <div class="mb-3">
-                    <input type="text" name="model" placeholder="Product Model" class="w-full rounded-md border-2 border-[#2557D6] bg-white py-3 px-6 text-base font-medium text-[#2557D6] outline-none focus:border-[#6A64F1] focus:shadow-md"/>
+                    <input type="text" name="model" placeholder="Product Model" value="{{ old('model') }}" class="w-full rounded-md border-2 border-[#2557D6] bg-white py-3 px-6 text-base font-medium text-[#2557D6] outline-none focus:border-[#6A64F1] focus:shadow-md"/>
                 </div>
                 <div class="mb-3">
-                    <input type="text" name="storage" placeholder="Product Storage" class="w-full rounded-md border-2 border-[#2557D6] bg-white py-3 px-6 text-base font-medium text-[#2557D6] outline-none focus:border-[#6A64F1] focus:shadow-md"/>
+                    <input type="text" name="storage" placeholder="Product Storage" value="{{ old('storage') }}" class="w-full rounded-md border-2 border-[#2557D6] bg-white py-3 px-6 text-base font-medium text-[#2557D6] outline-none focus:border-[#6A64F1] focus:shadow-md"/>
                 </div>
                 <div class="mb-3">
-                    <input type="text" name="condition" placeholder="Condition" class="w-full rounded-md border-2 border-[#2557D6] bg-white py-3 px-6 text-base font-medium text-[#2557D6] outline-none focus:border-[#6A64F1] focus:shadow-md"/>
+                    <input type="text" name="condition" placeholder="Condition" value="{{ old('condition') }}" class="w-full rounded-md border-2 border-[#2557D6] bg-white py-3 px-6 text-base font-medium text-[#2557D6] outline-none focus:border-[#6A64F1] focus:shadow-md"/>
                 </div>
                 <div class="mb-3">
-                    <input type="text" name="price_original" placeholder="Original Price" class="w-full rounded-md border-2 border-[#2557D6] bg-white py-3 px-6 text-base font-medium text-[#2557D6] outline-none focus:border-[#6A64F1] focus:shadow-md"/>
+                    <input type="text" name="price_original" placeholder="Original Price" value="{{ old('price_original') }}" class="w-full rounded-md border-2 border-[#2557D6] bg-white py-3 px-6 text-base font-medium text-[#2557D6] outline-none focus:border-[#6A64F1] focus:shadow-md"/>
                 </div>
                 <div class="mb-3">
-                    <input type="text" name="price_selling" placeholder="Selling Price" class="w-full rounded-md border-2 border-[#2557D6] bg-white py-3 px-6 text-base font-medium text-[#2557D6] outline-none focus:border-[#6A64F1] focus:shadow-md"/>
+                    <input type="text" name="price_selling" placeholder="Selling Price" value="{{ old('price_selling') }}" class="w-full rounded-md border-2 border-[#2557D6] bg-white py-3 px-6 text-base font-medium text-[#2557D6] outline-none focus:border-[#6A64F1] focus:shadow-md"/>
                 </div>
                 
                 <div class="my-3"><hr></div>

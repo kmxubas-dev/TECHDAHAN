@@ -7,6 +7,7 @@ use App\Models\UsersGadget;
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Database\Eloquent\Builder;
 
 class UsersGadgetsOfferController extends Controller
 {
@@ -18,6 +19,10 @@ class UsersGadgetsOfferController extends Controller
     public function index()
     {
         //
+        $offers = UsersGadgetsOffer::whereHas('gadget', function (Builder $query) {
+            $query->where('user_id', Auth::user()->id);
+        })->with('gadget')->get();
+        return view('user_gadget_offer.index', compact('offers'));
     }
 
     /**

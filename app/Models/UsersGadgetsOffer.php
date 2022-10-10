@@ -41,4 +41,19 @@ class UsersGadgetsOffer extends Model
     {
         $this->attributes['amount'] = $value*100;
     }
+
+
+
+    /**
+     * Relationship methods.
+     */
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id', 'id');
+    }
+
+    public function gadget()
+    {
+        return $this->belongsTo(UsersGadget::class, 'gadget_id', 'id');
+    }
 }

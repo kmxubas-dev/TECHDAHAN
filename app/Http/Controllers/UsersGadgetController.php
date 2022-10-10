@@ -52,7 +52,7 @@ class UsersGadgetController extends Controller
             'condition' => 'required|string|max:50',
             'price_original' => 'required|integer',
             'price_selling' => 'required|integer',
-            'img_receipt' => 'required|file',
+            'img_receipt' => 'file',
             'img' => 'required|file'
         ]);
 
@@ -62,9 +62,11 @@ class UsersGadgetController extends Controller
         $gadget->name = $request->name;
         $gadget->category = $request->category;
         $gadget->description = $request->description;
-        $gadget->color = $request->color;
-        $gadget->model = $request->model;
-        $gadget->storage = $request->storage;
+        $gadget->details = (object)[
+            'color' => $request->color,
+            'model' => $request->model,
+            'storage' => $request->storage,
+        ];
         $gadget->condition = $request->condition;
         $gadget->price_original = $request->price_original;
         $gadget->price_selling = $request->price_selling;
@@ -73,12 +75,16 @@ class UsersGadgetController extends Controller
         $gadget->bidding_start = $request->bidding_start;
         $gadget->bidding_end = $request->bidding_end;
         $gadget->payment = 'all';
-        $gadget->img_receipt = 'storage/receipts/'.$request->user()->id.'/'.time().'.'.$request->file('img_receipt')->getClientOriginalExtension();
-        $request->file('img_receipt')->storeAs(
-            'public/receipts/'.$request->user()->id, 
-            time().'.'.$request->file('img_receipt')->getClientOriginalExtension()
-        );
-        $gadget->img = 'storage/products/'.$request->user()->id.'/'.time().'.'.$request->file('img')->getClientOriginalExtension();
+        if($request->hasFile('img_receipt')) {
+            $gadget->img_receipt = 'storage/receipts/'.$request->user()->id.'/'.time().'.'
+                .$request->file('img_receipt')->getClientOriginalExtension();
+            $request->file('img_receipt')->storeAs(
+                'public/receipts/'.$request->user()->id, 
+                time().'.'.$request->file('img_receipt')->getClientOriginalExtension()
+            );
+        }
+        $gadget->img = 'storage/products/'.$request->user()->id.'/'.time().'.'
+            .$request->file('img')->getClientOriginalExtension();
         $request->file('img')->storeAs(
             'public/products/'.$request->user()->id, 
             time().'.'.$request->file('img')->getClientOriginalExtension()
@@ -86,7 +92,8 @@ class UsersGadgetController extends Controller
         $gadget->user_id = Auth::user()->id;
         $gadget->save();
 
-        return redirect()->route('gadget.show', compact('gadget'))->with('success', 'Successfully created product.');
+        return redirect()->route('gadget.show', compact('gadget'))
+            ->with('success', 'Successfully created product.');
     }
 
     /**
@@ -124,6 +131,7 @@ class UsersGadgetController extends Controller
     {
         //
         $request->validate([
+            'status' => 'required|string|max:50',
             'name' => 'required|string|max:50',
             'category' => 'required|string|max:50',
             'description' => 'required|string|nullable',
@@ -136,12 +144,15 @@ class UsersGadgetController extends Controller
         ]);
 
         $bidding = isset($request->bidding) ? true:false;
+        $gadget->status = $request->status;
         $gadget->name = $request->name;
         $gadget->category = $request->category;
         $gadget->description = $request->description;
-        $gadget->color = $request->color;
-        $gadget->model = $request->model;
-        $gadget->storage = $request->storage;
+        $gadget->details = (object)[
+            'color' => $request->color,
+            'model' => $request->model,
+            'storage' => $request->storage,
+        ];
         $gadget->condition = $request->condition;
         $gadget->price_original = $request->price_original;
         $gadget->price_selling = $request->price_selling;
@@ -152,7 +163,8 @@ class UsersGadgetController extends Controller
         $gadget->payment = 'all';
         $gadget->save();
 
-        return redirect()->route('gadget.edit', compact('gadget'))->with('success', 'Successfully edited product.');
+        return redirect()->route('gadget.edit', compact('gadget'))
+            ->with('success', 'Successfully edited product.');
         
         // $transaction->tracking_code = 'JOG'.rand(1000, 9999).'-'.strtoupper(substr(md5(microtime()),rand(0,26),4)).'-TST';
     }

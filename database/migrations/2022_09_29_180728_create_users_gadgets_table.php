@@ -19,9 +19,7 @@ class CreateUsersGadgetsTable extends Migration
             $table->string('name');
             $table->string('category');
             $table->text('description')->nullable();
-            $table->string('color');
-            $table->string('model');
-            $table->string('storage');
+            $table->text('details')->nullable();
             $table->string('condition');
             $table->unsignedInteger('price_original');
             $table->unsignedInteger('price_selling');

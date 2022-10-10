@@ -11,6 +11,15 @@ class UsersGadget extends Model
 
 
 
+    /**
+     * The attributes that should be cast.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'details' => 'object',
+    ];
+
     public function getPriceOriginalAttribute($value)
     {
         return $value*0.01;
@@ -26,5 +35,20 @@ class UsersGadget extends Model
     public function setPriceSellingAttribute($value)
     {
         $this->attributes['price_selling'] = $value*100;
+    }
+
+
+
+    /**
+     * Relationship methods.
+     */
+    public function offers()
+    {
+        return $this->hasMany(UsersGadgetsOffer::class, 'gadget_id', 'id');
+    }
+
+    public function bids()
+    {
+        return $this->hasMany(UsersGadgetsBid::class, 'gadget_id', 'id');
     }
 }

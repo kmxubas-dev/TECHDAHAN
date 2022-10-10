@@ -36,7 +36,8 @@
                             </div>
                             <div class="flex-1">
                                 <p class="font-normal text-[#2557D6]">
-                                    <b>{{ $gadget->price_selling }} PHP</b>
+                                    <b>₱{{ number_format($gadget->price_selling, 2, ".", ",")  }}</b>
+                                    {{-- <b>{{ $gadget->price_selling }} PHP</b> --}}
                                 </p>
                             </div>
                         </div>
@@ -56,7 +57,7 @@
 
                 <div class="mb-3">
                     <label for="note"><b>Input additional note here.</b></label>
-                    <textarea name="note" id="note" cols="30" rows="8" placeholder="Input price offer" class="w-full rounded-md border-2 border-[#2557D6] bg-gray-200 py-3 text-base font-medium text-[#2557D6] outline-none focus:border-[#6A64F1] focus:shadow-md">@isset($offer){{ $offer->note }}@endisset</textarea>
+                    <textarea name="note" id="note" cols="30" rows="8" placeholder="Note..." class="w-full rounded-md border-2 border-[#2557D6] bg-gray-200 py-3 text-base font-medium text-[#2557D6] outline-none focus:border-[#6A64F1] focus:shadow-md">@isset($offer){{ $offer->note }}@endisset</textarea>
                 </div>
 
                 <div class="">

@@ -25,6 +25,9 @@ class UsersMessagesGroup extends Model
 
 
 
+    /**
+     * Relationship methods.
+     */
     public function gadget()
     {
         return $this->belongsTo(UsersGadget::class, 'gadget_id', 'id');

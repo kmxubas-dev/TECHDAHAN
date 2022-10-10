@@ -55,7 +55,7 @@
                             Brand
                         </div>
                         <div class="flex-1">
-                            {{ $gadget->model }}
+                            {{ $gadget->details->model }}
                         </div>
                     </div>
                     <div class="flex justify-between">
@@ -63,7 +63,7 @@
                             Color
                         </div>
                         <div class="flex-1">
-                            {{ $gadget->color }}
+                            {{ $gadget->details->color }}
                         </div>
                     </div>
                     <div class="flex justify-between">
@@ -71,7 +71,7 @@
                             Model
                         </div>
                         <div class="flex-1">
-                            {{ $gadget->model }}
+                            {{ $gadget->details->model }}
                         </div>
                     </div>
                     <div class="flex justify-between">
@@ -79,7 +79,7 @@
                             Storage
                         </div>
                         <div class="flex-1">
-                            {{ $gadget->storage }}
+                            {{ $gadget->details->storage }}
                         </div>
                     </div>
                     <div class="flex justify-between">
