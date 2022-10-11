@@ -18,6 +18,7 @@ class UsersGadget extends Model
      */
     protected $casts = [
         'details' => 'object',
+        'methods' => 'object',
     ];
 
     public function getPriceOriginalAttribute($value)

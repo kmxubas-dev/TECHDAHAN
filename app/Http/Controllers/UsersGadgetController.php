@@ -46,31 +46,33 @@ class UsersGadgetController extends Controller
             'name' => 'required|string|max:50',
             'category' => 'required|string|max:50',
             'description' => 'required|string|nullable',
-            'color' => 'required|string|max:50',
             'model' => 'required|string|max:50',
             'storage' => 'required|string|max:50',
             'condition' => 'required|string|max:50',
+            'method_bid' => 'nullable|in:true',
+            'method_offer' => 'nullable|in:true',
             'price_original' => 'required|integer',
             'price_selling' => 'required|integer',
             'img_receipt' => 'file',
             'img' => 'required|file'
         ]);
 
-        $bidding = isset($request->bidding) ? true:false;
         $gadget = new UsersGadget;
         $gadget->status = 'available';
         $gadget->name = $request->name;
         $gadget->category = $request->category;
-        $gadget->description = $request->description;
         $gadget->details = (object)[
-            'color' => $request->color,
+            'description' => $request->description,
             'model' => $request->model,
             'storage' => $request->storage,
+        ];
+        $gadget->methods = (object)[
+            'bid' => isset($request->method_bid) ? true:false,
+            'offer' => isset($request->method_offer) ? true:false,
         ];
         $gadget->condition = $request->condition;
         $gadget->price_original = $request->price_original;
         $gadget->price_selling = $request->price_selling;
-        $gadget->bidding = $bidding;
         $gadget->bidding_min = $request->bidding_min;
         $gadget->bidding_start = $request->bidding_start;
         $gadget->bidding_end = $request->bidding_end;
@@ -135,28 +137,30 @@ class UsersGadgetController extends Controller
             'name' => 'required|string|max:50',
             'category' => 'required|string|max:50',
             'description' => 'required|string|nullable',
-            'color' => 'required|string|max:50',
             'model' => 'required|string|max:50',
             'storage' => 'required|string|max:50',
             'condition' => 'required|string|max:50',
+            'method_bid' => 'nullable|in:true',
+            'method_offer' => 'nullable|in:true',
             'price_original' => 'required|integer',
             'price_selling' => 'required|integer',
         ]);
 
-        $bidding = isset($request->bidding) ? true:false;
         $gadget->status = $request->status;
         $gadget->name = $request->name;
         $gadget->category = $request->category;
-        $gadget->description = $request->description;
         $gadget->details = (object)[
-            'color' => $request->color,
+            'description' => $request->description,
             'model' => $request->model,
             'storage' => $request->storage,
+        ];
+        $gadget->methods = (object)[
+            'bid' => isset($request->method_bid) ? true:false,
+            'offer' => isset($request->method_offer) ? true:false,
         ];
         $gadget->condition = $request->condition;
         $gadget->price_original = $request->price_original;
         $gadget->price_selling = $request->price_selling;
-        $gadget->bidding = $bidding;
         $gadget->bidding_min = $request->bidding_min;
         $gadget->bidding_start = $request->bidding_start;
         $gadget->bidding_end = $request->bidding_end;

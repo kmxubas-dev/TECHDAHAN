@@ -15,7 +15,7 @@
             </div>
         </div>
     </div>
-    
+
     <!-- Content -->
     <section class="flex flex-col px-3 pb-20 items-center justify-center">
         <div class="w-full mb-3 p-4 bg-white shadow-md border border-gray-200 rounded-lg">
@@ -33,13 +33,13 @@
                     <div class="flex flex-col">
                         <div href="#" class="flex-1 justify-center">
                             <div class="flex-1">
-                                {{ $gadget->model }}
+                                {{ $gadget->details->model }}
                             </div>
                             <div class="flex-1">
-                                {{ $gadget->storage }}
+                                {{ $gadget->details->storage }}
                             </div>
                             <div class="flex-1">
-                                {{ $gadget->color }}
+                                {{ $gadget->condition }}
                             </div>
                         </div>
                     </div>
@@ -61,20 +61,7 @@
             <h5 class="text-lg font-semibold capitalize">Payment Method</h5>
             <form action="{{ route('gadget.proceed_post', $gadget->id) }}" method="POST">
                 @csrf
-                <div class="flex mb-3">
-                    <div class='flex flex-row p-3'>
-                        <input type="radio" name="amount" id="amount1" class='appearance-none h-6 w-6 bg-gray-400 rounded-full checked:bg-[#2557D6] checked:scale-75 transition-all duration-200 peer' required/>
-                        <div class='h-6 w-6 absolute rounded-full pointer-events-none peer-checked:border-[#2557D6] peer-checked:border-2'></div>
-                        <label for='amount1' class='flex flex-col justify-center px-2 peer-checked:text-[#2557D6] select-none'>Full Payment</label>
-                    </div>
-                    <div class='flex flex-row p-3'>
-                        <input type="radio" name="amount" id="amount2" class='appearance-none h-6 w-6 bg-gray-400 rounded-full checked:bg-[#2557D6] checked:scale-75 transition-all duration-200 peer' required/>
-                        <div class='h-6 w-6 absolute rounded-full pointer-events-none peer-checked:border-[#2557D6] peer-checked:border-2'></div>
-                        <label for='amount2' class='flex flex-col justify-center px-2 peer-checked:text-[#2557D6] select-none'>Installment</label>
-                    </div>
-                </div>
-
-                <ul role="list" style="min-height: 125px">
+                <ul role="list" style="min-height: 125px" class="mt-3">
                     <li class="mb-2 text-white border- border-[#2557D6] rounded-lg hover:bg-[#2557D6">
                         <input type="radio" name="payment" id="payment1" value="gcash" class='sr-only appearance-none h-6 w-6 bg-gray-400 rounded-full checked:bg-[#2557D6] checked:scale-75 transition-all duration-200 peer' required/>
                         <label for='payment1' class="flex px-3 py-2 items-center space-x-4 text-[#2557D6] border-2 border-[#2557D6] peer-checked:bg-[#2557D6] peer-checked:text-white rounded-lg">
@@ -95,14 +82,26 @@
                     </li>
                 </ul>
 
+                <div class="flex mb-3">
+                    <div class='flex flex-row p-3'>
+                        <input type="radio" name="amount" id="amount1" class='appearance-none h-6 w-6 bg-gray-400 rounded-full checked:bg-[#2557D6] checked:scale-75 transition-all duration-200 peer' required/>
+                        <div class='h-6 w-6 absolute rounded-full pointer-events-none peer-checked:border-[#2557D6] peer-checked:border-2'></div>
+                        <label for='amount1' class='flex flex-col justify-center px-2 peer-checked:text-[#2557D6] select-none'>Direct Payment</label>
+                    </div>
+                    <div class='flex flex-row p-3'>
+                        <input type="radio" name="amount" id="amount2" class='appearance-none h-6 w-6 bg-gray-400 rounded-full checked:bg-[#2557D6] checked:scale-75 transition-all duration-200 peer' required/>
+                        <div class='h-6 w-6 absolute rounded-full pointer-events-none peer-checked:border-[#2557D6] peer-checked:border-2'></div>
+                        <label for='amount2' class='flex flex-col justify-center px-2 peer-checked:text-[#2557D6] select-none peer-disabled:line-through'>Installment</label>
+                    </div>
+                </div>
+
                 <div class="">
-                    <button type="submit" class="flex justify-center w-full py-2 px-8 hover:shadow-form rounded-lg bg-[#2557D6] text-base font-semibold text-white outline-none">Proceed to payment</button>
+                    <button type="submit" class="flex justify-center w-full py-2 px-8 hover:shadow-form rounded-lg bg-[#2557D6] text-base font-semibold text-white outline-none">Purchase now</button>
                 </div>
             </form>
         </div>
     </section>
 </section>
-
 @endsection
 
 @section('styles')
@@ -112,4 +111,20 @@
         border-color: #2557D6;
     }
 </style>
+@endsection
+
+@section('scripts')
+<script>
+    document.querySelector("#payment1").addEventListener('click', (event) => {
+        if (event.target && event.target.matches("input[type='radio']")) {
+            document.querySelector("#amount2").checked = false;
+            document.querySelector("#amount2").disabled = true;
+        }
+    });
+    document.querySelector("#payment2").addEventListener('click', (event) => {
+        if (event.target && event.target.matches("input[type='radio']")) {
+            document.querySelector("#amount2").disabled = false;
+        }
+    });
+</script>
 @endsection

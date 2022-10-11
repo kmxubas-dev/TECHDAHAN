@@ -18,12 +18,11 @@ class CreateUsersGadgetsTable extends Migration
             $table->string('status');
             $table->string('name');
             $table->string('category');
-            $table->text('description')->nullable();
-            $table->text('details')->nullable();
             $table->string('condition');
+            $table->text('details');
+            $table->text('methods');
             $table->unsignedInteger('price_original');
             $table->unsignedInteger('price_selling');
-            $table->boolean('bidding');
             $table->integer('bidding_min')->nullable();
             $table->string('bidding_start')->nullable();
             $table->string('bidding_end')->nullable();

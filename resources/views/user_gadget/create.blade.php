@@ -46,9 +46,6 @@
                     <input type="text" name="description" placeholder="Description" value="{{ old('description') }}" class="w-full rounded-md border-2 border-[#2557D6] bg-white py-3 px-6 text-base font-medium text-[#2557D6] outline-none focus:border-[#6A64F1] focus:shadow-md"/>
                 </div>
                 <div class="mb-3">
-                    <input type="text" name="color" placeholder="Product Color" value="{{ old('description') }}" class="w-full rounded-md border-2 border-[#2557D6] bg-white py-3 px-6 text-base font-medium text-[#2557D6] outline-none focus:border-[#6A64F1] focus:shadow-md"/>
-                </div>
-                <div class="mb-3">
                     <input type="text" name="model" placeholder="Product Model" value="{{ old('model') }}" class="w-full rounded-md border-2 border-[#2557D6] bg-white py-3 px-6 text-base font-medium text-[#2557D6] outline-none focus:border-[#6A64F1] focus:shadow-md"/>
                 </div>
                 <div class="mb-3">
@@ -65,15 +62,31 @@
                 </div>
                 
                 <div class="my-3"><hr></div>
+
                 <div class="mb-3">
                     <div class='flex flex-row p-3'>
-                        <input type="checkbox" name="bidding" id="cb1" class='appearance-none h-6 w-6 bg-gray-400 rounded-full checked:bg-[#2557D6] checked:scale-75 transition-all duration-200 peer'/>
-                        <div class='h-6 w-6 absolute rounded-full pointer-events-none
-                        peer-checked:border-[#2557D6] peer-checked:border-2'>
-                        </div>
-                        <label for='cb1' class='flex flex-col justify-center px-2 peer-checked:text-[#2557D6] select-none'>Enable bidding on this product</label>
+                        <label class="flex items-center relative w-max cursor-pointer select-none">
+                            <span class="font-bold mr-3">Enable bidding:</span>
+                            <input type="checkbox" name="method_bid" value="true" id="bid" class="hidden peer"/>
+                            <span  id="toggle123" class="appearance-none transition-colors cursor-pointer w-20 h-10 rounded-full border-2 border-[#2557D6] peer-checked:bg-[#2557D6]"></span>
+                            <span class="absolute font-medium text-sm uppercase right-3 text-[#2557D6] font-bold"> OFF </span>
+                            <span class="absolute font-medium text-sm uppercase right-12 text-white font-bold"> ON </span>
+                            <span class="w-10 h-10 right-11 absolute rounded-full transform transition-transform bg-gray-500 shadow-lg peer-checked:translate-x-11"/>
+                        </label>
+                    </div>
+
+                    <div class='flex flex-row p-3'>
+                        <label class="flex items-center relative w-max cursor-pointer select-none">
+                            <span class="font-bold mr-6">Enable offers:</span>
+                            <input type="checkbox" name="method_offer" value="true" id="offer" class="hidden peer"/>
+                            <span  id="toggle123" class="appearance-none transition-colors cursor-pointer w-20 h-10 rounded-full border-2 border-[#2557D6] peer-checked:bg-[#2557D6]"></span>
+                            <span class="absolute font-medium text-sm uppercase right-3 text-[#2557D6] font-bold"> OFF </span>
+                            <span class="absolute font-medium text-sm uppercase right-12 text-white font-bold"> ON </span>
+                            <span class="w-10 h-10 right-11 absolute rounded-full transform transition-transform bg-gray-500 shadow-lg peer-checked:translate-x-11"/>
+                        </label>
                     </div>
                 </div>
+
                 <div class="mb-3">
                     <input type="text" name="bidding_min" placeholder="Minimum Bidding Price" class="w-full rounded-md border-2 border-[#2557D6] bg-white py-3 px-6 text-base font-medium text-[#2557D6] outline-none focus:border-[#6A64F1] focus:shadow-md"/>
                 </div>
@@ -118,4 +131,15 @@
         font-size: 0.5em;
     }
 </style>
+@endsection
+
+@section('scripts')
+<script>
+    document.querySelector("#bid").addEventListener('click', (event) => {
+        document.querySelector("#offer").disabled = event.target.checked;
+    });
+    document.querySelector("#offer").addEventListener('click', (event) => {
+        document.querySelector("#bid").disabled = event.target.checked;
+    });
+</script>
 @endsection

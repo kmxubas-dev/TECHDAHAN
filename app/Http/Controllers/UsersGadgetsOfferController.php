@@ -52,9 +52,12 @@ class UsersGadgetsOfferController extends Controller
      * @param  \App\Models\UsersGadgetsOffer  $usersGadgetsOffer
      * @return \Illuminate\Http\Response
      */
-    public function show(UsersGadgetsOffer $usersGadgetsOffer)
+    public function show(UsersGadgetsOffer $gadget_offer)
     {
         //
+        $offer = $gadget_offer;
+        $gadget = $gadget_offer->gadget;
+        return view('user_gadget_offer.show', compact('offer', 'gadget'));
     }
 
     /**
