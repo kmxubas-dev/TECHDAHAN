@@ -1,4 +1,5 @@
 @extends('layouts.user')
+
 @section('main')
 <section class="">
     <!-- Header -->
@@ -14,12 +15,13 @@
                     </div>
                 </div>
             </div>
+
             <div class="flex justify-between">
                 <button type="button" class="flex-1 text-white bg-[#2557D6] hover:bg-[#2557D6]/90 focus:ring-4 focus:ring-[#2557D6]/50 font-medium rounded-lg text-xs px-2 py-2 text-center items-center dark:focus:ring-[#2557D6]/50 mr-1">
-                    Featured Gadget
+                    Featured Seller
                 </button>
                 <button type="button" class="flex-1 text-white bg-[#2557D6] hover:bg-[#2557D6]/90 focus:ring-4 focus:ring-[#2557D6]/50 font-medium rounded-lg text-xs px-2 py-2 text-center items-center dark:focus:ring-[#2557D6]/50 mr-1">
-                    Gadget Near Me
+                    Nearby Gadgets
                 </button>
                 <button type="button" class="flex-1 text-white bg-[#2557D6] hover:bg-[#2557D6]/90 focus:ring-4 focus:ring-[#2557D6]/50 font-medium rounded-lg text-xs px-2 py-2 text-center items-center dark:focus:ring-[#2557D6]/50 mr-1">
                     Watch List
@@ -66,8 +68,9 @@
         </div>
     </section>
 </section>
-
 @endsection
+
+
 
 @section('styles')
 <style>

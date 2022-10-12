@@ -67,7 +67,9 @@
                     <div class='flex flex-row p-3'>
                         <label class="flex items-center relative w-max cursor-pointer select-none">
                             <span class="font-bold mr-3">Enable bidding:</span>
-                            <input type="checkbox" name="method_bid" value="true" id="bid" class="hidden peer"/>
+                            <input type="checkbox" name="method_bid" value="true" id="bid" class="hidden peer"
+                            @if(old('method_bid') == 'true') checked @endif
+                            @if(old('method_offer') == 'true') disabled @endif/>
                             <span  id="toggle123" class="appearance-none transition-colors cursor-pointer w-20 h-10 rounded-full border-2 border-[#2557D6] peer-checked:bg-[#2557D6]"></span>
                             <span class="absolute font-medium text-sm uppercase right-3 text-[#2557D6] font-bold"> OFF </span>
                             <span class="absolute font-medium text-sm uppercase right-12 text-white font-bold"> ON </span>
@@ -78,7 +80,9 @@
                     <div class='flex flex-row p-3'>
                         <label class="flex items-center relative w-max cursor-pointer select-none">
                             <span class="font-bold mr-6">Enable offers:</span>
-                            <input type="checkbox" name="method_offer" value="true" id="offer" class="hidden peer"/>
+                            <input type="checkbox" name="method_offer" value="true" id="offer" class="hidden peer" 
+                            @if(old('method_bid') == 'true') disabled @endif
+                            @if(old('method_offer') == 'true') checked @endif/>
                             <span  id="toggle123" class="appearance-none transition-colors cursor-pointer w-20 h-10 rounded-full border-2 border-[#2557D6] peer-checked:bg-[#2557D6]"></span>
                             <span class="absolute font-medium text-sm uppercase right-3 text-[#2557D6] font-bold"> OFF </span>
                             <span class="absolute font-medium text-sm uppercase right-12 text-white font-bold"> ON </span>

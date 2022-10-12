@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateUsersGadgetsOffersTable extends Migration
+class CreateUsersTransactionsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,8 @@ class CreateUsersGadgetsOffersTable extends Migration
      */
     public function up()
     {
-        Schema::create('users_gadgets_offers', function (Blueprint $table) {
+        Schema::create('users_transactions', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('gadget_id')->nullable();
-            $table->foreignId('user_id')->nullable();
-            $table->string('status');
-            $table->unsignedInteger('amount');
-            $table->text('note');
             $table->timestamps();
         });
     }
@@ -31,6 +26,6 @@ class CreateUsersGadgetsOffersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users_gadgets_offers');
+        Schema::dropIfExists('users_transactions');
     }
 }

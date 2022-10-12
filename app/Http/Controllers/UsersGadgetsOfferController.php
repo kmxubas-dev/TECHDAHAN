@@ -19,9 +19,25 @@ class UsersGadgetsOfferController extends Controller
     public function index()
     {
         //
-        $offers = UsersGadgetsOffer::whereHas('gadget', function (Builder $query) {
-            $query->where('user_id', Auth::user()->id);
-        })->with('gadget')->get();
+        request()->validate([
+            'type' => 'required|string|in:seller,buyer',
+        ]);
+        
+        if (request()->query('type') == 'seller') {
+            $offers = UsersGadgetsOffer::whereHas('gadget', function (Builder $query) {
+                    $query->where('user_id', Auth::user()->id);
+                })->where('status', 'pending')->orderBy('updated_at', 'DESC')
+                ->with('gadget')->get();
+        } else {
+            $offers = UsersGadgetsOffer::where('user_id', Auth::user()->id)
+                ->where(function($query) {
+                    $query->where('status', 'pending');
+                    $query->orWhere('status', 'accepted');
+                })
+                ->orderBy('updated_at', 'DESC')
+                ->with('gadget')->get();
+        }
+
         return view('user_gadget_offer.index', compact('offers'));
     }
 
@@ -118,10 +134,29 @@ class UsersGadgetsOfferController extends Controller
         ]);
         $offer = UsersGadgetsOffer::updateOrCreate(
             ['gadget_id' => $gadget->id, 'user_id' => Auth::user()->id],
-            ['amount' => $request->amount, 'note' => $request->note]
+            ['status' => 'pending', 'amount' => $request->amount, 'note' => $request->note]
         );
 
         return redirect()->route('gadget.show', compact('gadget'))
             ->with('success', 'Successfully submitted offer.');
+    }
+
+    public function response(Request $request, UsersGadgetsOffer $gadget_offer)
+    {
+        //
+        $request->validate([
+            'status' => 'required|string|in:accepted,declined',
+        ]);
+        $gadget = $gadget_offer->gadget;
+        $gadget_offer->status = $request->status;
+        $gadget_offer->save();
+        if ($request->status == 'accepted') {
+            UsersGadgetsOffer::where('gadget_id', $gadget->id)
+                ->where('id', '!=', $gadget_offer->id)
+                ->update(['status' => 'declined']);
+        }
+
+        return redirect()->route('gadget.show', compact('gadget'))
+            ->with('success', 'Successfully accepted offer.');
     }
 }

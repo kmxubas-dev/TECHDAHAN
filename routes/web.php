@@ -45,16 +45,22 @@ Route::group(['prefix'=>'', 'as'=>'', 'middleware'=>['auth:sanctum']], function 
         return view('user.index', compact('gadgets'));
     })->name('index');
     Route::get('/settings', function () { return view('user.settings'); })->name('user.settings');
+    Route::get('/settings', function () { return view('user.settings'); })->name('user.settings');
 
     Route::resource('gadget', UsersGadgetController::class);
     Route::get('gadget/{gadget}/proceed', [UsersGadgetController::class, 'proceed'])
         ->name('gadget.proceed');
     Route::post('gadget/{gadget}/proceed', [UsersGadgetController::class, 'proceed_post'])
         ->name('gadget.proceed_post');
+
+    Route::resource('gadget_offer', UsersGadgetsOfferController::class);
+    Route::post('gadget_offer/{gadget_offer}/response',[UsersGadgetsOfferController::class,
+        'response'])->name('gadget_offer.response');
     Route::get('gadget/{gadget}/offer/add',[UsersGadgetsOfferController::class, 'add'])
         ->name('gadget.offer.add');
     Route::post('gadget/{gadget}/offer/add',[UsersGadgetsOfferController::class, 'add_post'])
         ->name('gadget.offer.add_post');
+
     Route::get('gadget/{gadget}/bid/add',[UsersGadgetsBidController::class, 'add'])
         ->name('gadget.bid.add');
     Route::post('gadget/{gadget}/bid/add',[UsersGadgetsBidController::class, 'add_post'])
@@ -66,7 +72,6 @@ Route::group(['prefix'=>'', 'as'=>'', 'middleware'=>['auth:sanctum']], function 
         ->name('message_group.message.add');
 
     Route::resource('gadget_bid', UsersGadgetsBidController::class);
-    Route::resource('gadget_offer', UsersGadgetsOfferController::class);
     Route::resource('message', UsersMessageController::class);
     Route::resource('message_group', UsersMessagesGroupController::class);
 });

@@ -19,6 +19,7 @@ class UsersGadgetsOffer extends Model
     protected $fillable = [
         'gadget_id',
         'user_id',
+        'status',
         'amount',
         'note',
     ];
