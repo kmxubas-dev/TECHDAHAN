@@ -17,6 +17,7 @@ class CreateUsersGadgetsTable extends Migration
             $table->id();
             $table->string('status');
             $table->string('name');
+            $table->unsignedInteger('qty')->nullable();
             $table->string('category');
             $table->string('condition');
             $table->text('details');

@@ -18,6 +18,7 @@ class SeederUsersGadget extends Seeder
         DB::table('users_gadgets')->insert([
             'status' => 'available',
             'name' => 'Gadget0',
+            'qty' => 3,
             'category' => 'Phone',
             'details' => '{"description":"Description","model":"X123","storage":"258gb"}',
             'methods' => '{"bid":false,"offer":true}',
@@ -35,6 +36,7 @@ class SeederUsersGadget extends Seeder
             DB::table('users_gadgets')->insert([
                 'status' => 'available',
                 'name' => 'Gadget'.$i,
+                'qty' => 1,
                 'category' => 'Phone',
                 'details' => '{"description":"Description","model":"X123","storage":"258gb"}',
                 'methods' => '{"bid":true,"offer":true}',

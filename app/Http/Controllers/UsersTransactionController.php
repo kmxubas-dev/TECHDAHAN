@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\UsersTransaction;
+use App\Models\UsersGadget;
 use Illuminate\Http\Request;
+
+use Illuminate\Support\Facades\Auth;
 
 class UsersTransactionController extends Controller
 {
@@ -15,6 +18,9 @@ class UsersTransactionController extends Controller
     public function index()
     {
         //
+        $transactions = UsersTransaction::where('buyer_id', Auth::user()->id)
+            ->orderBy('created_at', 'DESC')->get();
+        return view('user_transaction.index', compact('transactions'));
     }
 
     /**
@@ -44,9 +50,10 @@ class UsersTransactionController extends Controller
      * @param  \App\Models\UsersTransaction  $usersTransaction
      * @return \Illuminate\Http\Response
      */
-    public function show(UsersTransaction $usersTransaction)
+    public function show(UsersTransaction $transaction)
     {
         //
+        return view('user_transaction.show', compact('transaction'));
     }
 
     /**
@@ -81,5 +88,61 @@ class UsersTransactionController extends Controller
     public function destroy(UsersTransaction $usersTransaction)
     {
         //
+    }
+
+
+
+    // ==================================================
+
+    public function transaction(Request $request, UsersGadget $gadget)
+    {
+        //
+        $request->validate([
+            'code' => 'required|string',
+            'method' => 'required|string',
+            'payment' => 'required|string',
+            'payment_amount' => 'required|string',
+        ]);
+
+        if ($gadget->methods->bid)
+            $bid = $gadget->offers->where('status', 'accepted')->first();
+        else 
+            $bid = (object)['id' => null];
+
+        if ($gadget->methods->offer)
+            $offer = $gadget->offers->where('status', 'accepted')->first();
+        else 
+            $offer = (object)['id' => null];
+
+        if ($request->method == 'bid') {
+            $price = 0;
+        }
+        elseif ($request->method == 'offer') {
+            $price = $gadget->offers->where('status', 'accepted')->first();
+            $price = $price->amount;
+        }
+        else {
+            $price = $gadget->price_selling;
+        }
+
+        $transaction = new UsersTransaction;
+        $transaction->code = $request->code;
+        $transaction->info = $gadget;
+        $transaction->price = $price;
+        $transaction->method = $request->method;
+        $transaction->payment = $request->payment;
+        $transaction->payment_amount = $request->payment_amount; 
+        $transaction->bid_id = $bid->id;
+        $transaction->offer_id = $offer->id;
+        $transaction->gadget_id = $gadget->id;
+        $transaction->seller_id = $gadget->user_id;
+        $transaction->buyer_id = Auth::user()->id;
+        $transaction->save();
+        $offer->status = 'successful';
+        $offer->save();
+        
+        // dd($transaction);
+
+        return redirect()->route('transaction.index');
     }
 }

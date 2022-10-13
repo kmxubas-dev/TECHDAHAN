@@ -122,7 +122,10 @@ class UsersGadgetsOfferController extends Controller
         //
         $offer = UsersGadgetsOffer::where('gadget_id', $gadget->id)
             ->where('user_id', Auth::user()->id)->first();
-        return view('user_gadget_offer.add', compact('gadget', 'offer'));
+        if (isset($offer))
+            return redirect()->route('gadget_offer.show', $offer);
+        else
+            return view('user_gadget_offer.show', compact('gadget', 'offer'));
     }
 
     public function add_post(Request $request, UsersGadget $gadget)

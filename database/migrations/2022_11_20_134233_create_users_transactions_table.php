@@ -15,6 +15,17 @@ class CreateUsersTransactionsTable extends Migration
     {
         Schema::create('users_transactions', function (Blueprint $table) {
             $table->id();
+            $table->string('code');
+            $table->text('info');
+            $table->unsignedInteger('price');
+            $table->string('method');
+            $table->string('payment');
+            $table->string('payment_amount');
+            $table->foreignId('bid_id')->nullable();
+            $table->foreignId('offer_id')->nullable();
+            $table->foreignId('gadget_id');
+            $table->foreignId('seller_id');
+            $table->foreignId('buyer_id');
             $table->timestamps();
         });
     }

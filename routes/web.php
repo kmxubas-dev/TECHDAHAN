@@ -9,6 +9,7 @@ use App\Http\Controllers\UsersGadgetsBidController;
 use App\Http\Controllers\UsersGadgetsOfferController;
 use App\Http\Controllers\UsersMessagesGroupController;
 use App\Http\Controllers\UsersMessageController;
+use App\Http\Controllers\UsersTransactionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -52,7 +53,13 @@ Route::group(['prefix'=>'', 'as'=>'', 'middleware'=>['auth:sanctum']], function 
         ->name('gadget.proceed');
     Route::post('gadget/{gadget}/proceed', [UsersGadgetController::class, 'proceed_post'])
         ->name('gadget.proceed_post');
+        
+    // GADGET TRANSACTION
+    Route::resource('transaction', UsersTransactionController::class);
+    Route::post('gadget/{gadget}/transaction',[UsersTransactionController::class,
+        'transaction'])->name('gadget.transaction');
 
+    // GADGET OFFER
     Route::resource('gadget_offer', UsersGadgetsOfferController::class);
     Route::post('gadget_offer/{gadget_offer}/response',[UsersGadgetsOfferController::class,
         'response'])->name('gadget_offer.response');
@@ -61,19 +68,20 @@ Route::group(['prefix'=>'', 'as'=>'', 'middleware'=>['auth:sanctum']], function 
     Route::post('gadget/{gadget}/offer/add',[UsersGadgetsOfferController::class, 'add_post'])
         ->name('gadget.offer.add_post');
 
+    // GADGET BID
+    Route::resource('gadget_bid', UsersGadgetsBidController::class);
     Route::get('gadget/{gadget}/bid/add',[UsersGadgetsBidController::class, 'add'])
         ->name('gadget.bid.add');
     Route::post('gadget/{gadget}/bid/add',[UsersGadgetsBidController::class, 'add_post'])
         ->name('gadget.bid.add_post');
 
+    // GADGET MESSAGE
+    Route::resource('message', UsersMessageController::class);
+    Route::resource('message_group', UsersMessagesGroupController::class);
     Route::get('gadget/{gadget}/message_group', [UsersMessagesGroupController::class, 'message'])
         ->name('message_group');
     Route::post('message_group/{group}/message', [UsersMessageController::class, 'add'])
         ->name('message_group.message.add');
-
-    Route::resource('gadget_bid', UsersGadgetsBidController::class);
-    Route::resource('message', UsersMessageController::class);
-    Route::resource('message_group', UsersMessagesGroupController::class);
 });
 
 
