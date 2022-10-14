@@ -22,6 +22,7 @@ class CreateUsersGadgetsTable extends Migration
             $table->string('condition');
             $table->text('details');
             $table->text('methods');
+            $table->text('installment');
             $table->unsignedInteger('price_original');
             $table->unsignedInteger('price_selling');
             $table->integer('bidding_min')->nullable();
@@ -31,7 +32,6 @@ class CreateUsersGadgetsTable extends Migration
             $table->string('img_receipt', 2048)->nullable();
             $table->string('img', 2048)->nullable();
             $table->foreignId('user_id');
-            $table->foreignId('buyer_id')->nullable();
             $table->timestamps();
         });
     }

@@ -18,7 +18,8 @@ class UsersTransactionController extends Controller
     public function index()
     {
         //
-        $transactions = UsersTransaction::where('buyer_id', Auth::user()->id)
+        request()->validate(['type' => 'required|string|in:seller,buyer']);
+        $transactions = UsersTransaction::where(request()->query('type').'_id', Auth::user()->id)
             ->orderBy('created_at', 'DESC')->get();
         return view('user_transaction.index', compact('transactions'));
     }
@@ -104,12 +105,12 @@ class UsersTransactionController extends Controller
             'payment_amount' => 'required|string',
         ]);
 
-        if ($gadget->methods->bid)
+        if ($request->method == 'bid')
             $bid = $gadget->offers->where('status', 'accepted')->first();
         else 
             $bid = (object)['id' => null];
 
-        if ($gadget->methods->offer)
+        if ($request->method == 'offer')
             $offer = $gadget->offers->where('status', 'accepted')->first();
         else 
             $offer = (object)['id' => null];
@@ -138,11 +139,14 @@ class UsersTransactionController extends Controller
         $transaction->seller_id = $gadget->user_id;
         $transaction->buyer_id = Auth::user()->id;
         $transaction->save();
-        $offer->status = 'successful';
-        $offer->save();
-        
-        // dd($transaction);
+        $gadget->decrement('qty');
 
-        return redirect()->route('transaction.index');
+        if ($request->method == 'offer') {
+            $offer->status = 'successful';
+            $offer->save();
+        }
+
+        return redirect()->route('transaction.show', $transaction)
+            ->with('success', 'Successfully purchased product.');
     }
 }

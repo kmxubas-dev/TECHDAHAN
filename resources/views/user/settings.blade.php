@@ -26,7 +26,7 @@
             </div>
         </div>
     </div>
-    
+
     <!-- Content -->
     <section class="items-center justify-center p-3">
         <div id="buyer_wrapper">
@@ -66,7 +66,7 @@
                         </li>
 
                         <li class="mb-4 text-white border-2 border-[#2557D6] rounded-lg hover:bg-[#2557D6]">
-                            <a href="{{ route('transaction.index') }}" class="flex p-3 items-center space-x-4">
+                            <a href="{{ route('transaction.index', ['type' => 'buyer']) }}" class="flex p-3 items-center space-x-4">
                                 <div class="flex-1 min-w-0">
                                     <p class="text-lg font-medium text-[#2557D6] truncate hover:text-white">
                                         My Transactions
@@ -86,7 +86,7 @@
                         </li>
                         
                         <li class="mb-4 text-white border-2 border-[#2557D6] rounded-lg hover:bg-[#2557D6]">
-                            <form method="POST" action="http://techdahan.test/logout" class="flex items-center">
+                            <form method="POST" action="{{ route('logout') }}" class="flex items-center">
                                 @csrf
                                 {{-- <div class="flex-1 min-w-0"> --}}
                                 <a class="w-full p-3 text-lg font-medium text-[#2557D6] truncate hover:text-white" href="http://techdahan.test/logout" onclick="event.preventDefault(); this.closest('form').submit();">Log Out</a>
@@ -109,7 +109,7 @@
 
         <div id="seller_wrapper" class="hidden">
             <h2 class="text-xl mb-3 font-semibold text-gray-800 capitalize dark:text-white">Seller</h2>
-    
+
             <div id="buyer " class="rounded-lg sm:p-8">
                 <div class="flow-root">
                     <ul role="list" class="">
@@ -122,7 +122,7 @@
                                 </div>
                             </a>
                         </li>
-                        
+
                         <li class="mb-4 text-white border-2 border-[#2557D6] rounded-lg hover:bg-[#2557D6]">
                             <a href="{{ route('message_group.index', ['type'=>'seller']) }}" class="flex p-3 items-center space-x-4">
                                 <div class="flex-1 min-w-0">
@@ -132,12 +132,12 @@
                                 </div>
                             </a>
                         </li>
-    
+
                         <li class="mb-4 text-white border-2 border-[#2557D6] rounded-lg hover:bg-[#2557D6]">
-                            <a href="" class="flex p-3 items-center space-x-4">
+                            <a href="{{ route('transaction.index', ['type' => 'seller']) }}" class="flex p-3 items-center space-x-4">
                                 <div class="flex-1 min-w-0">
                                     <p class="text-lg font-medium text-[#2557D6] truncate hover:text-white">
-                                        My Transactions
+                                        Gadget Transactions
                                     </p>
                                 </div>
                             </a>
@@ -152,15 +152,15 @@
                                 </div>
                             </a>
                         </li>
-                        
+
                         <li class="mb-4 text-white border-2 border-[#2557D6] rounded-lg hover:bg-[#2557D6]">
-                            <form method="POST" action="http://techdahan.test/logout" class="flex items-center">
+                            <form method="POST" action="{{ route('logout') }}" class="flex items-center">
                                 @csrf
                                 {{-- <div class="flex-1 min-w-0"> --}}
                                 <a class="w-full p-3 text-lg font-medium text-[#2557D6] truncate hover:text-white" href="http://techdahan.test/logout" onclick="event.preventDefault(); this.closest('form').submit();">Log Out</a>
                                 {{-- </div> --}}
                             </form>
-    
+
                             <script>
                                 document.addEventListener("alpine:init", () => {
                                     Alpine.data("layout", () => ({

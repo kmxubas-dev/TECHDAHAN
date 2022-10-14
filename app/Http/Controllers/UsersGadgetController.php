@@ -44,6 +44,7 @@ class UsersGadgetController extends Controller
         //
         $request->validate([
             'name' => 'required|string|max:50',
+            'qty' => 'required|integer',
             'category' => 'required|string|max:50',
             'description' => 'required|string|nullable',
             'model' => 'required|string|max:50',
@@ -53,6 +54,7 @@ class UsersGadgetController extends Controller
             'method_offer' => 'nullable|in:true',
             'price_original' => 'required|integer',
             'price_selling' => 'required|integer',
+            'installment' => 'required|integer',
             'img_receipt' => 'file',
             'img' => 'required|file'
         ]);
@@ -60,6 +62,7 @@ class UsersGadgetController extends Controller
         $gadget = new UsersGadget;
         $gadget->status = 'available';
         $gadget->name = $request->name;
+        $gadget->qty = $request->qty;
         $gadget->category = $request->category;
         $gadget->details = (object)[
             'description' => $request->description,
@@ -69,6 +72,10 @@ class UsersGadgetController extends Controller
         $gadget->methods = (object)[
             'bid' => isset($request->method_bid) ? true:false,
             'offer' => isset($request->method_offer) ? true:false,
+        ];
+        $gadget->installment = (object)[
+            'status' => ($request->installment != 0),
+            'duration' => (int)$request->installment,
         ];
         $gadget->condition = $request->condition;
         $gadget->price_original = $request->price_original;
@@ -135,6 +142,7 @@ class UsersGadgetController extends Controller
         $request->validate([
             'status' => 'required|string|max:50',
             'name' => 'required|string|max:50',
+            'qty' => 'required|integer',
             'category' => 'required|string|max:50',
             'description' => 'required|string|nullable',
             'model' => 'required|string|max:50',
@@ -144,10 +152,12 @@ class UsersGadgetController extends Controller
             'method_offer' => 'nullable|in:true',
             'price_original' => 'required|integer',
             'price_selling' => 'required|integer',
+            'installment' => 'required|integer',
         ]);
 
         $gadget->status = $request->status;
         $gadget->name = $request->name;
+        $gadget->qty = $request->qty;
         $gadget->category = $request->category;
         $gadget->details = (object)[
             'description' => $request->description,
@@ -157,6 +167,10 @@ class UsersGadgetController extends Controller
         $gadget->methods = (object)[
             'bid' => isset($request->method_bid) ? true:false,
             'offer' => isset($request->method_offer) ? true:false,
+        ];
+        $gadget->installment = (object)[
+            'status' => ($request->installment != 0),
+            'duration' => (int)$request->installment,
         ];
         $gadget->condition = $request->condition;
         $gadget->price_original = $request->price_original;
@@ -195,15 +209,5 @@ class UsersGadgetController extends Controller
         //
         $payments = UsersPayment::where('user_id', Auth::user()->id)->get();
         return view('user_gadget.show_proceed', compact('gadget', 'payments'));
-    }
-
-    public function proceed_post(Request $request, UsersGadget $gadget)
-    {
-        //
-        $gadget->status = 'purchased';
-        $gadget->payment = $request->payment;
-        $gadget->buyer_id = Auth::user()->id;
-        $gadget->save();
-        return redirect()->route('index')->with('success', 'Successfully purchased product.');
     }
 }

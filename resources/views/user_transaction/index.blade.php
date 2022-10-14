@@ -13,7 +13,11 @@
                 </a>
                 <div class="flex flex-col">
                     <h1 class="text-xl font-semibold capitalize">
-                        My Transactions
+                        @if (request()->query('type') == 'buyer')
+                            My Transactions as Buyer
+                        @else
+                            My Transactions as Seller
+                        @endif
                     </h1>
                 </div>
             </div>
@@ -36,7 +40,7 @@
                                     {{ $transaction->info->name  }}
                                 </p>
                                 <p class="text-lg text-[#2557D6] truncate dark:text-gray-400">
-                                    {{ $transaction->seller->name }}
+                                    {{ $transaction->code }}
                                 </p>
                                 <p class="text-sm text-gray-500 truncate dark:text-gray-400">
                                     ₱{{ number_format($transaction->price, 2, ".", ",") }}

@@ -20,47 +20,46 @@
     <section class="flex flex-col px-3 pb-20 items-center justify-center">
         <div class="w-full mb-3 p-4 bg-white shadow-md border border-gray-200 rounded-lg">
             <div class="p-3 text-[#2557D6] border-2 border-[#2557D6] rounded-lg">
-                <div class="flex flex-col text-center">
-                    <p>{{ '@'.auth()->user()->name }}</p>
-                    <h5 class="mb-3 text-[#2557D6] text-xl text-center font-bold tracking-tight multiline-ellipsis-2">
-                        {{ $gadget->name }}
-                    </h5>
+                <div class="flex justify-center">
+                    <img class="rounded-lg w-14 h-14" src="{{ asset($gadget->img) }}" alt="">
                 </div>
-                <div class="flex">
-                    <div href="#" class="justify-center w-1/3 mr-3">
-                        <img class="rounded-lg" src="{{ asset($gadget->img) }}" alt="">
+
+                <div class="p-2">
+                    <div class="text-center">
+                        <p>{{ '@'.$gadget->seller->name }}</p>
+                        <h5 class="mb-3 text-[#2557D6] text-xl font-bold tracking-tight multiline-ellipsis-2">
+                            {{ $gadget->name }}
+                        </h5>
                     </div>
-                    <div class="flex flex-col">
-                        <div href="#" class="flex-1 justify-center">
-                            <div class="flex-1">
-                                {{ $gadget->details->model }}
-                            </div>
-                            <div class="flex-1">
-                                {{ $gadget->details->storage }}
-                            </div>
-                            <div class="flex-1">
-                                {{ $gadget->condition }}
-                            </div>
-                        </div>
-                    </div>
+                    <p class="font-normal text-[#2557D6] mb-1">
+                        Original Price: <b>₱{{ number_format($gadget->price_original, 2, ".", ",") }}</b>
+                    </p>
+                    <p class="font-normal text-[#2557D6] mb-1">
+                        Selling Price: <b>₱{{ number_format($gadget->price_selling, 2, ".", ",") }}</b>
+                    </p>
+                    <p class="font-normal text-[#2557D6] mb-1">
+                        Total Payment: <b>₱{{ number_format($gadget->price_selling, 2, ".", ",") }}</b>
+                    </p>
+
+                    <p class="font-normal text-[#2557D6] mb-1">
+                        @isset($offer)
+                            Offered Price: <b>₱{{ number_format($offer->amount, 2, ".", ",") }}</b>
+                        @endisset
+                    </p>
+                    <p class="font-normal text-[#2557D6] mb-1">
+                        {{ 'Posted '.$gadget->getElapsedTime($gadget->created_at) }}
+                    </p>
                 </div>
-            </div>
-
-            <div class="p-3">
-                <p class="font-normal text-[#2557D6]">
-                    Total Payment: <b>{{ $gadget->price_selling }} PHP</b>
-                </p>
-
-                <p class="font-normal text-[#2557D6]">
-                    Purchase Order ID: <b>{{ '#22'.strtoupper(substr(md5(microtime()),rand(0,26),6)).'TD'; }}</b>
-                </p>
             </div>
         </div>
 
         <div class="w-full p-4 bg-white text-[#2557D6] border border-gray-200 rounded-lg shadow-md">
-            <h5 class="text-lg font-semibold capitalize">Payment Method</h5>
-            <form action="{{ route('gadget.proceed_post', $gadget->id) }}" method="POST">
+            <h5 class="text-lg font-semibold capitalize">Direct Purchase</h5>
+
+            <form action="{{ route('gadget.transaction', $gadget) }}" method="POST">
                 @csrf
+                <input type="hidden" name="method" value="default">
+                <input type="hidden" name="code" value="{{ '#22'.strtoupper(substr(md5(microtime()),rand(0,26),6)).'TD' }}">
                 <ul role="list" style="min-height: 125px" class="mt-3">
                     <li class="mb-2 text-white border- border-[#2557D6] rounded-lg hover:bg-[#2557D6">
                         <input type="radio" name="payment" id="payment1" value="gcash" class='sr-only appearance-none h-6 w-6 bg-gray-400 rounded-full checked:bg-[#2557D6] checked:scale-75 transition-all duration-200 peer' required/>
@@ -84,14 +83,16 @@
 
                 <div class="flex mb-3">
                     <div class='flex flex-row p-3'>
-                        <input type="radio" name="amount" id="amount1" class='appearance-none h-6 w-6 bg-gray-400 rounded-full checked:bg-[#2557D6] checked:scale-75 transition-all duration-200 peer' required/>
+                        <input type="radio" name="payment_amount" value="direct" id="amount1" class='appearance-none h-6 w-6 bg-gray-400 rounded-full checked:bg-[#2557D6] checked:scale-75 transition-all duration-200 peer' required/>
                         <div class='h-6 w-6 absolute rounded-full pointer-events-none peer-checked:border-[#2557D6] peer-checked:border-2'></div>
                         <label for='amount1' class='flex flex-col justify-center px-2 peer-checked:text-[#2557D6] select-none'>Direct Payment</label>
                     </div>
                     <div class='flex flex-row p-3'>
-                        <input type="radio" name="amount" id="amount2" class='appearance-none h-6 w-6 bg-gray-400 rounded-full checked:bg-[#2557D6] checked:scale-75 transition-all duration-200 peer' required/>
-                        <div class='h-6 w-6 absolute rounded-full pointer-events-none peer-checked:border-[#2557D6] peer-checked:border-2'></div>
-                        <label for='amount2' class='flex flex-col justify-center px-2 peer-checked:text-[#2557D6] select-none peer-disabled:line-through'>Installment</label>
+                        @if ($gadget->installment->status)
+                            <input type="radio" name="payment_amount" value="installment" id="amount2" class='appearance-none h-6 w-6 bg-gray-400 rounded-full checked:bg-[#2557D6] checked:scale-75 transition-all duration-200 peer' required/>
+                            <div class='h-6 w-6 absolute rounded-full pointer-events-none peer-checked:border-[#2557D6] peer-checked:border-2'></div>
+                            <label for='amount2' class='flex flex-col justify-center px-2 peer-checked:text-[#2557D6] select-none peer-disabled:line-through'>Installment</label>
+                        @endif
                     </div>
                 </div>
 
@@ -103,6 +104,8 @@
     </section>
 </section>
 @endsection
+
+
 
 @section('styles')
 <style>

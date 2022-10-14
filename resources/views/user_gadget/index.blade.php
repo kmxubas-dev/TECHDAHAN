@@ -1,4 +1,5 @@
 @extends('layouts.user')
+
 @section('main')
 <section class="">
     <!-- Header -->
@@ -16,7 +17,7 @@
             </div>
         </div>
     </div>
-    
+
     <!-- Content -->
     <section class="items-center justify-center p-3">
         <h1 class="text-xl mb-3 font-semibold text-gray-800 capitalize dark:text-white">Gadget Listing</h1>
@@ -32,13 +33,13 @@
                             </div> --}}
                             <div class="flex-1 min-w-0">
                                 <p class="text-lg font-bold text-[#2557D6] truncate">
-                                    {{ $gadget->name  }}
+                                    {{ $gadget->name }}
+                                </p>
+                                <p class="text-sm text-[#2557D6] truncate dark:text-gray-400">
+                                    Selling Price: <b>₱{{ number_format($gadget->price_selling, 2, ".", ",") }}</b>
                                 </p>
                                 <p class="text-sm text-gray-500 truncate dark:text-gray-400">
-                                    Original Price PHP {{ number_format($gadget->price_original, 2) }}
-                                </p>
-                                <p class="text-sm text-gray-500 truncate dark:text-gray-400">
-                                    Selling Price PHP {{ number_format($gadget->price_selling, 2) }}
+                                    {{ 'Posted '.$gadget->getElapsedTime($gadget->created_at) }}
                                 </p>
                             </div>
                             <form action="{{ route('gadget.destroy', $gadget->id) }}" method="POST" class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white" onsubmit="return confirm('Are you sure you want to delete this gadget?')">
@@ -54,8 +55,9 @@
         </div>
     </section>
 </section>
-
 @endsection
+
+
 
 @section('styles')
 <style>

@@ -39,8 +39,16 @@
                     Selling Price PHP {{ number_format($gadget->price_selling, 2, ".", ",") }}
                 </p>
                 
-                <h5 class="text-[#2557D6] font-bold">Product Details</h5>
+                <h5 class="mb-3 text-[#2557D6] font-bold">Product Details</h5>
                 <div class="flex flex-col gap-3 text-[#2557D6]">
+                    <div class="flex justify-between">
+                        <div class="flex-1">
+                            Quantity
+                        </div>
+                        <div class="flex-1">
+                            {{ $gadget->qty }}
+                        </div>
+                    </div>
                     <div class="flex justify-between">
                         <div class="flex-1">
                             Category
@@ -103,6 +111,14 @@
                         </div>
                         <div class="flex-1">
                             Location
+                        </div>
+                    </div>
+                    <div class="flex justify-between">
+                        <div class="flex-1">
+                            Posted
+                        </div>
+                        <div class="flex-1">
+                            {{ $gadget->getElapsedTime($gadget->created_at) }}
                         </div>
                     </div>
 

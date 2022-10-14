@@ -42,7 +42,7 @@ Route::get('/home', function () {
 Route::group(['prefix'=>'', 'as'=>'', 'middleware'=>['auth:sanctum']], function () {
     Route::get('/index', function () {
         $gadgets = UsersGadget::where('user_id', '!=', Auth::user()->id)
-            ->where('status', 'available')->get();
+            ->where('status', 'available')->where('qty', '>', 0)->get();
         return view('user.index', compact('gadgets'));
     })->name('index');
     Route::get('/settings', function () { return view('user.settings'); })->name('user.settings');
@@ -51,8 +51,6 @@ Route::group(['prefix'=>'', 'as'=>'', 'middleware'=>['auth:sanctum']], function 
     Route::resource('gadget', UsersGadgetController::class);
     Route::get('gadget/{gadget}/proceed', [UsersGadgetController::class, 'proceed'])
         ->name('gadget.proceed');
-    Route::post('gadget/{gadget}/proceed', [UsersGadgetController::class, 'proceed_post'])
-        ->name('gadget.proceed_post');
         
     // GADGET TRANSACTION
     Route::resource('transaction', UsersTransactionController::class);
