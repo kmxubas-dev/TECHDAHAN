@@ -25,7 +25,7 @@ class CreateUsersGadgetsTable extends Migration
             $table->text('installment');
             $table->unsignedInteger('price_original');
             $table->unsignedInteger('price_selling');
-            $table->integer('bidding_min')->nullable();
+            $table->unsignedInteger('bidding_min')->nullable();
             $table->string('bidding_start')->nullable();
             $table->string('bidding_end')->nullable();
             $table->string('payment')->nullable();

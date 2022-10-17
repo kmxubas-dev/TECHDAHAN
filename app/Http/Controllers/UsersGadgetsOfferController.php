@@ -22,7 +22,7 @@ class UsersGadgetsOfferController extends Controller
         request()->validate([
             'type' => 'required|string|in:seller,buyer',
         ]);
-        
+
         if (request()->query('type') == 'seller') {
             $offers = UsersGadgetsOffer::whereHas('gadget', function (Builder $query) {
                     $query->where('user_id', Auth::user()->id);
@@ -30,10 +30,10 @@ class UsersGadgetsOfferController extends Controller
                 ->with('gadget')->get();
         } else {
             $offers = UsersGadgetsOffer::where('user_id', Auth::user()->id)
-                ->where(function($query) {
-                    $query->where('status', 'pending');
-                    $query->orWhere('status', 'accepted');
-                })
+                // ->where(function($query) {
+                //     $query->where('status', 'pending');
+                //     $query->orWhere('status', 'accepted');
+                // })
                 ->orderBy('updated_at', 'DESC')
                 ->with('gadget')->get();
         }
@@ -160,6 +160,6 @@ class UsersGadgetsOfferController extends Controller
         }
 
         return redirect()->route('gadget.show', compact('gadget'))
-            ->with('success', 'Successfully accepted offer.');
+            ->with('success', 'Successfully '.$request->status.' offer.');
     }
 }

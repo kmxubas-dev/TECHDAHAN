@@ -168,6 +168,12 @@
                             </div>
                         </form>
                     </div>
+                @elseif ($offer->status == 'declined')
+                    <div class="w-full p-4 bg-white text-[#2557D6] border border-gray-200 rounded-lg shadow-md">
+                        <h5 class="mb-3 text-lg font-bold capitalize">
+                            Your offer - <b class="text-red-600">Declined</b>
+                        </h5>
+                    </div>
                 @endif
             @elseif (isset($offer))
                 @isset($offer)

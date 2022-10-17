@@ -60,7 +60,7 @@
             <form action="{{ route('gadget.bid.add_post', $gadget->id) }}" method="POST">
                 @csrf
                 <div class="flex mb-3 text-lg">
-                    <input type="text" name="amount" placeholder="Place bid here" @isset($bid) value="{{ $bid->amount }}" @endisset class="w-full mr-2 py-2 px-3 bg-white text-base font-medium text-[#2557D6] rounded-md border-2 border-[#2557D6] outline-none focus:border-[#6A64F1] focus:shadow-md"/>
+                    <input type="number" name="amount" min="{{ $gadget->bidding_min }}" step="0.01" placeholder="{{ $gadget->bidding_min }}" @isset($bid) value="{{ $bid->amount }}" @endisset class="w-full mr-2 py-2 px-3 bg-white text-base font-medium text-[#2557D6] rounded-md border-2 border-[#2557D6] outline-none focus:border-[#6A64F1] focus:shadow-md"/>
                     <button type="submit" class="flex justify-center w-1/3 py-2 px-3 hover:shadow-form rounded-lg bg-[#2557D6] text-base font-semibold text-white outline-none">Submit</button>
                 </div>
 

@@ -20,7 +20,10 @@ class UsersGadget extends Model
         'details' => 'object',
         'methods' => 'object',
         'installment' => 'object',
+        // 'bidding_min' => 'decimal:2',
     ];
+
+
 
     public function getPriceOriginalAttribute($value)
     {
@@ -37,6 +40,15 @@ class UsersGadget extends Model
     public function setPriceSellingAttribute($value)
     {
         $this->attributes['price_selling'] = $value*100;
+    }
+
+    public function getBiddingMinAttribute($value)
+    {
+        return $value*0.01;
+    }
+    public function setBiddingMinAttribute($value)
+    {
+        $this->attributes['bidding_min'] = $value*100;
     }
 
 

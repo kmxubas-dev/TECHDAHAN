@@ -94,40 +94,42 @@
                 </div>
             </div>
 
-            <div class="w-full mb-5 p-4 bg-white shadow-md rounded-lg">
-                <div class="p-2">
-                    <div class="text-center">
-                        <h5 class="mb- text-[#2557D6] text-xl font-bold tracking-tight multiline-ellipsis-2">
-                            Installment Details
-                        </h5>
-                    </div>
+            @if ($transaction->payment_amount == 'installment')
+                <div class="w-full mb-5 p-4 bg-white shadow-md rounded-lg">
+                    <div class="p-2">
+                        <div class="text-center">
+                            <h5 class="mb- text-[#2557D6] text-xl font-bold tracking-tight multiline-ellipsis-2">
+                                Installment Details
+                            </h5>
+                        </div>
 
-                    <hr class="my-3">
+                        <hr class="my-3">
 
-                    <div class="font-normal text-[#2557D6] mb-3">
-                        <p class="font-normal text-[#2557D6] mb-1">
-                            Months to pay: <b>{{ $transaction->info->installment->duration }}</b>
-                        </p>
-                    </div>
+                        <div class="font-normal text-[#2557D6] mb-3">
+                            <p class="font-normal text-[#2557D6] mb-1">
+                                Months to pay: <b>{{ $transaction->info->installment->duration }}</b>
+                            </p>
+                        </div>
 
-                    <div class="font-normal text-[#2557D6] mb-3">
-                        <b>Next billing dates:</b>
-                    </div>
-                    
-                    <div class="flex flex-col gap-3 text-gray-600">
-                        @for ($i=0; $i < $transaction->info->installment->duration; $i++)
-                            <div class="flex justify-between font-bold">
-                                <div class="flex-1">
-                                    {{ date('F d, o', strtotime('+'.$i.' months', strtotime($transaction->created_at))) }}
+                        <div class="font-normal text-[#2557D6] mb-3">
+                            <b>Next billing dates:</b>
+                        </div>
+                        
+                        <div class="flex flex-col gap-3 text-gray-600">
+                            @for ($i=0; $i < $transaction->info->installment->duration; $i++)
+                                <div class="flex justify-between font-bold">
+                                    <div class="flex-1">
+                                        {{ date('F d, o', strtotime('+'.$i.' months', strtotime($transaction->created_at))) }}
+                                    </div>
+                                    <div class="flex-1">
+                                        ₱{{ number_format($transaction->price/$transaction->info->installment->duration, 2, ".", ",") }}
+                                    </div>
                                 </div>
-                                <div class="flex-1">
-                                    ₱{{ number_format($transaction->price/$transaction->info->installment->duration, 2, ".", ",") }}
-                                </div>
-                            </div>
-                        @endfor
+                            @endfor
+                        </div>
                     </div>
                 </div>
-            </div>
+            @endif
         </div>
     </section>
 </section>

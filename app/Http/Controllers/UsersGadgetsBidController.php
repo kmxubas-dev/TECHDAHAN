@@ -7,6 +7,7 @@ use App\Models\UsersGadget;
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\ValidationException;
 
 class UsersGadgetsBidController extends Controller
 {
@@ -109,6 +110,17 @@ class UsersGadgetsBidController extends Controller
         $request->validate([
             'amount' => 'required|numeric'
         ]);
+
+        $similarbids = $gadget->bids->where('amount', $request->amount)
+            ->where('user_id', '!=', Auth::user()->id)->count();
+    
+        if ($request->amount < $gadget->bidding_min) {
+            return back()->withErrors('Amount can\'t be lower than minimum bidding value');
+        }
+        if ($similarbids > 0) {
+            return back()->withErrors('Amount already bidded');
+        }
+
         $offer = UsersGadgetsBid::updateOrCreate(
             ['gadget_id' => $gadget->id, 'user_id' => Auth::user()->id],
             ['amount' => $request->amount]
