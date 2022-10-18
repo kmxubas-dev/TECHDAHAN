@@ -4,12 +4,14 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
 use App\Models\UsersGadget;
+use App\Http\Controllers\AppReportController;
 use App\Http\Controllers\UsersGadgetController;
 use App\Http\Controllers\UsersGadgetsBidController;
 use App\Http\Controllers\UsersGadgetsOfferController;
 use App\Http\Controllers\UsersMessagesGroupController;
 use App\Http\Controllers\UsersMessageController;
 use App\Http\Controllers\UsersTransactionController;
+use App\Http\Controllers\UsersWishlistController;
 
 /*
 |--------------------------------------------------------------------------
@@ -80,6 +82,12 @@ Route::group(['prefix'=>'', 'as'=>'', 'middleware'=>['auth:sanctum']], function 
         ->name('message_group');
     Route::post('message_group/{group}/message', [UsersMessageController::class, 'add'])
         ->name('message_group.message.add');
+
+    Route::post('gadget/{gadget}/wishlist', [UsersWishlistController::class, 'add'])
+        ->name('gadget.wishlist.add');
+
+    Route::resource('report', AppReportController::class);
+    Route::resource('wishlist', UsersWishlistController::class);
 });
 
 

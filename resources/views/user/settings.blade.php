@@ -36,10 +36,10 @@
                 <div class="flow-root">
                     <ul role="list" class="">
                         <li class="mb-4 text-white border-2 border-[#2557D6] rounded-lg hover:bg-[#2557D6]">
-                            <a href="" class="flex p-3 items-center space-x-4">
+                            <a href="{{ route('wishlist.index') }}" class="flex p-3 items-center space-x-4">
                                 <div class="flex-1 min-w-0">
                                     <p class="text-lg font-medium text-[#2557D6] truncate hover:text-white">
-                                        My Watchlist
+                                        My Wishlist
                                     </p>
                                 </div>
                             </a>
@@ -80,6 +80,16 @@
                                 <div class="flex-1 min-w-0">
                                     <p class="text-lg font-medium text-[#2557D6] truncate hover:text-white">
                                         My Offers
+                                    </p>
+                                </div>
+                            </a>
+                        </li>
+
+                        <li class="mb-4 text-white border-2 border-[#2557D6] rounded-lg hover:bg-[#2557D6]">
+                            <a href="{{ route('report.index', ['type' => 'buyer']) }}" class="flex p-3 items-center space-x-4">
+                                <div class="flex-1 min-w-0">
+                                    <p class="text-lg font-medium text-[#2557D6] truncate hover:text-white">
+                                        My Disputes
                                     </p>
                                 </div>
                             </a>

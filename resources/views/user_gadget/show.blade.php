@@ -4,14 +4,13 @@
 <section class="">
     <!-- Header -->
     <div>
-        <div class="relative grid grid-cols-1 gap-4 p-4 mb-3 bg-white shadow-lg">
+        <div class="relative grid grid-cols-1 gap-4 p-4 bg-white shadow-lg">
             <div class="relative flex gap-4">
                 <img src="https://icons.iconarchive.com/icons/diversity-avatars/avatars/256/charlie-chaplin-icon.png" class="relative rounded-lg bg-white border border-blue-800 h-14 w-14" alt="" loading="lazy">
                 <div class="flex flex-col w-full">
                     <p class="mb-1 text-x text-blue-800 whitespace-nowrap truncate overflow-hidden">Hello,</p>
                     <div class="flex flex-row justify-between">
                         <p class="relative text-xl whitespace-nowrap truncate overflow-hidden">{{auth()->user()->name}}</p>
-                        <a class="text-gray-500 text-xl" href="#"><i class="fa-solid fa-trash"></i></a>
                     </div>
                 </div>
             </div>
@@ -19,33 +18,48 @@
     </div>
 
     <!-- Content -->
-    <section class="flex flex-col mb-20 p-3 items-center justify-center">
-        <h1 class="text-xl mb-3 font-semibold text-gray-800 capitalize dark:text-white">Show Gadget</h1>
+    <section class="flex flex-col mb-20 items-center justify-center">
+        {{-- <h1 class="text-xl mb-3 font-semibold text-gray-800 capitalize dark:text-white">Show Gadget</h1> --}}
 
-        <div class="w-full p-4 bg-white shadow-md border border-gray-200 rounded-lg">
-            <a href="#" class="flex justify-center">
-                <img class="rounded-lg w-80 h-80" src="{{ asset($gadget->img) }}" alt="">
-            </a>
-            <div class="p-2">
-                <a href="#">
-                    <h5 class="mb-3 text-[#2557D6] text-xl text-center font-bold tracking-tight multiline-ellipsis-2">
+        <div class="w-full bg-white">
+            <div class="flex">
+                <img class="w-full" src="{{ asset($gadget->img) }}" alt="">
+            </div>
+
+            <div class="p-5">
+                <div>
+                    <h5 class="mb-3 text-[#2557D6] text-xl font-bold tracking-tight multiline-ellipsis-2">
                         {{ $gadget->name }}
                     </h5>
-                </a>
-                <p class="font-normal text-[#2557D6] mb-3">
-                    Original Price PHP {{ number_format($gadget->price_original, 2, ".", ",") }}
+                </div>
+                <p class="font-normal text-[#2557D6] mb-1">
+                    Original Price: <b>₱{{ number_format($gadget->price_original, 2, ".", ",") }}</b>
                 </p>
                 <p class="font-normal text-[#2557D6] mb-3">
-                    Selling Price PHP {{ number_format($gadget->price_selling, 2, ".", ",") }}
+                    Selling Price: <b>₱{{ number_format($gadget->price_selling, 2, ".", ",") }}</b>
                 </p>
-                
-                <h5 class="mb-3 text-[#2557D6] font-bold">Product Details</h5>
-                <div class="flex flex-col gap-3 text-[#2557D6]">
+                <div class="flex justify-between align-top">
+                    <div class="self-center font-normal text-gray-500 mb-1">
+                        Posted {{ $gadget->getElapsedTime($gadget->created_at) }}
+                    </div>
+
+                    <form action="{{ route('gadget.wishlist.add', $gadget) }}" method="POST" class="flex items-center text-base font-semibold text-gray-900 dark:text-white">
+                        @csrf
+                        <button type="submit" class="p-2 text-sm text-[#2557D6] border-2 border-[#2557D6] rounded-lg">
+                            <b>+ Add to Wishlist</b>
+                        </button>
+                    </form>
+                </div>
+
+                <hr class="my-3">
+
+                <div class="flex flex-col gap-2 text-[#2557D6]">
+                    <h5 class="mb-1 text-[#2557D6] font-bold">Product Details</h5>
                     <div class="flex justify-between">
                         <div class="flex-1">
                             Quantity
                         </div>
-                        <div class="flex-1">
+                        <div class="flex-1 font-bold">
                             {{ $gadget->qty }}
                         </div>
                     </div>
@@ -53,7 +67,7 @@
                         <div class="flex-1">
                             Category
                         </div>
-                        <div class="flex-1">
+                        <div class="flex-1 font-bold">
                             {{ $gadget->category }}
                         </div>
                     </div>
@@ -61,7 +75,7 @@
                         <div class="flex-1">
                             Brand
                         </div>
-                        <div class="flex-1">
+                        <div class="flex-1 font-bold">
                             {{ $gadget->details->model }}
                         </div>
                     </div>
@@ -69,7 +83,7 @@
                         <div class="flex-1">
                             Model
                         </div>
-                        <div class="flex-1">
+                        <div class="flex-1 font-bold">
                             {{ $gadget->details->model }}
                         </div>
                     </div>
@@ -77,7 +91,7 @@
                         <div class="flex-1">
                             Storage
                         </div>
-                        <div class="flex-1">
+                        <div class="flex-1 font-bold">
                             {{ $gadget->details->storage }}
                         </div>
                     </div>
@@ -85,7 +99,7 @@
                         <div class="flex-1">
                             Type
                         </div>
-                        <div class="flex-1">
+                        <div class="flex-1 font-bold">
                             Type
                         </div>
                     </div>
@@ -93,7 +107,7 @@
                         <div class="flex-1">
                             Condition
                         </div>
-                        <div class="flex-1">
+                        <div class="flex-1 font-bold">
                             {{ $gadget->condition }}
                         </div>
                     </div>
@@ -101,7 +115,7 @@
                         <div class="flex-1">
                             Description
                         </div>
-                        <div class="flex-1">
+                        <div class="flex-1 font-bold">
                             {{ $gadget->details->description }}
                         </div>
                     </div>
@@ -109,20 +123,14 @@
                         <div class="flex-1">
                             Location
                         </div>
-                        <div class="flex-1">
+                        <div class="flex-1 font-bold">
                             Location
                         </div>
                     </div>
-                    <div class="flex justify-between">
-                        <div class="flex-1">
-                            Posted
-                        </div>
-                        <div class="flex-1">
-                            {{ $gadget->getElapsedTime($gadget->created_at) }}
-                        </div>
-                    </div>
 
-                    <div class="mt-6">
+                    <hr class="my-3">    
+
+                    <div>
                         @if (auth()->user()->id == $gadget->user_id)
                             <a href="{{ route('gadget.edit', $gadget) }}" class="flex justify-center w-full py-2 px-8 hover:shadow-form rounded-lg bg-[#2557D6] text-base font-semibold text-white outline-none">Edit</a>
                         @else

@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\AppReport;
 use Illuminate\Http\Request;
 
+use Illuminate\Support\Facades\Auth;
+
 class AppReportController extends Controller
 {
     /**
@@ -15,6 +17,8 @@ class AppReportController extends Controller
     public function index()
     {
         //
+        $reports = AppReport::where('user_id', Auth::user()->id)->get();
+        return view('user_report.index', compact('reports'));
     }
 
     /**
@@ -25,6 +29,7 @@ class AppReportController extends Controller
     public function create()
     {
         //
+        return view('user_report.create');
     }
 
     /**
@@ -36,6 +41,19 @@ class AppReportController extends Controller
     public function store(Request $request)
     {
         //
+        $request->validate([
+            'message' => 'required|string',
+            'subject' => 'required|string',
+        ]);
+        $report = new AppReport;
+        $report->user_id = Auth::user()->id;
+        $report->status = 'pending';
+        $report->subject = $request->subject;
+        $report->message = $request->message;
+        $report->save();
+
+        return redirect()->route('report.index')
+            ->with('success', 'Successfully submitted report.');
     }
 
     /**
@@ -44,9 +62,10 @@ class AppReportController extends Controller
      * @param  \App\Models\AppReport  $appReport
      * @return \Illuminate\Http\Response
      */
-    public function show(AppReport $appReport)
+    public function show(AppReport $report)
     {
         //
+        return view('user_report.show', compact('report'));
     }
 
     /**
@@ -55,7 +74,7 @@ class AppReportController extends Controller
      * @param  \App\Models\AppReport  $appReport
      * @return \Illuminate\Http\Response
      */
-    public function edit(AppReport $appReport)
+    public function edit(AppReport $report)
     {
         //
     }
@@ -67,9 +86,22 @@ class AppReportController extends Controller
      * @param  \App\Models\AppReport  $appReport
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, AppReport $appReport)
+    public function update(Request $request, AppReport $report)
     {
         //
+        $request->validate([
+            'message' => 'required|string',
+            'subject' => 'required|string',
+        ]);
+        if ($report->user_id != Auth::user()->id) {
+            return back()->withErrors('Something went wrong.');
+        }
+        $report->subject = $request->subject;
+        $report->message = $request->message;
+        $report->save();
+
+        return redirect()->route('report.show', $report)
+            ->with('success', 'Successfully updated report.');
     }
 
     /**
@@ -78,8 +110,11 @@ class AppReportController extends Controller
      * @param  \App\Models\AppReport  $appReport
      * @return \Illuminate\Http\Response
      */
-    public function destroy(AppReport $appReport)
+    public function destroy(AppReport $report)
     {
         //
+        $report->delete();
+        return redirect()->route('report.index')
+            ->with('success', 'Successfully removed report.');
     }
 }

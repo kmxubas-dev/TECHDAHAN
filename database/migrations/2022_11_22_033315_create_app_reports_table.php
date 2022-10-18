@@ -15,6 +15,10 @@ class CreateAppReportsTable extends Migration
     {
         Schema::create('app_reports', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id');
+            $table->string('status');
+            $table->string('subject');
+            $table->text('message');
             $table->timestamps();
         });
     }

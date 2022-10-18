@@ -15,6 +15,8 @@ class CreateUsersWishlistsTable extends Migration
     {
         Schema::create('users_wishlists', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id');
+            $table->foreignId('gadget_id');
             $table->timestamps();
         });
     }

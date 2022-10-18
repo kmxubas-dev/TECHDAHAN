@@ -15,9 +15,9 @@ class CreateUsersGadgetsBidsTable extends Migration
     {
         Schema::create('users_gadgets_bids', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('gadget_id')->nullable();
-            $table->foreignId('user_id')->nullable();
-            $table->string('status');
+            $table->foreignId('gadget_id');
+            $table->foreignId('user_id');
+            $table->string('status')->nullable();
             $table->unsignedInteger('amount');
             $table->timestamps();
         });

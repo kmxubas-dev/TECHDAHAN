@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\UsersWishlist;
+use App\Models\UsersGadget;
 use Illuminate\Http\Request;
+
+use Illuminate\Support\Facades\Auth;
 
 class UsersWishlistController extends Controller
 {
@@ -15,6 +18,9 @@ class UsersWishlistController extends Controller
     public function index()
     {
         //
+        $wishlists = UsersWishlist::where('user_id', Auth::user()->id)
+            ->with('gadget')->get();
+        return view('user_wishlist.index', compact('wishlists'));
     }
 
     /**
@@ -78,8 +84,34 @@ class UsersWishlistController extends Controller
      * @param  \App\Models\UsersWishlist  $usersWishlist
      * @return \Illuminate\Http\Response
      */
-    public function destroy(UsersWishlist $usersWishlist)
+    public function destroy(UsersWishlist $wishlist)
     {
         //
+        $wishlist->delete();
+        return redirect()->route('wishlist.index')
+            ->with('success', 'Successfully removed from wishlist.');
+    }
+
+
+
+    // ==================================================
+    
+    public function add(Request $request, UsersGadget $gadget)
+    {
+        //
+        $wishlist_exist = UsersWishlist::where('user_id', Auth::user()->id)
+            ->where('gadget_id', $gadget->id)->count();
+
+        if ($wishlist_exist > 0) {
+            return back()->withErrors('Gadget already in the wishlist.');
+        }
+
+        $wishlist = new UsersWishlist;
+        $wishlist->user_id = Auth::user()->id;
+        $wishlist->gadget_id = $gadget->id;
+        $wishlist->save();
+
+        return redirect()->route('gadget.show', $gadget)
+            ->with('success', 'Gadget added to wishlist.');
     }
 }
