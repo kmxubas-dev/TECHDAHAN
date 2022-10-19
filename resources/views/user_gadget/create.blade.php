@@ -10,7 +10,7 @@
                 <div class="flex flex-col w-full">
                     <p class="mb-1 text-x text-blue-800 whitespace-nowrap truncate overflow-hidden">Hello,</p>
                     <div class="flex flex-row justify-between">
-                        <p class="relative text-xl whitespace-nowrap truncate overflow-hidden">{{ auth()->user()->name }}</p>
+                        <p class="relative text-xl whitespace-nowrap truncate overflow-hidden">{{ auth()->user()->name->full }}</p>
                         <a class="text-gray-500 text-xl" href="#"><i class="fa-solid fa-trash"></i></a>
                     </div>
                 </div>

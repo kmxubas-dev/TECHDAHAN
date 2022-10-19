@@ -26,7 +26,7 @@
 
                 <div class="p-2">
                     <div class="text-center">
-                        <p>{{ '@'.$gadget->seller->name }}</p>
+                        <p>{{ '@'.$gadget->seller->name->full }}</p>
                         <h5 class="mb-3 text-[#2557D6] text-xl font-bold tracking-tight multiline-ellipsis-2">
                             {{ $gadget->name }}
                         </h5>

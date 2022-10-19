@@ -20,39 +20,51 @@ class SeederUser extends Seeder
         //
         DB::table('users')->insert([
             'type' => 'admin',
-            'name' => 'Admin',
+            'name' => '{"full":"Admin Admin","fname":"Admin","lname":"Admin"}',
+            'phone' => '+639111111111',
+            'address' => 'Address',
             'email' => 'admin@gmail.com',
             'password' => Hash::make('password'),
         ]);
 
         DB::table('users')->insert([
             'type' => 'user',
-            'name' => 'Seller',
+            'name' => '{"full":"Zero Seller","fname":"Zero","lname":"Seller"}',
+            'phone' => '+639111111111',
+            'address' => 'Address',
             'email' => 'seller@gmail.com',
             'password' => Hash::make('password'),
         ]);
 
         DB::table('users')->insert([
             'type' => 'user',
-            'name' => 'User',
+            'name' => '{"full":"Zero User","fname":"Zero","lname":"User"}',
+            'phone' => '+639111111111',
+            'address' => 'Address',
             'email' => 'user@gmail.com',
             'password' => Hash::make('password'),
         ]);
         DB::table('users')->insert([
             'type' => 'user',
-            'name' => 'User1',
+            'name' => '{"full":"First User","fname":"First","lname":"User"}',
+            'phone' => '+639111111111',
+            'address' => 'Address',
             'email' => 'user1@gmail.com',
             'password' => Hash::make('password'),
         ]);
         DB::table('users')->insert([
             'type' => 'user',
-            'name' => 'User2',
+            'name' => '{"full":"Second User","fname":"Second","lname":"User"}',
+            'phone' => '+639111111111',
+            'address' => 'Address',
             'email' => 'user2@gmail.com',
             'password' => Hash::make('password'),
         ]);
         DB::table('users')->insert([
             'type' => 'user',
-            'name' => 'User3',
+            'name' => '{"full":"Third User","fname":"Third","lname":"User"}',
+            'phone' => '+639111111111',
+            'address' => 'Address',
             'email' => 'user3@gmail.com',
             'password' => Hash::make('password'),
         ]);

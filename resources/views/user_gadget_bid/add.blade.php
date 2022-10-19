@@ -27,7 +27,7 @@
                     <div class="flex flex-col">
                         <div href="#" class="flex-1 justify-center">
                             <div class="flex-1">
-                                <p>{{ '@'.auth()->user()->name }}</p>
+                                <p>{{ '@'.auth()->user()->name->full }}</p>
                             </div>
                             <div class="flex-1">
                                 <h5 class="text-lg font-bold tracking-tight multiline-ellipsis-2">

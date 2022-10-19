@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Auth;
 
 use App\Models\UsersGadget;
 use App\Http\Controllers\AppReportController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\UsersGadgetController;
 use App\Http\Controllers\UsersGadgetsBidController;
 use App\Http\Controllers\UsersGadgetsOfferController;
@@ -27,6 +28,14 @@ use App\Http\Controllers\UsersWishlistController;
 Route::get('/', function () {
     // return view('welcome');
     return redirect('/login');
+});
+
+
+Route::group(['middleware'=>['guest']], function() {
+    Route::get('user/register', [UserController::class, 'register'])
+        ->name('user.register');
+    Route::post('user/register', [UserController::class, 'register_post'])
+        ->name('user.register_post');
 });
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
