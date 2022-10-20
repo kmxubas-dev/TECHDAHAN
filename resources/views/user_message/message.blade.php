@@ -21,9 +21,9 @@
                     <h1 class="text-xl font-semibold capitalize">Message</h1>
                     <h5 class="font-semiblod capitalize">
                         @if ($group->seller->id == auth()->user()->id) 
-                            {{ $group->user->name }}
+                            {{ $group->user->name->full }}
                         @else
-                            {{ $group->seller->name }}
+                            {{ $group->seller->name->full }}
                         @endif
                     </h5>
                 </div>

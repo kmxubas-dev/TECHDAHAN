@@ -48,9 +48,9 @@
 
                     <div class="font-normal text-[#2557D6] mb-3">
                         @if ($transaction->buyer_id == auth()->user()->id)
-                            Sold by: <b>{{ '@'.$transaction->seller->name }}</b>
+                            Sold by: <b>{{ '@'.$transaction->seller->name->full }}</b>
                         @elseif ($transaction->seller_id == auth()->user()->id)
-                            Bought by: <b>{{ '@'.$transaction->buyer->name }}</b>
+                            Bought by: <b>{{ '@'.$transaction->buyer->name->full }}</b>
                         @endif
                     </div>
 

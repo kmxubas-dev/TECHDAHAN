@@ -25,10 +25,11 @@
                 <!-- component -->
                 <div class="flex justify-center" x-data="app justify-center ">
                     <section class="w-full lg:w-1/3 p-6 transform space-y-4 text-center">
+                        <h1 class="mb-5 text-4xl">Techdahan</h1>
                         <!-- register content -->
                         <form action="{{ route('user.register_post') }}" method="POST" class="space-y-3">
                             @csrf
-                            <header class="mb-3 text-2xl font-bold">Create your profile</header>
+                            <header class="mb-3 text-lg font-bold">Create your profile</header>
 
                             <!-- EMAIL -->
                             <div>

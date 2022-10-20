@@ -36,7 +36,7 @@
                                     {{ $offer->gadget->name  }}
                                 </p>
                                 <p class="text-lg text-[#2557D6] truncate dark:text-gray-400">
-                                    {{ $offer->user->name }}
+                                    {{ $offer->user->name->full }}
                                 </p>
                                 <p class="text-sm text-gray-500 truncate dark:text-gray-400">
                                     ₱{{ number_format($offer->amount, 2, ".", ",") }}

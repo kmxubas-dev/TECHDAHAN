@@ -4,47 +4,43 @@
 <section class="">
     <!-- Header -->
     <div>
-        <div class="relative grid grid-cols-1 gap-4 p-4 mb-3 bg-white shadow-lg">
+        <div class="relative grid grid-cols-1 gap-4 p-4 shadow-lg">
             <div class="relative flex gap-4">
-                <img src="https://icons.iconarchive.com/icons/diversity-avatars/avatars/256/charlie-chaplin-icon.png" class="relative rounded-lg bg-white border border-blue-800 h-14 w-14" alt="" loading="lazy">
-                <div class="flex flex-col w-full">
-                    <p class="mb-1 text-x text-blue-800 whitespace-nowrap truncate overflow-hidden">Hello,</p>
-                    <div class="flex flex-row justify-between">
-                        <p class="relative text-xl whitespace-nowrap truncate overflow-hidden">{{auth()->user()->name->full}}</p>
-                        <a class="text-gray-500 text-xl" href="#"><i class="fa-solid fa-trash"></i></a>
-                    </div>
+                <a href="{{ route('user.profile') }}">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="h-full" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M12 8a.5.5 0 0 1-.5.5H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5a.5.5 0 0 1 .5.5z"/>
+                    </svg>
+                </a>
+                <div class="flex flex-col">
+                    <h1 class="text-xl font-semibold capitalize">
+                        Settings
+                    </h1>
                 </div>
-            </div>
-
-            <div class="flex justify-between">
-                <button type="button" id="buyer" class="flex-1 text-white bg-[#2557D6] hover:bg-[#2557D6]/90 focus:ring-4 focus:ring-[#2557D6]/50 font-medium rounded-lg text-xs px-2 py-2 text-center items-center dark:focus:ring-[#2557D6]/50 mr-1">
-                    Buyer
-                </button>
-                <button type="button" id="seller" class="flex-1 text-white bg-[#2557D6] hover:bg-[#2557D6]/90 focus:ring-4 focus:ring-[#2557D6]/50 font-medium rounded-lg text-xs px-2 py-2 text-center items-center dark:focus:ring-[#2557D6]/50 mr-1">
-                    Seller
-                </button>
             </div>
         </div>
     </div>
 
     <!-- Content -->
-    <section class="items-center justify-center p-3">
-        <div id="buyer_wrapper">
-            <h2 class="text-xl mb-3 font-semibold text-gray-800 capitalize dark:text-white">Buyer</h2>
-    
+    <section class="items-center justify-center">
+        <div class="mb-3 bg-blue-600 shadow-lg rounded-b-3xl">
+            <div id="user_type" class="flex flex-col justify-center px-8 pt-5 pb-3 rounded-b-3xl bg-gray-100 space-y-3 click:bg-gray-300">
+                <div class="flex justify-center items-center space-x-5">
+                    <img src="https://api.lorem.space/image/face?w=120&h=120&hash=bart89fe" alt="User" class="h-12 w-12 rounded-full">
+                    <div class="flex-">
+                        <span class="text-xl font-bold">{{ auth()->user()->name->full }}</span>
+                    </div>
+                </div>
+                <p id="user_type___txt-sm" class="text-center">Click here for seller</p>
+            </div>
+            <div class="grid px-7 py-2  items-center justify-around gap-1 text-white divide-x divide-solid ">
+                <h5 id="user_type___txt"  class="text-center font-bold">Buyer</h5>
+            </div>
+        </div>
+
+        <div id="buyer_wrapper" class="p-5 pb-20">
             <div id="buyer " class="rounded-lg sm:p-8">
                 <div class="flow-root">
                     <ul role="list" class="">
-                        <li class="mb-4 text-white border-2 border-[#2557D6] rounded-lg hover:bg-[#2557D6]">
-                            <a href="{{ route('wishlist.index') }}" class="flex p-3 items-center space-x-4">
-                                <div class="flex-1 min-w-0">
-                                    <p class="text-lg font-medium text-[#2557D6] truncate hover:text-white">
-                                        My Wishlist
-                                    </p>
-                                </div>
-                            </a>
-                        </li>
-                        
                         <li class="mb-4 text-white border-2 border-[#2557D6] rounded-lg hover:bg-[#2557D6]">
                             <a href="" class="flex p-3 items-center space-x-4">
                                 <div class="flex-1 min-w-0">
@@ -117,10 +113,8 @@
             </div>
         </div>
 
-        <div id="seller_wrapper" class="hidden">
-            <h2 class="text-xl mb-3 font-semibold text-gray-800 capitalize dark:text-white">Seller</h2>
-
-            <div id="buyer " class="rounded-lg sm:p-8">
+        <div id="seller_wrapper" class="hidden p-5">
+            <div class="rounded-lg sm:p-8">
                 <div class="flow-root">
                     <ul role="list" class="">
                         <li class="mb-4 text-white border-2 border-[#2557D6] rounded-lg hover:bg-[#2557D6]">
@@ -192,13 +186,21 @@
 
 @section('scripts')
 <script>
-    document.querySelector("#buyer").addEventListener('click', (event) => {
-        document.querySelector("#buyer_wrapper").classList.remove('hidden');
-        document.querySelector("#seller_wrapper").classList.add('hidden');
-    });
-    document.querySelector("#seller").addEventListener('click', (event) => {
-        document.querySelector("#buyer_wrapper").classList.add('hidden');
-        document.querySelector("#seller_wrapper").classList.remove('hidden');
+    document.querySelector("#user_type").addEventListener('click', (event) => {
+        document.querySelector("#buyer_wrapper").classList.toggle('hidden');
+        document.querySelector("#seller_wrapper").classList.toggle('hidden');
+        document.querySelector("#user_type").classList.toggle('bg-gray-300');
+        setTimeout(() => {
+            document.querySelector("#user_type").classList.toggle('bg-gray-300');
+        }, 100);
+
+        if (document.querySelector("#user_type___txt").innerHTML === 'Buyer') {
+            document.querySelector("#user_type___txt-sm").innerHTML = 'Click here for Buyer';
+            document.querySelector("#user_type___txt").innerHTML = 'Seller';
+        } else {
+            document.querySelector("#user_type___txt-sm").innerHTML = 'Click here for Seller';
+            document.querySelector("#user_type___txt").innerHTML = 'Buyer';
+        }
     });
 </script>
 @endsection

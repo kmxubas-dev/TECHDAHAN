@@ -47,7 +47,7 @@
 
                     <p class="font-normal text-[#2557D6] mb-1">
                         @if(isset($offer) && $offer->user_id != auth()->user()->id)
-                            From: <b>{{ '@'.$offer->user->name }}</b>
+                            From: <b>{{ '@'.$offer->user->name->full }}</b>
                         @endif
                     </p>
                     <p class="font-normal text-[#2557D6] mb-1">

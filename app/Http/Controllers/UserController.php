@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\UsersGadget;
+use App\Models\UsersTransaction;
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\Auth;
@@ -58,9 +60,14 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(User $user)
     {
         //
+        if (!auth()->check()) return redirect()->route('login');
+        if ($user->id != Auth::user()->id)
+            return back()->withErrors('Something went wrong');
+
+        return view('user.profile_edit', compact('user'));
     }
 
     /**
@@ -70,9 +77,40 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, User $user)
     {
         //
+        if (!auth()->check()) return redirect()->route('login');
+        $request->validate([
+            'email' => 'required|unique:users,email,'.$user->id,
+            'username' => 'required|string',
+            'firstname' => 'required|string',
+            'lastname' => 'required|string',
+            'phone' => 'required|string',
+            'address' => 'required|string',
+        ]);
+
+        if (isset($request->password))
+            $request->validate(['password' => 'required|confirmed']);
+
+        if ($user->id != Auth::user()->id)
+            return back()->withErrors('Something went wrong');
+
+        $user->email = $request->email;
+        if (isset($request->password)) $user->password = Hash::make($request->password);
+        $user->name = (object)[
+            'full' => $request->firstname.' '.$request->lastname,
+            'fname' => $request->firstname,
+            'lname' => $request->lastname,
+        ];
+        $user->phone = $request->phone;
+        $user->address = $request->address;
+        $user->save();
+
+        Auth::login($user);
+
+        return redirect()->route('user.profile')
+            ->with('success', 'Successfully updated profile.');
     }
 
     /**
@@ -124,5 +162,13 @@ class UserController extends Controller
         Auth::login($user);
 
         // return view('user.auth.register');
+    }
+    
+    public function profile()
+    {
+        //
+        $gadgets_count = UsersGadget::where('user_id', Auth::user()->id)->count();
+        $transactions_count = UsersTransaction::where('seller_id', Auth::user()->id)->count();
+        return view('user.profile', compact('gadgets_count', 'transactions_count'));
     }
 }

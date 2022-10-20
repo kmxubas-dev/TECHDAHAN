@@ -41,14 +41,14 @@
                                 </p>
                                 <p class="text-lg text-[#2557D6] truncate dark:text-gray-400">
                                     @if ($group->seller->id == auth()->user()->id) 
-                                        {{ $group->user->name }}
+                                        {{ $group->user->name->full }}
                                     @else
-                                        {{ $group->seller->name }}
+                                        {{ $group->seller->name->full }}
                                     @endif
                                 </p>
                                 <p class="text-sm text-gray-500 truncate dark:text-gray-400">
                                     @isset($group->messages_latest)
-                                        {{ $group->messages_latest->user->name }}: {{ $group->messages_latest->message }}
+                                        {{ $group->messages_latest->user->name->full }}: {{ $group->messages_latest->message }}
                                     @endisset
                                 </p>
                             </div>
