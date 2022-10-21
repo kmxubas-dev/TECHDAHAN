@@ -3,47 +3,46 @@
 @section('main')
 <section class="">
     <!-- Header -->
-    <div>
-        <div class="relative grid grid-cols-1 gap-4 p-4 mb-3 bg-white shadow-lg">
-            <div class="relative flex gap-4">
-                <img src="https://icons.iconarchive.com/icons/diversity-avatars/avatars/256/charlie-chaplin-icon.png" class="relative rounded-lg bg-white border border-blue-800 h-14 w-14" alt="" loading="lazy">
-                <div class="flex flex-col w-full">
-                    <p class="mb-1 text-x text-blue-800 whitespace-nowrap truncate overflow-hidden">Hello,</p>
-                    <div class="flex flex-row justify-between">
-                        <p class="relative text-xl whitespace-nowrap truncate overflow-hidden">{{auth()->user()->name->full}}</p>
-                        <a class="text-gray-500 text-xl" href="#"><i class="fa-solid fa-trash"></i></a>
-                    </div>
+    <div class="mb-3 bg-blue-600 shadow-lg rounded-b-3xl">
+        <div id="user_type" class="flex flex-col justify-center px-8 py-5 rounded-b-3xl bg-gray-100 space-y-3 click:bg-gray-300">
+            <div class="flex justify-center items-center space-x-5">
+                <img src="https://api.lorem.space/image/face?w=120&h=120&hash=bart89fe" alt="User" class="h-12 w-12 rounded-full">
+                <div class="flex-">
+                    <span class="text-xl font-bold">{{ auth()->user()->name->full }}</span>
                 </div>
             </div>
-
-            <div class="flex justify-between">
-                <button type="button" class="flex-1 text-white bg-[#2557D6] hover:bg-[#2557D6]/90 focus:ring-4 focus:ring-[#2557D6]/50 font-medium rounded-lg text-xs px-2 py-2 text-center items-center dark:focus:ring-[#2557D6]/50 mr-1">
-                    Featured Seller
-                </button>
-                <button type="button" class="flex-1 text-white bg-[#2557D6] hover:bg-[#2557D6]/90 focus:ring-4 focus:ring-[#2557D6]/50 font-medium rounded-lg text-xs px-2 py-2 text-center items-center dark:focus:ring-[#2557D6]/50 mr-1">
-                    Nearby Gadgets
-                </button>
-                <button type="button" class="flex-1 text-white bg-[#2557D6] hover:bg-[#2557D6]/90 focus:ring-4 focus:ring-[#2557D6]/50 font-medium rounded-lg text-xs px-2 py-2 text-center items-center dark:focus:ring-[#2557D6]/50 mr-1">
-                    Watch List
-                </button>
+        </div>
+        <div class="grid px-7 py-2  items-center justify-around grid-cols-3 gap-1 text-white divide-x divide-solid ">
+            <div class="col-span-1  px-3 flex flex-col items-center text-center">
+                <span class=" font-bold">Featured<br> Seller</span>
+                <span class="text font-medium 0"></span>
+            </div>
+            <div class="col-span-1 flex items-center">
+                <a href="{{ route('user.edit', auth()->user()) }}" class="flex flex-col w-full text-center">
+                    <span class="text- font-bold font-medium 0">Nearby Gadgets</span>
+                </a>
+            </div>
+            <div class="col-span-1 h-full px-3 flex flex-col items-center text-center">
+                <span class=" font-bold">My <br> Wishlist</span>
+                <span class="text font-medium 0"></span>
             </div>
         </div>
     </div>
     
     <!-- Content -->
-    <section class="">
-        <div class="container px-3 py-3 pb-20 mx-auto">
-            <h1 class="text-xl font-semibold text-gray-800 capitalize lg:text-4xl dark:text-white">Gadgets</h1>
+    <section class="rounded-tl-xl rounded-tr-xl">
+        <div class="container px-3 pt-5 pb-20 mx-auto bg-blue-400 rounded-tl-xl rounded-tr-xl" style="min-height:800px">
+            <h1 class="text-xl font-semibold text-white capitalize lg:text-4xl">Gadgets</h1>
 
             <div class="grid grid-cols-2 gap-3 mt-3 md:grid-cols-3">
                 @foreach ($gadgets as $gadget)
-                <a href="{{ route('gadget.show', $gadget->id) }}" class="bg-white shadow-md border border-gray-200 rounded-lg max-w-sm dark:bg-gray-800 dark:border-gray-700">
+                <a href="{{ route('gadget.show', $gadget->id) }}" class="bg-white shadow-lg border border-gray-200 rounded-lg max-w-sm dark:bg-gray-800 dark:border-gray-700">
                     <div href="#">
                         <img class="rounded-t-lg" src="{{ asset($gadget->img) }}" alt="">
                     </div>
                     <div class="p-2">
                         <div href="#">
-                            <h5 class="text-gray-900 font-bold tracking-tight mb-1 dark:text-white multiline-ellipsis-2">
+                            <h5 class="text-gray-900 font-bold tracking-tight mb-1 multiline-ellipsis-2">
                                 {{ $gadget->name }}
                             </h5>
                         </div>

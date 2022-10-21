@@ -40,62 +40,52 @@
         <div id="buyer_wrapper" class="p-5 pb-20">
             <div id="buyer " class="rounded-lg sm:p-8">
                 <div class="flow-root">
-                    <ul role="list" class="">
-                        <li class="mb-4 text-white border-2 border-[#2557D6] rounded-lg hover:bg-[#2557D6]">
-                            <a href="" class="flex p-3 items-center space-x-4">
-                                <div class="flex-1 min-w-0">
-                                    <p class="text-lg font-medium text-[#2557D6] truncate hover:text-white">
-                                        Payment Methods
-                                    </p>
-                                </div>
+                    <ul role="list" class="flex flex-col space-y-3">
+                        <li class="text-white rounded-xl bg-blue-600 shadow-xl">
+                            <a href="" class="flex py-3 px-5 items-center space-x-4">
+                                <p class="text-lg font-medium truncate hover:text-white font-bold">
+                                    Payment Methods
+                                </p>
                             </a>
                         </li>
 
-                        <li class="mb-4 text-white border-2 border-[#2557D6] rounded-lg hover:bg-[#2557D6]">
-                            <a href="{{ route('message_group.index') }}" class="flex p-3 items-center space-x-4">
-                                <div class="flex-1 min-w-0">
-                                    <p class="text-lg font-medium text-[#2557D6] truncate hover:text-white">
-                                        Messages
-                                    </p>
-                                </div>
+                        <li class="text-white rounded-xl bg-blue-600 shadow-xl">
+                            <a href="{{ route('message_group.index') }}" class="flex py-3 px-5 items-center space-x-4">
+                                <p class="text-lg font-medium truncate hover:text-white font-bold">
+                                    Messages
+                                </p>
                             </a>
                         </li>
 
-                        <li class="mb-4 text-white border-2 border-[#2557D6] rounded-lg hover:bg-[#2557D6]">
-                            <a href="{{ route('transaction.index', ['type' => 'buyer']) }}" class="flex p-3 items-center space-x-4">
-                                <div class="flex-1 min-w-0">
-                                    <p class="text-lg font-medium text-[#2557D6] truncate hover:text-white">
-                                        My Transactions
-                                    </p>
-                                </div>
+                        <li class="text-white rounded-xl bg-blue-600 shadow-xl">
+                            <a href="{{ route('transaction.index', ['type' => 'buyer']) }}" class="flex py-3 px-5 items-center space-x-4">
+                                <p class="text-lg font-medium truncate hover:text-white font-bold">
+                                    My Transactions
+                                </p>
                             </a>
                         </li>
 
-                        <li class="mb-4 text-white border-2 border-[#2557D6] rounded-lg hover:bg-[#2557D6]">
-                            <a href="{{ route('gadget_offer.index', ['type' => 'buyer']) }}" class="flex p-3 items-center space-x-4">
-                                <div class="flex-1 min-w-0">
-                                    <p class="text-lg font-medium text-[#2557D6] truncate hover:text-white">
-                                        My Offers
-                                    </p>
-                                </div>
+                        <li class="text-white rounded-xl bg-blue-600 shadow-xl">
+                            <a href="{{ route('gadget_offer.index', ['type' => 'buyer']) }}" class="flex py-3 px-5 items-center space-x-4">
+                                <p class="text-lg font-medium truncate hover:text-white font-bold">
+                                    My Offers
+                                </p>
                             </a>
                         </li>
 
-                        <li class="mb-4 text-white border-2 border-[#2557D6] rounded-lg hover:bg-[#2557D6]">
-                            <a href="{{ route('report.index', ['type' => 'buyer']) }}" class="flex p-3 items-center space-x-4">
-                                <div class="flex-1 min-w-0">
-                                    <p class="text-lg font-medium text-[#2557D6] truncate hover:text-white">
-                                        My Disputes
-                                    </p>
-                                </div>
+                        <li class="text-white rounded-xl bg-blue-600 shadow-xl">
+                            <a href="{{ route('report.index', ['type' => 'buyer']) }}" class="flex py-3 px-5 items-center space-x-4">
+                                <p class="text-lg font-medium truncate hover:text-white font-bold">
+                                    My Disputes
+                                </p>
                             </a>
                         </li>
                         
-                        <li class="mb-4 text-white border-2 border-[#2557D6] rounded-lg hover:bg-[#2557D6]">
+                        <li class="text-white rounded-xl bg-blue-600 shadow-xl">
                             <form method="POST" action="{{ route('logout') }}" class="flex items-center">
                                 @csrf
                                 {{-- <div class="flex-1 min-w-0"> --}}
-                                <a class="w-full p-3 text-lg font-medium text-[#2557D6] truncate hover:text-white" href="http://techdahan.test/logout" onclick="event.preventDefault(); this.closest('form').submit();">Log Out</a>
+                                <a class="py-3 px-5 text-lg font-medium truncate hover:text-white font-bold" href="http://techdahan.test/logout" onclick="event.preventDefault(); this.closest('form').submit();">Log Out</a>
                                 {{-- </div> --}}
                             </form>
     

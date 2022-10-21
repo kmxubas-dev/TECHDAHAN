@@ -71,13 +71,19 @@ class UsersGadget extends Model
         return $this->hasMany(UsersGadgetsBid::class, 'gadget_id', 'id');
     }
 
+    public function ratings()
+    {
+        return $this->hasMany(UsersGadgetsRating::class, 'gadget_id', 'id');
+    }
+
 
 
 
     /**
      * Helper methods.
      */
-    function getElapsedTime($datetime, $format = '') {
+    function getElapsedTime($datetime, $format = '')
+    {
         // '%y years, %m months, %d days, %h hours and %i minutes ago'
         $now = new \DateTime;
         $ago = new \DateTime($datetime);
@@ -95,5 +101,14 @@ class UsersGadget extends Model
         }
 
         return $diff->format($format);
+    }
+
+    function getAverage()
+    {
+        // WEIGHTED AVERAGE
+        if ($this->ratings->count() != 0)
+            return $this->ratings->sum('rate')/$this->ratings->count();
+        else
+            return 0;
     }
 }

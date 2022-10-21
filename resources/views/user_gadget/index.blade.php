@@ -3,25 +3,25 @@
 @section('main')
 <section class="">
     <!-- Header -->
-    <div>
-        <div class="relative grid grid-cols-1 gap-4 p-4 mb-3 bg-white shadow-lg">
+    <div class="bg-blue-600 rounded-bl-xl rounded-br-xl text-white">
+        <div class="relative grid grid-cols-1 gap-4 p-4 shadow-lg">
             <div class="relative flex gap-4">
-                <img src="https://icons.iconarchive.com/icons/diversity-avatars/avatars/256/charlie-chaplin-icon.png" class="relative rounded-lg bg-white border border-blue-800 h-14 w-14" alt="" loading="lazy">
-                <div class="flex flex-col w-full">
-                    <p class="mb-1 text-x text-blue-800 whitespace-nowrap truncate overflow-hidden">Hello,</p>
-                    <div class="flex flex-row justify-between">
-                        <p class="relative text-xl whitespace-nowrap truncate overflow-hidden">{{ auth()->user()->name->full }}</p>
-                        <a class="text-gray-500 text-xl" href="#"><i class="fa-solid fa-trash"></i></a>
-                    </div>
+                <a href="{{ route('user.profile') }}">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="h-full" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M12 8a.5.5 0 0 1-.5.5H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5a.5.5 0 0 1 .5.5z"/>
+                    </svg>
+                </a>
+                <div class="flex flex-col">
+                    <h1 class="text-xl font-semibold capitalize">
+                        My gadgets
+                    </h1>
                 </div>
             </div>
         </div>
     </div>
 
     <!-- Content -->
-    <section class="items-center justify-center p-3">
-        <h1 class="text-xl mb-3 font-semibold text-gray-800 capitalize dark:text-white">Gadget Listing</h1>
-
+    <section class="items-center justify-center px-5 py-8">
         <div class="rounded-lg pb-14">
             <div class="flow-root">
                 <ul role="list" class="divide-y divide-gray-200 dark:divide-gray-700">

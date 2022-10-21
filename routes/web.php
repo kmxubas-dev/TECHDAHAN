@@ -9,6 +9,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\UsersGadgetController;
 use App\Http\Controllers\UsersGadgetsBidController;
 use App\Http\Controllers\UsersGadgetsOfferController;
+use App\Http\Controllers\UsersGadgetsRatingController;
 use App\Http\Controllers\UsersMessagesGroupController;
 use App\Http\Controllers\UsersMessageController;
 use App\Http\Controllers\UsersTransactionController;
@@ -94,8 +95,16 @@ Route::group(['prefix'=>'', 'as'=>'', 'middleware'=>['auth:sanctum']], function 
     Route::post('message_group/{group}/message', [UsersMessageController::class, 'add'])
         ->name('message_group.message.add');
 
+    // GADGET WISHLIST
     Route::post('gadget/{gadget}/wishlist', [UsersWishlistController::class, 'add'])
         ->name('gadget.wishlist.add');
+
+    // GADGET RATING
+    Route::resource('rating', UsersGadgetsRatingController::class);
+    Route::get('gadget/{gadget}/rating', [UsersGadgetsRatingController::class, 'rate'])
+        ->name('gadget.rating.rate');
+    Route::post('gadget/{gadget}/rating', [UsersGadgetsRatingController::class, 'rate_post'])
+        ->name('gadget.rating.rate_post');
 
     Route::resource('report', AppReportController::class);
     Route::resource('wishlist', UsersWishlistController::class);

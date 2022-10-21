@@ -3,26 +3,22 @@
 @section('main')
 <section class="">
     <!-- Header -->
-    <div>
-        <div class="relative grid grid-cols-1 gap-4 p-4 mb-3 bg-white shadow-lg">
-            <div class="relative flex gap-4">
-                <img src="https://icons.iconarchive.com/icons/diversity-avatars/avatars/256/charlie-chaplin-icon.png" class="relative rounded-lg bg-white border border-blue-800 h-14 w-14" alt="" loading="lazy">
-                <div class="flex flex-col w-full">
-                    <p class="mb-1 text-x text-blue-800 whitespace-nowrap truncate overflow-hidden">Hello,</p>
-                    <div class="flex flex-row justify-between">
-                        <p class="relative text-xl whitespace-nowrap truncate overflow-hidden">{{ auth()->user()->name->full }}</p>
-                        <a class="text-gray-500 text-xl" href="#"><i class="fa-solid fa-trash"></i></a>
-                    </div>
+    <div class="mb-3 bg-blue-600 shadow-lg rounded-b-3xl">
+        <div id="user_type" class="flex flex-col justify-center px-8 py-5 rounded-b-3xl bg-gray-100 space-y-3 click:bg-gray-300">
+            <div class="flex justify-center items-center space-x-5">
+                <img src="https://api.lorem.space/image/face?w=120&h=120&hash=bart89fe" alt="User" class="h-12 w-12 rounded-full">
+                <div class="flex-">
+                    <span class="text-xl font-bold">{{ auth()->user()->name->full }}</span>
                 </div>
             </div>
+        </div>
+        <div class="grid px-7 py-2  items-center justify-around gap-1 text-white divide-x divide-solid ">
+            <h5 class="text-center font-bold">Add Gadget</h5>
         </div>
     </div>
     
     <!-- Content -->
-    <section class="items-center justify-center p-3">
-        <h1 class="text-xl mb-3 font-semibold text-gray-800 capitalize dark:text-white">Create Gadget Listing</h1>
-        <!-- Author: FormBold Team -->
-        <!-- Learn More: https://formbold.com -->
+    <section class="items-center justify-center p-5">
         <div class="mx-auto w-full max-w-[550px]">
             <form action="{{route('gadget.store')}}" method="POST" enctype="multipart/form-data">
                 @csrf
