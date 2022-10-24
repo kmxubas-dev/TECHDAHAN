@@ -7,6 +7,7 @@ use App\Models\UsersGadget;
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Http;
 
 class UsersTransactionController extends Controller
 {
@@ -94,8 +95,59 @@ class UsersTransactionController extends Controller
 
 
     // ==================================================
+    public function payment_status(Request $request, UsersTransaction $transaction)
+    {
+        //
+        $request->validate(['status'=>'required|string|in:success,failed']);
+        if ($transaction->payment->status == 'pending') {
+            $transaction->payment =  (object)[
+                'id' => $transaction->payment->id,
+                'status' => $request->status,
+                'method' => $transaction->payment->method,
+                'type' => $transaction->payment->type,
+                'checkout_url' => $transaction->payment->checkout_url
+            ];
+            $transaction->save();
 
-    public function transaction(Request $request, UsersGadget $gadget)
+            if ($request->status == 'success') {
+                if ($transaction->payment->method) {
+                    $response = Http::withBody(
+                        '{
+                            "data":{
+                                "attributes":{
+                                    "amount":'.($transaction->price*100).',
+                                    "source":{
+                                        "id":"'.$transaction->payment->id.'",
+                                        "type":"source"
+                                    },
+                                    "currency":"PHP",
+                                    "description":"'.$transaction->code.'"
+                                }
+                            }
+                        }',
+                        'application/json'
+                    )
+                    ->accept('application/json')
+                    ->withBasicAuth('sk_test_JA2xSVCAPbUNXaa1uWajZQnc', '')
+                    ->post('https://api.paymongo.com/v1/payments');
+                }
+
+                $transaction->gadget->decrement('qty');
+                if ($transaction->method == 'offer') {
+                    $transaction->offer->status = 'successful';
+                    $transaction->offer->save();
+                }
+            } else {
+                $transaction->delete();
+            }
+
+            return view('user_transaction.show_payment_status', compact('transaction'));
+        } else {
+            return back()->withErrors('Something went wrong.');
+        }
+    }
+
+    public function transaction_post(Request $request, UsersGadget $gadget)
     {
         //
         $request->validate([
@@ -131,22 +183,58 @@ class UsersTransactionController extends Controller
         $transaction->info = $gadget;
         $transaction->price = $price;
         $transaction->method = $request->method;
-        $transaction->payment = $request->payment;
-        $transaction->payment_amount = $request->payment_amount; 
+        $transaction->payment = (object)[
+            'id' => null,
+            'status' => 'pending',
+            'method' => $request->payment,
+            'type' => $request->payment_amount,
+            'checkout_url' => null
+        ];
         $transaction->bid_id = $bid->id;
         $transaction->offer_id = $offer->id;
         $transaction->gadget_id = $gadget->id;
         $transaction->seller_id = $gadget->user_id;
         $transaction->buyer_id = Auth::user()->id;
         $transaction->save();
-        $gadget->decrement('qty');
 
-        if ($request->method == 'offer') {
-            $offer->status = 'successful';
-            $offer->save();
+        if ($request->payment == 'gcash') {
+            $response = Http::withBody(
+                '{
+                    "data": {
+                        "attributes": {
+                            "amount":'.($price*100).',
+                            "redirect": {
+                                "success":"'.route('transaction.payment_status', [$transaction, 'status'=>'success']).'",
+                                "failed":"'.route('transaction.payment_status', [$transaction, 'status'=>'failed']).'"
+                            },
+                        "type":"gcash",
+                        "currency":"PHP"
+                        }
+                    }
+                }',
+                'application/json'
+            )
+            ->accept('application/json')
+            ->withBasicAuth('sk_test_JA2xSVCAPbUNXaa1uWajZQnc', '')
+            ->post('https://api.paymongo.com/v1/sources');
+
+            $request_url = $response->object()->data->attributes->redirect->checkout_url;
+
+            $transaction->payment = (object)[
+                'id' => $response->object()->data->id,
+                'status' => $transaction->payment->status,
+                'method' => $transaction->payment->method,
+                'type' => $transaction->payment->type,
+                'checkout_url' => $request_url
+            ];
+            $transaction->save();
+        } else {
+            $request_url = route('transaction.payment_status',
+                [$transaction, 'status'=>'success']);
         }
 
-        return redirect()->route('transaction.show', $transaction)
-            ->with('success', 'Successfully purchased product.');
+        return response()->json([
+            'link' => $request_url
+        ]);
     }
 }

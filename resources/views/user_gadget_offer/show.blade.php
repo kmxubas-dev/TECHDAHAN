@@ -3,9 +3,9 @@
 @section('main')
 <section class="">
     <!-- Header -->
-    <div>
-        <div class="relative grid grid-cols-1 gap-4 p-4 bg-white shadow-lg">
-            <div class="relative flex gap-4 text-[#2557D6]">
+    <div class="bg-blue-600 rounded-bl-xl rounded-br-xl text-white">
+        <div class="relative grid grid-cols-1 gap-4 p-4 shadow-lg">
+            <div class="relative flex gap-4">
                 <a href="
                     @if (isset($offer))
                         @if ($offer->user_id == auth()->user()->id)
@@ -123,7 +123,7 @@
                             Your offer - <b class="text-green-600">Accepted</b>
                         </h5>
 
-                        <form action="{{ route('gadget.transaction', $gadget) }}" method="POST">
+                        <form action="{{ route('gadget.transaction_post', $gadget) }}" method="POST" id="transaction_form">
                             @csrf
                             <input type="hidden" name="method" value="offer">
                             <input type="hidden" name="code" value="{{ '#22'.strtoupper(substr(md5(microtime()),rand(0,26),6)).'TD' }}">
@@ -227,26 +227,48 @@
         -webkit-box-orient: vertical;
         overflow: hidden;
     }
-
-    .gadget-li {
-        border-width: 2px;
-        border-color: #2557D6;
-    }
 </style>
 @endsection
 
 @section('scripts')
 <script>
-    document.querySelector("#payment1").addEventListener('click', (event) => {
-        if (event.target && event.target.matches("input[type='radio']")) {
-            document.querySelector("#amount2").checked = false;
-            document.querySelector("#amount2").disabled = true;
-        }
+    var input_method1 = document.querySelector("#payment1");
+    var input_method2 = document.querySelector("#payment2");
+    var input_type1 = document.querySelector("#amount1");
+    var input_type2 = document.querySelector("#amount2");
+
+    input_method1.addEventListener('click', (event) => {
+        input_type2.checked = false;
+        input_type2.disabled = true;
     });
-    document.querySelector("#payment2").addEventListener('click', (event) => {
-        if (event.target && event.target.matches("input[type='radio']")) {
-            document.querySelector("#amount2").disabled = false;
-        }
+    input_method2.addEventListener('click', (event) => {
+        input_type2.disabled = false;
+    });
+
+    document.querySelector('#transaction_form').addEventListener('submit', (event) => {
+        event.preventDefault();
+        let body = {};
+        body.code = document.querySelector('input[name="code"]').value;
+        body.method = document.querySelector('input[name="method"]').value;
+        body.payment = (input_method1.checked) ? input_method1.value:input_method2.value;
+        body.payment_amount = (input_type1.checked) ? input_type1.value:input_type2.value;
+
+        const options = {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+            },
+            body: JSON.stringify(body)
+        };
+        fetch('{!! route('gadget.transaction_post', $gadget) !!}', options)
+            .then(response => response.json())
+            .then(response => {
+                window.location.href = response.link;
+            })
+            .catch(err => console.error(err));
     });
 </script>
 @endsection
+

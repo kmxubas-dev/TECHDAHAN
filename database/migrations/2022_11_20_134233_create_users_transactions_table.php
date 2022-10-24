@@ -20,7 +20,6 @@ class CreateUsersTransactionsTable extends Migration
             $table->unsignedInteger('price');
             $table->string('method');
             $table->string('payment');
-            $table->string('payment_amount');
             $table->foreignId('bid_id')->nullable();
             $table->foreignId('offer_id')->nullable();
             $table->foreignId('gadget_id');

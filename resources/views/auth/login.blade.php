@@ -109,16 +109,5 @@
                 </div>
             </main>
         </div>
-
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.19/js/intlTelInput.min.js" integrity="sha512-+gShyB8GWoOiXNwOlBaYXdLTiZt10Iy6xjACGadpqMs20aJOoh+PJt3bwUVA6Cefe7yF7vblX6QwyXZiVwTWGg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-        <script>
-          var input = document.querySelector("#phone");
-          window.intlTelInput(input, {
-            // any initialisation options go here
-            initialCountry: 'ph',
-            onlyCountries: ['ph'],
-            customContainer: 'w-full my-1',
-          });
-        </script>
     </body>
 </html>

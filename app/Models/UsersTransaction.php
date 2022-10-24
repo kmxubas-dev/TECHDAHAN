@@ -22,7 +22,6 @@ class UsersTransaction extends Model
         'price',
         'method',
         'payment',
-        'payment_amount',
         'bid_id',
         'offer_id',
         'gadget_id',
@@ -37,6 +36,7 @@ class UsersTransaction extends Model
      */
     protected $casts = [
         'info' => 'object',
+        'payment' => 'object',
     ];
 
 
@@ -51,5 +51,20 @@ class UsersTransaction extends Model
     public function buyer()
     {
         return $this->belongsTo(User::class, 'buyer_id', 'id');
+    }
+
+    public function gadget()
+    {
+        return $this->belongsTo(UsersGadget::class, 'gadget_id', 'id');
+    }
+
+    public function offer()
+    {
+        return $this->hasOne(UsersGadgetsOffer::class, 'id', 'offer_id');
+    }
+
+    public function bid()
+    {
+        return $this->hasOne(UsersGadgetsBid::class, 'id', 'bid_id');
     }
 }

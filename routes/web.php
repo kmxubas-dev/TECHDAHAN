@@ -53,6 +53,8 @@ Route::get('/home', function () {
 
 
 Route::resource('user', UserController::class);
+Route::delete('user/{user}', [UserController::class, 'destroy'])
+    ->name('user.destroy')->middleware('password.confirm');;
 Route::group(['prefix'=>'', 'as'=>'', 'middleware'=>['auth:sanctum']], function () {
     Route::get('/index', function () {
         $gadgets = UsersGadget::where('user_id', '!=', Auth::user()->id)
@@ -68,8 +70,10 @@ Route::group(['prefix'=>'', 'as'=>'', 'middleware'=>['auth:sanctum']], function 
 
     // GADGET TRANSACTION
     Route::resource('transaction', UsersTransactionController::class);
+    Route::get('transaction/{transaction}/payment_status',[UsersTransactionController::class,
+        'payment_status'])->name('transaction.payment_status');
     Route::post('gadget/{gadget}/transaction',[UsersTransactionController::class,
-        'transaction'])->name('gadget.transaction');
+        'transaction_post'])->name('gadget.transaction_post');
 
     // GADGET OFFER
     Route::resource('gadget_offer', UsersGadgetsOfferController::class);

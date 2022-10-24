@@ -3,9 +3,9 @@
 @section('main')
 <section class="">
     <!-- Header -->
-    <div>
-        <div class="relative grid grid-cols-1 gap-4 p-4 bg-white shadow-lg">
-            <div class="relative flex gap-4 text-[#2557D6]">
+    <div class="bg-blue-600 rounded-bl-xl rounded-br-xl text-white">
+        <div class="relative grid grid-cols-1 gap-4 p-4 shadow-lg">
+            <div class="relative flex gap-4">
                 <a href="
                     @if ($transaction->buyer_id == auth()->user()->id)
                         {{ route('transaction.index', ['type' => 'buyer']) }}
@@ -79,7 +79,7 @@
                             Payment Method:
                         </p>
                         <p class="font-normal text-[#2557D6] mb-1">
-                            <b>{{ ucfirst($transaction->payment).' - '.ucfirst($transaction->payment_amount) }}</b>
+                            <b>{{ ucfirst($transaction->payment->method).' - '.ucfirst($transaction->payment->type) }}</b>
                         </p>
                     </div>
 
@@ -94,7 +94,7 @@
                 </div>
             </div>
 
-            @if ($transaction->payment_amount == 'installment')
+            @if ($transaction->payment->type == 'installment')
                 <div class="w-full mb-5 p-4 bg-white shadow-md rounded-lg">
                     <div class="p-2">
                         <div class="text-center">
@@ -146,26 +146,5 @@
         -webkit-box-orient: vertical;
         overflow: hidden;
     }
-
-    .gadget-li {
-        border-width: 2px;
-        border-color: #2557D6;
-    }
 </style>
-@endsection
-
-@section('scripts')
-<script>
-    document.querySelector("#payment1").addEventListener('click', (event) => {
-        if (event.target && event.target.matches("input[type='radio']")) {
-            document.querySelector("#amount2").checked = false;
-            document.querySelector("#amount2").disabled = true;
-        }
-    });
-    document.querySelector("#payment2").addEventListener('click', (event) => {
-        if (event.target && event.target.matches("input[type='radio']")) {
-            document.querySelector("#amount2").disabled = false;
-        }
-    });
-</script>
 @endsection

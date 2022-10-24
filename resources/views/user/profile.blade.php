@@ -76,9 +76,9 @@
                 </div>
             </div>
 
-            <div class="w-full bg-blue-100 shadow-inner">
+            <div class="w-full bg-gray-300 shadow-inner">
                 <div class="w-full flex flex-col items-center overflow-hidden">
-                    <a href="#" class="flex gap-3 w-full py-4 pl-6 pr-3 border-t border-gray-100 text-gray-600 hover:bg-gray-100 transition duration-150">
+                    <a class="flex gap-3 w-full py-4 pl-6 pr-3 text-gray-800 transition duration-150">
                         <div class="w-10">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="w-full h-6" viewBox="0 0 16 16">
                                 <path d="M2 2A2 2 0 0 0 .05 3.555L8 8.414l7.95-4.859A2 2 0 0 0 14 2H2Zm-2 9.8V4.698l5.803 3.546L0 11.801Zm6.761-2.97-6.57 4.026A2 2 0 0 0 2 14h6.256A4.493 4.493 0 0 1 8 12.5a4.49 4.49 0 0 1 1.606-3.446l-.367-.225L8 9.586l-1.239-.757ZM16 9.671V4.697l-5.803 3.546.338.208A4.482 4.482 0 0 1 12.5 8c1.414 0 2.675.652 3.5 1.671Z"/>
@@ -89,7 +89,7 @@
                         {{-- <span class="text-gray-500 text-xs">24 min ago</span> --}}
                     </a>
 
-                    <a href="#" class="flex gap-3 w-full py-4 pl-6 pr-3 border-t border-gray-100 text-gray-600 hover:bg-gray-100 transition duration-150">
+                    <a class="flex gap-3 w-full py-4 pl-6 pr-3 text-gray-800 transition duration-150">
                         <div class="w-10 text-center">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="w-full h-6" viewBox="0 0 16 16">
                                 <path fill-rule="evenodd" d="M1.885.511a1.745 1.745 0 0 1 2.61.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.678.678 0 0 0 .178.643l2.457 2.457a.678.678 0 0 0 .644.178l2.189-.547a1.745 1.745 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.634 18.634 0 0 1-7.01-4.42 18.634 18.634 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877L1.885.511z"/>
@@ -99,7 +99,7 @@
                         {{-- <span class="text-gray-500 text-xs">24 min ago</span> --}}
                     </a>
 
-                    <a href="#" class="flex gap-3 w-full py-4 pl-6 pr-3 border-t border-gray-100 text-gray-600 hover:bg-gray-100 transition duration-150">
+                    <a class="flex gap-3 w-full py-4 pl-6 pr-3 text-gray-800 transition duration-150">
                         <div class="w-10 text-center">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="w-full h-6" viewBox="0 0 16 16">
                                 <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/>
@@ -111,36 +111,36 @@
                 </div>
             </div>
 
-            <div class="my-5 grid rounded-2xl divide-y divide-dashed hover:divide-solid justify-evenly bg-gray-50 dark:bg-gray-300 grid-cols-3">
-                <div class="col-span-1  p-3">
+            <div class="my-3 grid rounded-2xl justify-evenly grid-cols-3">
+                <a href="{{ route('gadget.index') }}" class="col-span-1  p-3">
                     <div class="flex flex-col items-center ">
-                        <a href="{{ route('gadget.index') }}" class="text-center">
+                        <div class="text-center">
                             <button class="flex flex-col">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="w-full h-10 text-gray-500" viewBox="0 0 16 16">
                                     <path d="M7.752.066a.5.5 0 0 1 .496 0l3.75 2.143a.5.5 0 0 1 .252.434v3.995l3.498 2A.5.5 0 0 1 16 9.07v4.286a.5.5 0 0 1-.252.434l-3.75 2.143a.5.5 0 0 1-.496 0l-3.502-2-3.502 2.001a.5.5 0 0 1-.496 0l-3.75-2.143A.5.5 0 0 1 0 13.357V9.071a.5.5 0 0 1 .252-.434L3.75 6.638V2.643a.5.5 0 0 1 .252-.434L7.752.066ZM4.25 7.504 1.508 9.071l2.742 1.567 2.742-1.567L4.25 7.504ZM7.5 9.933l-2.75 1.571v3.134l2.75-1.571V9.933Zm1 3.134 2.75 1.571v-3.134L8.5 9.933v3.134Zm.508-3.996 2.742 1.567 2.742-1.567-2.742-1.567-2.742 1.567Zm2.242-2.433V3.504L8.5 5.076V8.21l2.75-1.572ZM7.5 8.21V5.076L4.75 3.504v3.134L7.5 8.21ZM5.258 2.643 8 4.21l2.742-1.567L8 1.076 5.258 2.643ZM15 9.933l-2.75 1.571v3.134L15 13.067V9.933ZM3.75 14.638v-3.134L1 9.933v3.134l2.75 1.571Z"/>
                                 </svg>
                                 <span class="mt-1 text-lg font-medium">My Gadgets</span>
                             </button>
-                        </a>
+                        </div>
                     </div>
-                </div>
+                </a>
                 
-                <div class="col-span-1  p-3">
+                <a href="{{ route('wishlist.index') }}" class="col-span-1  p-3">
                     <div class="flex flex-col items-center ">
-                        <a href="{{ route('wishlist.index') }}" class="text-center">
+                        <div class="text-center">
                             <button class="flex flex-col">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="w-full h-10 text-gray-500" viewBox="0 0 16 16">
                                     <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"/>
                                 </svg>
                                 <span class="mt-1 text-lg font-medium">Wishlist</span>
                             </button>
-                        </a>
+                        </div>
                     </div>
-                </div>
+                </a>
 
-                <div class="col-span-1  p-3">
+                <a href="{{ route('user.settings') }}" class="col-span-1  p-3">
                     <div class="flex flex-col items-center ">
-                        <a href="{{ route('user.settings') }}" class="text-center">
+                        <div class="text-center">
                             <button class="flex flex-col">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="w-full h-10 text-gray-500" viewBox="0 0 16 16">
                                     <path d="M8 4.754a3.246 3.246 0 1 0 0 6.492 3.246 3.246 0 0 0 0-6.492zM5.754 8a2.246 2.246 0 1 1 4.492 0 2.246 2.246 0 0 1-4.492 0z"/>
@@ -148,9 +148,9 @@
                                 </svg>
                                 <span class="mt-1 text-lg font-medium">Settings</span>
                             </button>
-                        </a>
+                        </div>
                     </div>
-                </div>
+                </a>
 
                 {{-- <div class="col-span-1  p-3">
                     <div class="flex flex-col items-center ">
@@ -195,12 +195,28 @@
                 </div> --}}
             </div>
             
-            <div class="w-full mb-20 bg-red-100 shadow-inner">
+            <div class="w-full mb-20 bg-red-300 shadow-inner">
                 <div class="w-full flex flex-col items-center overflow-hidden">
+                    <form method="POST" action="{{ route('user.destroy', auth()->user()) }}" class="w-full"
+                    onsubmit="return confirm('Are you sure you want to delete your account?')">
+                        @method('DELETE')
+                        @csrf
+                        <button class="flex gap-3 w-full py-4 pl-6 pr-3 text-gray-800 font-bold border-t border-gray-100 transition duration-150" >
+                            <div class="w-10">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="w-full h-6" viewBox="0 0 16 16">
+                                    <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+                                    <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+                                </svg>
+                            </div>
+                            <span>Delete account</span>
+                        </button>
+                        {{-- <a class="w-full p-3 text-lg font-medium text-[#2557D6] truncate hover:text-white" href="http://techdahan.test/logout" onclick="event.preventDefault(); this.closest('form').submit();">Log Out</a> --}}
+                        {{-- </div> --}}
+                    </form>
                     
                     <form method="POST" action="{{ route('logout') }}" class="w-full">
                         @csrf
-                        <button href="#" class="flex gap-3 w-full py-4 pl-6 pr-3 border-t border-gray-100 text-gray-800 hover:bg-red-300 transition duration-150">
+                        <button class="flex gap-3 w-full py-4 pl-6 pr-3 text-gray-800 font-bold border-t border-gray-100 transition duration-150">
                             <div class="w-10">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="w-full h-6" viewBox="0 0 16 16">
                                     <path fill-rule="evenodd" d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0v2z"/>

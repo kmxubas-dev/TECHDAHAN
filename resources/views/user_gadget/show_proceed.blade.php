@@ -22,45 +22,43 @@
 
     <!-- Content -->
     <section class="flex flex-col px-3 pt-4 pb-20 items-center justify-center">
-        <div class="w-full mb-3 p-4 bg-white shadow-md border border-gray-200 rounded-lg">
-            <div class="p-3 text-[#2557D6] border-2 border-[#2557D6] rounded-lg">
-                <div class="flex justify-center">
-                    <img class="rounded-lg w-14 h-14" src="{{ asset($gadget->img) }}" alt="">
-                </div>
+        <div class="w-full mb-3 p-4 text-[#2557D6] border-2 border-[#2557D6] rounded-xl shadow-xl">
+            <div class="flex justify-center">
+                <img class="rounded-lg w-14 h-14" src="{{ asset($gadget->img) }}" alt="">
+            </div>
 
-                <div class="p-2">
-                    <div class="text-center">
-                        <p>{{ '@'.$gadget->seller->name->full }}</p>
-                        <h5 class="mb-3 text-[#2557D6] text-xl font-bold tracking-tight multiline-ellipsis-2">
-                            {{ $gadget->name }}
-                        </h5>
-                    </div>
-                    <p class="font-normal text-[#2557D6] mb-1">
-                        Original Price: <b>₱{{ number_format($gadget->price_original, 2, ".", ",") }}</b>
-                    </p>
-                    <p class="font-normal text-[#2557D6] mb-1">
-                        Selling Price: <b>₱{{ number_format($gadget->price_selling, 2, ".", ",") }}</b>
-                    </p>
-                    <p class="font-normal text-[#2557D6] mb-1">
-                        Total Payment: <b>₱{{ number_format($gadget->price_selling, 2, ".", ",") }}</b>
-                    </p>
-
-                    <p class="font-normal text-[#2557D6] mb-1">
-                        @isset($offer)
-                            Offered Price: <b>₱{{ number_format($offer->amount, 2, ".", ",") }}</b>
-                        @endisset
-                    </p>
-                    <p class="font-normal text-[#2557D6] mb-1">
-                        {{ 'Posted '.$gadget->getElapsedTime($gadget->created_at) }}
-                    </p>
+            <div class="p-2">
+                <div class="text-center">
+                    <p>{{ '@'.$gadget->seller->name->full }}</p>
+                    <h5 class="mb-3 text-[#2557D6] text-xl font-bold tracking-tight multiline-ellipsis-2">
+                        {{ $gadget->name }}
+                    </h5>
                 </div>
+                <p class="font-normal text-[#2557D6] mb-1">
+                    Original Price: <b>₱{{ number_format($gadget->price_original, 2, ".", ",") }}</b>
+                </p>
+                <p class="font-normal text-[#2557D6] mb-1">
+                    Selling Price: <b>₱{{ number_format($gadget->price_selling, 2, ".", ",") }}</b>
+                </p>
+                <p class="font-normal text-[#2557D6] mb-1">
+                    Total Payment: <b>₱{{ number_format($gadget->price_selling, 2, ".", ",") }}</b>
+                </p>
+
+                <p class="font-normal text-[#2557D6] mb-1">
+                    @isset($offer)
+                        Offered Price: <b>₱{{ number_format($offer->amount, 2, ".", ",") }}</b>
+                    @endisset
+                </p>
+                <p class="font-normal text-[#2557D6] mb-1">
+                    {{ 'Posted '.$gadget->getElapsedTime($gadget->created_at) }}
+                </p>
             </div>
         </div>
 
         <div class="w-full p-4 bg-white text-[#2557D6] border border-gray-200 rounded-lg shadow-md">
             <h5 class="text-lg font-semibold capitalize">Direct Purchase</h5>
 
-            <form action="{{ route('gadget.transaction', $gadget) }}" method="POST">
+            <form action="{{ route('gadget.transaction_post', $gadget) }}" method="POST" id="transaction_form">
                 @csrf
                 <input type="hidden" name="method" value="default">
                 <input type="hidden" name="code" value="{{ '#22'.strtoupper(substr(md5(microtime()),rand(0,26),6)).'TD' }}">
@@ -100,8 +98,8 @@
                     </div>
                 </div>
 
-                <div class="">
-                    <button type="submit" class="flex justify-center w-full py-2 px-8 hover:shadow-form rounded-lg bg-[#2557D6] text-base font-semibold text-white outline-none">Purchase now</button>
+                <div class="text-white">
+                    <button type="submit" class="w-full py-3 bg-blue-600 font-bold rounded-xl">Purchase now</button>
                 </div>
             </form>
         </div>
@@ -122,16 +120,42 @@
 
 @section('scripts')
 <script>
-    document.querySelector("#payment1").addEventListener('click', (event) => {
-        if (event.target && event.target.matches("input[type='radio']")) {
-            document.querySelector("#amount2").checked = false;
-            document.querySelector("#amount2").disabled = true;
-        }
+    var input_method1 = document.querySelector("#payment1");
+    var input_method2 = document.querySelector("#payment2");
+    var input_type1 = document.querySelector("#amount1");
+    var input_type2 = document.querySelector("#amount2");
+
+    input_method1.addEventListener('click', (event) => {
+        input_type2.checked = false;
+        input_type2.disabled = true;
     });
-    document.querySelector("#payment2").addEventListener('click', (event) => {
-        if (event.target && event.target.matches("input[type='radio']")) {
-            document.querySelector("#amount2").disabled = false;
-        }
+    input_method2.addEventListener('click', (event) => {
+        input_type2.disabled = false;
+    });
+
+    document.querySelector('#transaction_form').addEventListener('submit', (event) => {
+        event.preventDefault();
+        let body = {};
+        body.code = document.querySelector('input[name="code"]').value;
+        body.method = document.querySelector('input[name="method"]').value;
+        body.payment = (input_method1.checked) ? input_method1.value:input_method2.value;
+        body.payment_amount = (input_type1.checked) ? input_type1.value:input_type2.value;
+
+        const options = {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+            },
+            body: JSON.stringify(body)
+        };
+        fetch('{!! route('gadget.transaction_post', $gadget) !!}', options)
+            .then(response => response.json())
+            .then(response => {
+                window.location.href = response.link;
+            })
+            .catch(err => console.error(err));
     });
 </script>
 @endsection
