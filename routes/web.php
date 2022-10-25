@@ -41,6 +41,9 @@ Route::group(['middleware'=>['guest']], function() {
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     // return view('dashboard');
+    if (Auth::user()->type == 'admin') {
+        return redirect()->route('admin.index');
+    }
     return redirect('/index');
 })->name('dashboard');
 
@@ -123,7 +126,7 @@ Route::group(['prefix'=>'', 'as'=>'', 'middleware'=>['auth:sanctum']], function 
 Route::group(['prefix'=>'admin', 'as'=>'admin.', 'middleware'=>['auth:sanctum']], function() {
     Route::get('/', function () {
         return view('admin.index');
-    });
+    })->name('index');
     // Route::get('/create', function () {
     //     return view('welcome');
     // });

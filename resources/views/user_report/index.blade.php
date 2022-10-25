@@ -3,9 +3,9 @@
 @section('main')
 <section class="">
     <!-- Header -->
-    <div>
-        <div class="relative grid grid-cols-1 gap-4 p-4 bg-white shadow-lg">
-            <div class="relative flex gap-4 text-[#2557D6]">
+    <div class="bg-blue-600 rounded-bl-xl rounded-br-xl text-white">
+        <div class="relative grid grid-cols-1 gap-4 p-4 shadow-lg">
+            <div class="relative flex gap-4">
                 <a href="{{ route('user.settings') }}">
                     <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="h-full" viewBox="0 0 16 16">
                         <path fill-rule="evenodd" d="M12 8a.5.5 0 0 1-.5.5H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5a.5.5 0 0 1 .5.5z"/>
@@ -13,7 +13,7 @@
                 </a>
                 <div class="flex flex-col">
                     <h1 class="text-xl font-semibold capitalize">
-                        My Disputes
+                        My disputes
                     </h1>
                 </div>
             </div>
@@ -21,20 +21,20 @@
     </div>
     
     <!-- Content -->
-    <section class="items-center justify-center p-3">
+    <section class="items-center justify-center p-4">
         <div class="flow-root">
-            <ul role="list" class="divide-y divide-gray-200 dark:divide-gray-700">
+            <ul role="list" class="space-y-3">
                 @foreach ($reports as $report)
-                <li class="mb-3 rounded-lg shadow bg-white" style="border-width:2px; border-color:#2557D6;">
+                <li class="bg-blue-500 text-white border-2 border-blue-600 rounded-xl shadow-xl">
                     <a href="{{ route('report.show', $report) }}" class="p-3 py-1 flex items-center space-x-4">
                         <div class="flex-1 min-w-0 px-3">
-                            <p class="text-lg font-bold text-[#2557D6] truncate">
+                            <p class="text-lg font-bold truncate">
                                 {{ $report->subject  }}
                             </p>
-                            <p class="text-[#2557D6] truncate dark:text-gray-400">
+                            <p class="truncate dark:text-gray-400">
                                 {{ $report->message }}
                             </p>
-                            <p class="text-sm text-gray-500 truncate dark:text-gray-400">
+                            <p class="text-sm text-gray-200 truncate">
                                 {{ $report->updated_at }}
                             </p>
                         </div>
@@ -51,6 +51,8 @@
     </a>
 </section>
 @endsection
+
+
 
 @section('styles')
 <style>

@@ -80,24 +80,6 @@
                                 </p>
                             </a>
                         </li>
-                        
-                        <li class="text-white rounded-xl bg-blue-600 shadow-xl">
-                            <form method="POST" action="{{ route('logout') }}" class="flex items-center">
-                                @csrf
-                                {{-- <div class="flex-1 min-w-0"> --}}
-                                <a class="py-3 px-5 text-lg font-medium truncate hover:text-white font-bold" href="http://techdahan.test/logout" onclick="event.preventDefault(); this.closest('form').submit();">Log Out</a>
-                                {{-- </div> --}}
-                            </form>
-    
-                            <script>
-                                document.addEventListener("alpine:init", () => {
-                                    Alpine.data("layout", () => ({
-                                        profileOpen: false,
-                                        asideOpen: true,
-                                    }));
-                                });
-                            </script>
-                        </li>
                     </ul>
                 </div>
             </div>
@@ -106,63 +88,37 @@
         <div id="seller_wrapper" class="hidden p-5">
             <div class="rounded-lg sm:p-8">
                 <div class="flow-root">
-                    <ul role="list" class="">
-                        <li class="mb-4 text-white border-2 border-[#2557D6] rounded-lg hover:bg-[#2557D6]">
-                            <a href="{{ route('gadget.index') }}" class="flex p-3 items-center space-x-4">
-                                <div class="flex-1 min-w-0">
-                                    <p class="text-lg font-medium text-[#2557D6] truncate hover:text-white">
-                                        My Products
-                                    </p>
-                                </div>
+                    <ul role="list" class="flex flex-col space-y-3">
+                        <li class="text-white rounded-xl bg-blue-600 shadow-xl">
+                            <a href="{{ route('gadget.index') }}" class="flex py-3 px-5 items-center space-x-4">
+                                <p class="text-lg font-medium truncate hover:text-white font-bold">
+                                    My Products
+                                </p>
                             </a>
                         </li>
 
-                        <li class="mb-4 text-white border-2 border-[#2557D6] rounded-lg hover:bg-[#2557D6]">
-                            <a href="{{ route('message_group.index', ['type'=>'seller']) }}" class="flex p-3 items-center space-x-4">
-                                <div class="flex-1 min-w-0">
-                                    <p class="text-lg font-medium text-[#2557D6] truncate hover:text-white">
-                                        Product Messages
-                                    </p>
-                                </div>
+                        <li class="text-white rounded-xl bg-blue-600 shadow-xl">
+                            <a href="{{ route('message_group.index', ['type'=>'seller']) }}" class="flex py-3 px-5 items-center space-x-4">
+                                <p class="text-lg font-medium truncate hover:text-white font-bold">
+                                    Product Messages
+                                </p>
                             </a>
                         </li>
 
-                        <li class="mb-4 text-white border-2 border-[#2557D6] rounded-lg hover:bg-[#2557D6]">
-                            <a href="{{ route('transaction.index', ['type' => 'seller']) }}" class="flex p-3 items-center space-x-4">
-                                <div class="flex-1 min-w-0">
-                                    <p class="text-lg font-medium text-[#2557D6] truncate hover:text-white">
-                                        Gadget Transactions
-                                    </p>
-                                </div>
+                        <li class="text-white rounded-xl bg-blue-600 shadow-xl">
+                            <a href="{{ route('transaction.index', ['type' => 'seller']) }}" class="flex py-3 px-5 items-center space-x-4">
+                                <p class="text-lg font-medium truncate hover:text-white font-bold">
+                                    Gadget Transactions
+                                </p>
                             </a>
                         </li>
                         
-                        <li class="mb-4 text-white border-2 border-[#2557D6] rounded-lg hover:bg-[#2557D6]">
-                            <a href="{{ route('gadget_offer.index', ['type' => 'seller']) }}" class="flex p-3 items-center space-x-4">
-                                <div class="flex-1 min-w-0">
-                                    <p class="text-lg font-medium text-[#2557D6] truncate hover:text-white">
-                                        Offer Requests
-                                    </p>
-                                </div>
+                        <li class="text-white rounded-xl bg-blue-600 shadow-xl">
+                            <a href="{{ route('gadget_offer.index', ['type' => 'seller']) }}" class="flex py-3 px-5 items-center space-x-4">
+                                <p class="text-lg font-medium truncate hover:text-white font-bold">
+                                    Offer Requests
+                                </p>
                             </a>
-                        </li>
-
-                        <li class="mb-4 text-white border-2 border-[#2557D6] rounded-lg hover:bg-[#2557D6]">
-                            <form method="POST" action="{{ route('logout') }}" class="flex items-center">
-                                @csrf
-                                {{-- <div class="flex-1 min-w-0"> --}}
-                                <a class="w-full p-3 text-lg font-medium text-[#2557D6] truncate hover:text-white" href="http://techdahan.test/logout" onclick="event.preventDefault(); this.closest('form').submit();">Log Out</a>
-                                {{-- </div> --}}
-                            </form>
-
-                            <script>
-                                document.addEventListener("alpine:init", () => {
-                                    Alpine.data("layout", () => ({
-                                        profileOpen: false,
-                                        asideOpen: true,
-                                    }));
-                                });
-                            </script>
                         </li>
                     </ul>
                 </div>

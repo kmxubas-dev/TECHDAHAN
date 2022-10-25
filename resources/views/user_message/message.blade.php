@@ -3,9 +3,9 @@
 @section('main')
 <section class="">
     <!-- Header -->
-    <div>
-        <div class="relative grid grid-cols-1 gap-4 p-4 bg-white shadow-lg">
-            <div class="relative flex gap-4 text-[#2557D6]">
+    <div class="bg-blue-600 rounded-bl-xl rounded-br-xl text-white">
+        <div class="relative grid grid-cols-1 gap-4 p-4 shadow-lg">
+            <div class="relative flex gap-4">
                 <a href="
                     @if ($group->seller->id == auth()->user()->id) 
                         {{ route('message_group.index', ['type'=>'seller']) }}
@@ -69,14 +69,7 @@
 </section>
 @endsection
 
-@section('styles')
-<style>
-    .gadget-li {
-        border-width: 2px;
-        border-color: #2557D6;
-    }
-</style>
-@endsection
+
 
 @section('scripts')
 <script>

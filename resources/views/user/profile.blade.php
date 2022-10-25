@@ -213,10 +213,10 @@
                         {{-- <a class="w-full p-3 text-lg font-medium text-[#2557D6] truncate hover:text-white" href="http://techdahan.test/logout" onclick="event.preventDefault(); this.closest('form').submit();">Log Out</a> --}}
                         {{-- </div> --}}
                     </form>
-                    
+
                     <form method="POST" action="{{ route('logout') }}" class="w-full">
                         @csrf
-                        <button class="flex gap-3 w-full py-4 pl-6 pr-3 text-gray-800 font-bold border-t border-gray-100 transition duration-150">
+                        <button class="flex gap-3 w-full py-4 pl-6 pr-3 text-gray-800 font-bold border-t border-gray-100 transition duration-150" onclick="event.preventDefault(); this.closest('form').submit();">
                             <div class="w-10">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="w-full h-6" viewBox="0 0 16 16">
                                     <path fill-rule="evenodd" d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0v2z"/>
@@ -225,8 +225,6 @@
                             </div>
                             <span>Logout</span>
                         </button>
-                        {{-- <a class="w-full p-3 text-lg font-medium text-[#2557D6] truncate hover:text-white" href="http://techdahan.test/logout" onclick="event.preventDefault(); this.closest('form').submit();">Log Out</a> --}}
-                        {{-- </div> --}}
                     </form>
 
                     <script>

@@ -42,12 +42,14 @@
                             Posted {{ $gadget->getElapsedTime($gadget->created_at) }}
                         </div>
     
-                        <form action="{{ route('gadget.wishlist.add', $gadget) }}" method="POST" class="flex text-gray-900">
-                            @csrf
-                            <button type="submit" class="w-36 p-2 text-sm text-[#2557D6] border-2 border-[#2557D6] rounded-lg">
-                                <b>+ Add to Wishlist</b>
-                            </button>
-                        </form>
+                        @if ($gadget->user_id != auth()->user()->id)
+                            <form action="{{ route('gadget.wishlist.add', $gadget) }}" method="POST" class="flex text-gray-900">
+                                @csrf
+                                <button type="submit" class="w-36 p-2 text-sm text-[#2557D6] border-2 border-[#2557D6] rounded-lg">
+                                    <b>+ Add to Wishlist</b>
+                                </button>
+                            </form>
+                        @endif
                     </div>
                 </div>
 
@@ -112,9 +114,12 @@
                 <div id="ratings_body" class="flex flex-col gap-2 p-5 bg-blue-400 shadow-inner" style="display:none">
                     <div class="flex justify-between items-center">
                         <h5 class="text-xl text-white font-bold">Feedbacks</h5>
-                        <a href="{{ route('gadget.rating.rate', $gadget) }}" class="w-36 p-2 text-sm text-center bg-white border-2 border-gray-300 rounded-xl shadow-lg">
-                            <b>Rate this product</b>
-                        </a>
+
+                        @if ($gadget->user_id != auth()->user()->id)
+                            <a href="{{ route('gadget.rating.rate', $gadget) }}" class="w-36 p-2 text-sm text-center bg-white border-2 border-gray-300 rounded-xl shadow-lg">
+                                <b>Rate this product</b>
+                            </a>
+                        @endif
                     </div>
 
                     @foreach ($gadget->ratings as $g_rating)
@@ -278,7 +283,7 @@
                 
                 <div class="p-5">
                     @if (auth()->user()->id == $gadget->user_id)
-                        <a href="{{ route('gadget.edit', $gadget) }}" class="flex justify-center w-full py-2 px-8 hover:shadow-form rounded-lg bg-[#2557D6] text-base font-semibold text-white outline-none">Edit</a>
+                        <a href="{{ route('gadget.edit', $gadget) }}" class="flex justify-center w-full px-8 py-2 bg-blue-600 font-bold text-white rounded-xl shadow-xl">Edit</a>
                     @else
                     <div class="flex mb-3">
                         @if ($gadget->methods->bid)

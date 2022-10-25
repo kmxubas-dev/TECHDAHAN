@@ -3,9 +3,9 @@
 @section('main')
 <section class="">
     <!-- Header -->
-    <div>
-        <div class="relative grid grid-cols-1 gap-4 p-4 bg-white shadow-lg">
-            <div class="relative flex gap-4 text-[#2557D6]">
+    <div class="bg-blue-600 rounded-bl-xl rounded-br-xl text-white">
+        <div class="relative grid grid-cols-1 gap-4 p-4 shadow-lg">
+            <div class="relative flex gap-4">
                 <a href="{{ route('report.index') }}">
                     <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="h-full" viewBox="0 0 16 16">
                         <path fill-rule="evenodd" d="M12 8a.5.5 0 0 1-.5.5H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5a.5.5 0 0 1 .5.5z"/>
@@ -56,7 +56,7 @@
                 </div>
             </form>
 
-            <form action="{{ route('report.destroy', $report) }}" method="POST" class="flex items-center text-base font-semibold text-gray-900 dark:text-white" onsubmit="return confirm('Are you sure you want to cancel your bid?')">
+            <form action="{{ route('report.destroy', $report) }}" method="POST" class="flex items-center text-base font-semibold text-gray-900 dark:text-white" onsubmit="return confirm('Are you sure you want to cancel your report?')">
                 @method('DELETE')
                 @csrf
                 <button class="w-full mb-2 p-2 border-2 border-red-500 shadow-sm font-bold tracking-wider text-red-500 rounded-lg hover:shadow-lg hover:bg-red-500 hover:text-white">Cancel Report</button>
@@ -78,20 +78,4 @@
         overflow: hidden;
     }
 </style>
-@endsection
-
-@section('scripts')
-<script>
-    document.querySelector("#payment1").addEventListener('click', (event) => {
-        if (event.target && event.target.matches("input[type='radio']")) {
-            document.querySelector("#amount2").checked = false;
-            document.querySelector("#amount2").disabled = true;
-        }
-    });
-    document.querySelector("#payment2").addEventListener('click', (event) => {
-        if (event.target && event.target.matches("input[type='radio']")) {
-            document.querySelector("#amount2").disabled = false;
-        }
-    });
-</script>
 @endsection
