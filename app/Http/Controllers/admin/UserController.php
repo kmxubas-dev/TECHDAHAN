@@ -3,7 +3,11 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
+
+use App\Models\User;
 use Illuminate\Http\Request;
+
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -15,6 +19,8 @@ class UserController extends Controller
     public function index()
     {
         //
+        $users = User::where('type', '!=', 'disabled')->paginate(10);
+        return view('admin.user.index', compact('users'));
     }
 
     /**
@@ -25,6 +31,7 @@ class UserController extends Controller
     public function create()
     {
         //
+        return view('admin.user.create');
     }
 
     /**
@@ -36,6 +43,32 @@ class UserController extends Controller
     public function store(Request $request)
     {
         //
+        $request->validate([
+            'type' => 'required|in:admin,user',
+            'email' => 'required|unique:users',
+            'password' => 'required|confirmed',
+            'username' => 'required|string',
+            'firstname' => 'required|string',
+            'lastname' => 'required|string',
+            'phone' => 'required|string',
+            'address' => 'required|string',
+        ]);
+
+        $user = new User;
+        $user->type = $request->type;
+        $user->email = $request->email;
+        $user->password = Hash::make($request->password);
+        $user->name = (object)[
+            'full' => $request->firstname.' '.$request->lastname,
+            'fname' => $request->firstname,
+            'lname' => $request->lastname,
+        ];
+        $user->phone = '+63'.$request->phone;
+        $user->address = $request->address;
+        $user->save();
+
+        return redirect()->route('admin.user.index')
+            ->with('success', 'Successfully created profile.');
     }
 
     /**
@@ -78,8 +111,14 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(User $user)
     {
         //
+        $user->type = 'disabled';
+        $user->password = Hash::make('');
+        $user->save();
+
+        return redirect()->route('admin.user.index')
+            ->with('success', 'Successfully deleted profile.');
     }
 }

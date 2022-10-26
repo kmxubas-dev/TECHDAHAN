@@ -4,6 +4,9 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
 use App\Models\UsersGadget;
+use App\Http\Controllers\admin\AdminController;
+use App\Http\Controllers\admin\UserController as Admin_UserController;
+
 use App\Http\Controllers\AppReportController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UsersGadgetController;
@@ -124,9 +127,9 @@ Route::group(['prefix'=>'', 'as'=>'', 'middleware'=>['auth:sanctum']], function 
 
 // ADMIN ROUTES
 Route::group(['prefix'=>'admin', 'as'=>'admin.', 'middleware'=>['auth:sanctum']], function() {
-    Route::get('/', function () {
-        return view('admin.index');
-    })->name('index');
+    Route::get('/', [AdminController::class, 'index'])->name('index');
+
+    Route::resource('user', Admin_UserController::class);
     // Route::get('/create', function () {
     //     return view('welcome');
     // });
