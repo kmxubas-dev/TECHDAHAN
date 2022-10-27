@@ -77,7 +77,7 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(User $user)
     {
         //
     }
@@ -88,9 +88,10 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(User $user)
     {
         //
+        return view('admin.user.edit', compact('user'));
     }
 
     /**
@@ -100,9 +101,34 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, User $user)
     {
         //
+        $request->validate([
+            'email' => 'required|unique:users,email,'.$user->id,
+            'username' => 'required|string',
+            'firstname' => 'required|string',
+            'lastname' => 'required|string',
+            'phone' => 'required|integer',
+            'address' => 'required|string',
+        ]);
+
+        if (isset($request->password))
+            $request->validate(['password' => 'required|confirmed']);
+
+        $user->email = $request->email;
+        if (isset($request->password)) $user->password = Hash::make($request->password);
+        $user->name = (object)[
+            'full' => $request->firstname.' '.$request->lastname,
+            'fname' => $request->firstname,
+            'lname' => $request->lastname,
+        ];
+        $user->phone = '+63'.$request->phone;
+        $user->address = $request->address;
+        $user->save();
+
+        return redirect()->route('admin.user.index')
+            ->with('success', 'Successfully updated profile.');
     }
 
     /**

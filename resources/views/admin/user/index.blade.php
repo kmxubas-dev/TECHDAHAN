@@ -2,14 +2,17 @@
 
 @section('main')
 <section>
-    <!-- Client Table -->
+    <!-- Table -->
     <div class="mt-4 mx-4">
-		<a href="{{ route('admin.user.create') }}" type="button" class="flex items-center w-max mr-2 mb-3 px-5 py-2 bg-white text-sm text-center font-semibold rounded-2xl border border-gray-300 shadow-lg dark:text-gray-100 dark:bg-gray-800 ">
-            +
-            <div class='font-mono pt-0.5 pl-2'>
-                Add User
-            </div>
-        </a>
+        <div class="flex justify-between items-center mb-3 ">
+            <h3 class="text-xl font-semibold align-middle">Users</h3>
+            <a href="{{ route('admin.user.create') }}" type="button" class="flex items-center w-max mr-2 px-5 py-2 bg-white text-sm text-center font-semibold rounded-2xl border border-gray-300 shadow-lg dark:text-gray-100 dark:bg-gray-800 ">
+                +
+                <div class='font-mono pt-0.5 pl-2'>
+                    Add User
+                </div>
+            </a>
+        </div>
         <div class="w-full overflow-hidden rounded-xl shadow-xl border border-gray-300">
             <div class="w-full overflow-x-auto">
                 <table class="w-full">
@@ -46,17 +49,17 @@
                             <td class="px-4 py-3 text-sm">{{ $user->phone }}</td>
                             <td class="px-4 py-3 text-sm">{{ $user->address }}</td>
                             <td class="flex items-center space-x-2 width-100 px-4 py-3 text-sm" >
-                                <div>
+                                <a href="{{ route('admin.user.edit', $user) }}">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16" class="w-5 h-5 text-blue-500 hover:text-slate-700 hover:cursor-pointer">
                                         <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
                                         <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
                                     </svg>                     
-                                </div>
+                                </a>
                                 <div>
                                     <form action="{{ route('admin.user.destroy', $user) }}" method="POST" class="flex items-center">
                                         @method('DELETE')
                                         @csrf
-                                        <button type="submit">
+                                        <button type="button" onclick="return delete_user(this)">
                                             <svg fill="currentColor" viewBox="0 0 16 16" class="w-5 h-5 text-red-500 hover:text-slate-700 hover:cursor-pointer">
                                                 <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
                                                 <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
@@ -125,6 +128,18 @@
             </div> --}}
         </div>
     </div>
-    <!-- ./Client Table -->
+    <!-- ./Table -->
 </section>
+@endsection
+
+
+
+@section('scripts')
+<script>
+    function delete_user (button) {
+        alertify.confirm('Delete User', 'Are you sure you want to delete this user?',
+        () => button.parentElement.submit(), () => { })
+        .set('labels', {ok:'Yes', cancel:'No'});
+    }
+</script>
 @endsection

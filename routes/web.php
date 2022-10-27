@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\UsersGadget;
 use App\Http\Controllers\admin\AdminController;
 use App\Http\Controllers\admin\UserController as Admin_UserController;
+use App\Http\Controllers\admin\AppReportController as Admin_AppReportController;
 
 use App\Http\Controllers\AppReportController;
 use App\Http\Controllers\UserController;
@@ -130,7 +131,5 @@ Route::group(['prefix'=>'admin', 'as'=>'admin.', 'middleware'=>['auth:sanctum']]
     Route::get('/', [AdminController::class, 'index'])->name('index');
 
     Route::resource('user', Admin_UserController::class);
-    // Route::get('/create', function () {
-    //     return view('welcome');
-    // });
+    Route::resource('report', Admin_AppReportController::class);
 });

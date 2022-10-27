@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
+
+use App\Models\AppReport;
 use Illuminate\Http\Request;
 
 class AppReportController extends Controller
@@ -15,6 +17,8 @@ class AppReportController extends Controller
     public function index()
     {
         //
+        $reports = AppReport::paginate(10);
+        return view('admin.report.index', compact('reports'));
     }
 
     /**
@@ -44,9 +48,10 @@ class AppReportController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(AppReport $report)
     {
         //
+        return view('admin.report.show', compact('report'));
     }
 
     /**

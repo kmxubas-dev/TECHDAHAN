@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 
+use  Database\Seeders\SeederAppReport;
 use  Database\Seeders\SeederUser;
 use  Database\Seeders\SeederUsersGadget;
 use  Database\Seeders\SeederUsersGadgetsOffer;
@@ -21,6 +22,7 @@ class DatabaseSeeder extends Seeder
         // \App\Models\User::factory(10)->create();
 
         $this->call([
+            SeederAppReport::class,
             SeederUser::class,
             SeederUsersGadget::class,
             SeederUsersGadgetsOffer::class,
