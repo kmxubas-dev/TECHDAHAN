@@ -41,6 +41,17 @@ class UsersTransaction extends Model
 
 
 
+    public function getPriceAttribute($value)
+    {
+        return $value*0.01;
+    }
+    public function setPriceAttribute($value)
+    {
+        $this->attributes['price'] = $value*100;
+    }
+
+
+
     /**
      * Relationship methods.
      */

@@ -5,8 +5,9 @@ use Illuminate\Support\Facades\Auth;
 
 use App\Models\UsersGadget;
 use App\Http\Controllers\admin\AdminController;
-use App\Http\Controllers\admin\UserController as Admin_UserController;
 use App\Http\Controllers\admin\AppReportController as Admin_AppReportController;
+use App\Http\Controllers\admin\UserController as Admin_UserController;
+use App\Http\Controllers\admin\UsersGadgetController as Admin_UsersGadgetController;
 
 use App\Http\Controllers\AppReportController;
 use App\Http\Controllers\UserController;
@@ -130,6 +131,9 @@ Route::group(['prefix'=>'', 'as'=>'', 'middleware'=>['auth:sanctum']], function 
 Route::group(['prefix'=>'admin', 'as'=>'admin.', 'middleware'=>['auth:sanctum']], function() {
     Route::get('/', [AdminController::class, 'index'])->name('index');
 
-    Route::resource('user', Admin_UserController::class);
     Route::resource('report', Admin_AppReportController::class);
+    Route::resource('user', Admin_UserController::class);
+    Route::resource('gadget', Admin_UsersGadgetController::class);
+    Route::post('gadget/{gadget}/status', [Admin_UsersGadgetController::class, 'status'])
+        ->name('gadget.status');
 });

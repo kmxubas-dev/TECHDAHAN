@@ -8,7 +8,9 @@ use  Database\Seeders\SeederAppReport;
 use  Database\Seeders\SeederUser;
 use  Database\Seeders\SeederUsersGadget;
 use  Database\Seeders\SeederUsersGadgetsOffer;
+use  Database\Seeders\SeederUsersGadgetsRating;
 use  Database\Seeders\SeederUsersPayment;
+use  Database\Seeders\SeederUsersTransaction;
 
 class DatabaseSeeder extends Seeder
 {
@@ -26,7 +28,9 @@ class DatabaseSeeder extends Seeder
             SeederUser::class,
             SeederUsersGadget::class,
             SeederUsersGadgetsOffer::class,
-            SeederUsersPayment::class
+            SeederUsersGadgetsRating::class,
+            SeederUsersPayment::class,
+            SeederUsersTransaction::class
         ]);
     }
 }
