@@ -37,7 +37,7 @@
 
             <div class="w-full pb-20">
                 <div class="w-full flex flex-col px-5 items-center overflow-hidden">
-                    <form action="{{ route('user.update', auth()->user()) }}" method="POST" class="w-full space-y-3">
+                    <form action="{{ route('user.update', auth()->user()) }}" method="POST" class="w-full space-y-3 text-center">
                         @method('PUT')
                         @csrf
                         {{-- <header class="mb-3 text-center font-bold">Edit your profile</header> --}}
@@ -57,7 +57,9 @@
                                 <input type="password" name="password" placeholder="Password" class="my-1 w-full border-0 bg-transparent outline-0 focus:ring-0" />
                             </div>
                             @error('password')
-                                <div class="error text-red-600">{{ $message }}</div>
+                                @foreach ($errors->get('password') as $message)
+                                <div class="error text-red-600 px-3 pb-3">• {{ $message }}</div>
+                                @endforeach
                             @enderror
                         </div>
                         <!-- PASSWORD CONFIRMATION -->

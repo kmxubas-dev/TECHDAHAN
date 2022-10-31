@@ -20,12 +20,14 @@
         </style>
     </head>
     <body class="antialiased">
-        <div class="relative flex items-top justify-center min-h-screen bg-gray-100 dark:bg-gray-900 sm:items-center py-4 sm:pt-0">
+        <div class="relative flex items-top justify-center min-h-screen bg-gray-100 dark:bg-gray-900 sm:items-center sm:pt-0">
             <main class="relative min-h-screen w-full bg-white">
                 <!-- component -->
                 <div class="flex justify-center" x-data="app justify-center ">
                     <section class="w-full lg:w-1/3 p-6 transform space-y-4 text-center">
-                        <h1 class="mb-5 text-4xl">Techdahan</h1>
+                        <div class="flex justify-center">
+                            <img src="{{ asset('img/logo-dark.webp') }}" alt="">
+                        </div>
                         <!-- register content -->
                         <form action="{{ route('user.register_post') }}" method="POST" class="space-y-3">
                             @csrf
@@ -46,7 +48,9 @@
                                     <input type="password" name="password" placeholder="Password" class="my-1 w-full border-0 bg-transparent outline-0 focus:ring-0" />
                                 </div>
                                 @error('password')
-                                    <div class="error text-red-600">{{ $message }}</div>
+                                    @foreach ($errors->get('password') as $message)
+                                    <div class="error text-red-600 px-3 pb-3">• {{ $message }}</div>
+                                    @endforeach
                                 @enderror
                             </div>
                             <!-- PASSWORD CONFIRMATION -->
@@ -129,32 +133,13 @@
                             </footer>
                         </form>
             
-                        <!-- login content -->
-                        {{-- <div x-show="!isLoginPage" class="space-y-4">
-                            <header class="mb-3 text-2xl font-bold">Log in</header>
-                            <div class="w-full rounded-2xl bg-gray-50 px-4 ring-2 ring-gray-200 focus-within:ring-blue-400">
-                                <input type="text" placeholder="Email or username"
-                                    class="my-3 w-full border-none bg-transparent outline-none focus:outline-none" />
-                            </div>
-                            <div
-                                class="flex w-full items-center space-x-2 rounded-2xl bg-gray-50 px-4 ring-2 ring-gray-200 focus-within:ring-blue-400">
-                                <input type="password" placeholder="Password"
-                                    class="my-3 w-full border-none bg-transparent outline-none" />
-                                <a href="#" class="font-medium text-gray-400 hover:text-gray-500">FORGOT?</a>
-                            </div>
-                            <button
-                                class="w-full rounded-2xl border-b-4 border-b-blue-600 bg-blue-500 py-3 font-bold text-white hover:bg-blue-400 active:translate-y-[0.125rem] active:border-b-blue-400">
-                                LOG IN
-                            </button>
-                        </div> --}}
-            
                         <div class="flex items-center space-x-4">
                             <hr class="w-full border border-gray-300" />
                             <div class="font-semibold text-gray-400">OR</div>
                             <hr class="w-full border border-gray-300" />
                         </div>
 
-                        <div class="flex flex-col pb-20">
+                        <div class="flex flex-col pb-10">
                             <div class="my-5 text-sm text-gray-400">
                                 Already have an account?
                             </div>

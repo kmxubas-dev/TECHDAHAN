@@ -6,7 +6,7 @@ use Illuminate\Database\Seeder;
 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Str;
+use Carbon\Carbon;
 
 class SeederUser extends Seeder
 {
@@ -24,6 +24,8 @@ class SeederUser extends Seeder
             'phone' => '+639111111111',
             'address' => 'Address',
             'email' => 'admin@gmail.com',
+            'email_verified_at' => Carbon::now()->format('Y-m-d H:i:s'),
+            'profile_photo_path' => 'img/placeholder.jpg',
             'password' => Hash::make('password'),
         ]);
 
@@ -33,6 +35,8 @@ class SeederUser extends Seeder
             'phone' => '+639111111111',
             'address' => 'Address',
             'email' => 'seller@gmail.com',
+            'email_verified_at' => Carbon::now()->format('Y-m-d H:i:s'),
+            'profile_photo_path' => 'img/placeholder.jpg',
             'password' => Hash::make('password'),
         ]);
 
@@ -42,6 +46,8 @@ class SeederUser extends Seeder
             'phone' => '+639111111111',
             'address' => 'Address',
             'email' => 'user@gmail.com',
+            'email_verified_at' => Carbon::now()->format('Y-m-d H:i:s'),
+            'profile_photo_path' => 'img/placeholder.jpg',
             'password' => Hash::make('password'),
         ]);
         DB::table('users')->insert([
@@ -50,6 +56,8 @@ class SeederUser extends Seeder
             'phone' => '+639111111111',
             'address' => 'Address',
             'email' => 'user1@gmail.com',
+            'email_verified_at' => Carbon::now()->format('Y-m-d H:i:s'),
+            'profile_photo_path' => 'img/placeholder.jpg',
             'password' => Hash::make('password'),
         ]);
         DB::table('users')->insert([
@@ -58,6 +66,8 @@ class SeederUser extends Seeder
             'phone' => '+639111111111',
             'address' => 'Address',
             'email' => 'user2@gmail.com',
+            'email_verified_at' => Carbon::now()->format('Y-m-d H:i:s'),
+            'profile_photo_path' => 'img/placeholder.jpg',
             'password' => Hash::make('password'),
         ]);
         DB::table('users')->insert([
@@ -66,6 +76,8 @@ class SeederUser extends Seeder
             'phone' => '+639111111111',
             'address' => 'Address',
             'email' => 'user3@gmail.com',
+            'email_verified_at' => Carbon::now()->format('Y-m-d H:i:s'),
+            'profile_photo_path' => 'img/placeholder.jpg',
             'password' => Hash::make('password'),
         ]);
     }

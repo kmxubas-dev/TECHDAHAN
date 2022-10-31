@@ -36,6 +36,10 @@ Route::get('/', function () {
     return redirect('/login');
 });
 
+Route::get('/home', function () {
+    return view('welcome');
+});
+
 
 Route::group(['middleware'=>['guest']], function() {
     Route::get('user/register', [UserController::class, 'register'])
@@ -54,16 +58,10 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 
 
 
-Route::get('/home', function () {
-    return view('welcome');
-});
-
-
-
 Route::resource('user', UserController::class);
 Route::delete('user/{user}', [UserController::class, 'destroy'])
     ->name('user.destroy')->middleware('password.confirm');;
-Route::group(['prefix'=>'', 'as'=>'', 'middleware'=>['auth:sanctum']], function () {
+Route::group(['prefix'=>'', 'as'=>'', 'middleware'=>['auth:sanctum', 'verified']], function () {
     Route::get('/index', function () {
         $gadgets = UsersGadget::where('user_id', '!=', Auth::user()->id)
             ->where('status', 'available')->where('qty', '>', 0)->get();

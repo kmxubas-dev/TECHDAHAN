@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rules\Password;
 
 class UserController extends Controller
 {
@@ -90,8 +91,13 @@ class UserController extends Controller
             'address' => 'required|string',
         ]);
 
-        if (isset($request->password))
-            $request->validate(['password' => 'required|confirmed']);
+        if (isset($request->password)) {
+            $request->validate([
+                'password' => [
+                    'required', 'confirmed', Password::min(8)->mixedCase()->numbers()->symbols()
+                ],
+            ]);
+        }
 
         if ($user->id != Auth::user()->id)
             return back()->withErrors('Something went wrong');
@@ -143,7 +149,9 @@ class UserController extends Controller
         //
         $request->validate([
             'email' => 'required|unique:users',
-            'password' => 'required|confirmed',
+            'password' => [
+                'required', 'confirmed', Password::min(8)->mixedCase()->numbers()->symbols()
+            ],
             'username' => 'required|string',
             'firstname' => 'required|string',
             'lastname' => 'required|string',
