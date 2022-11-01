@@ -16,6 +16,7 @@ use App\Http\Controllers\UsersGadgetsBidController;
 use App\Http\Controllers\UsersGadgetsOfferController;
 use App\Http\Controllers\UsersGadgetsRatingController;
 use App\Http\Controllers\UsersMessagesGroupController;
+use App\Http\Controllers\UsersNotificationController;
 use App\Http\Controllers\UsersMessageController;
 use App\Http\Controllers\UsersTransactionController;
 use App\Http\Controllers\UsersWishlistController;
@@ -118,8 +119,8 @@ Route::group(['prefix'=>'', 'as'=>'', 'middleware'=>['auth:sanctum', 'verified']
 
     Route::resource('report', AppReportController::class);
     Route::resource('wishlist', UsersWishlistController::class);
+    Route::resource('notification', UsersNotificationController::class);
 });
-
 
 
 

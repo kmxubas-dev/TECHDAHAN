@@ -74,4 +74,30 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasMany(UsersTransaction::class, 'seller_id', 'id');
     }
+
+
+
+    /**
+     * Helper methods.
+     */
+    function getElapsedTime($datetime, $format = '')
+    {
+        // '%y years, %m months, %d days, %h hours and %i minutes ago'
+        $now = new \DateTime;
+        $ago = new \DateTime($datetime);
+
+        $diff = $now->diff($ago);
+        $diff->w = floor($diff->d / 7);
+        $diff->d -= $diff->w * 7;
+
+        if ($format == '') {
+            if ($diff->y != 0) $format .= '%y years ago';
+            elseif ($diff->m != 0) $format .= '%m months ago';
+            elseif ($diff->d != 0) $format .= '%d days ago';
+            elseif ($diff->i != 0) $format .= '%i minutes ago';
+            else $format .= '%i minutes ago';
+        }
+
+        return $diff->format($format);
+    }
 }

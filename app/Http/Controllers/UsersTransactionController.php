@@ -9,6 +9,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 
+use App\Notifications\UserNotification;
+
 class UsersTransactionController extends Controller
 {
     /**
@@ -132,6 +134,13 @@ class UsersTransactionController extends Controller
                     ->post('https://api.paymongo.com/v1/payments');
                 }
 
+                $transaction->seller->notify(new UserNotification([
+                    'transaction_id' => $transaction->id,
+                    'type' => 'transaction',
+                    'link' => route('transaction.show', $transaction),
+                    'message' => Auth::user()->name->full.' successfully purchased '.
+                        $transaction->info->name,
+                ]));
                 $transaction->gadget->decrement('qty');
                 if ($transaction->method == 'offer') {
                     $transaction->offer->status = 'successful';

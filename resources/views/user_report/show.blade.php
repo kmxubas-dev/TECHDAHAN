@@ -23,7 +23,13 @@
     <!-- Content -->
     <section class="flex flex-col pb-20 p-3 items-center justify-center">
         <div class="w-full p-4 bg-white text-[#2557D6] border border-gray-200 rounded-lg shadow-md">
-            <h5 class="mb-5 text-lg text-center font-bold">Edit Report</h5>
+            <h5 class="mb-5 text-lg text-center font-bold">
+                @if ($report->status == 'pending')
+                    Edit Report
+                @else
+                    View Report
+                @endif
+            </h5>
             <div class="flex justify-center">
                 <img src="{{ asset('img/app/report/report.webp') }}" alt="" class="w-full lg:w-1/3 mb-5">
             </div>
@@ -32,8 +38,10 @@
                 Status: 
                 @if ($report->status == 'pending')
                     <span class="text-yellow-600 capitalize">{{ $report->status }}</span>
-                @else
+                @elseif ($report->status == 'accepted')
                     <span class="text-green-600 capitalize">{{ $report->status }}</span>
+                @else
+                    <span class="text-red-600 capitalize">{{ $report->status }}</span>
                 @endif
             </h5>
             <form action="{{ route('report.update', $report) }}" method="POST">
@@ -41,26 +49,34 @@
                 @csrf
                 <div class="mb-3">
                     <label for="subject"><b></b></label>
-                    <input type="text" name="subject" placeholder="Subject..." value="{{ $report->subject }}" class="w-full py-3 rounded-md border-2 border-[#2557D6] bg-white text-base font-medium text-[#2557D6] outline-none focus:border-[#6A64F1] focus:shadow-md"/>
+                    <input type="text" name="subject" placeholder="Subject..." value="{{ $report->subject }}" class="w-full py-3 rounded-md border-2 border-[#2557D6] bg-white text-base font-medium text-[#2557D6] outline-none focus:border-[#6A64F1] focus:shadow-md" @if ($report->status != 'pending') disabled @endif/>
                 </div>
 
                 <div class="mb-3">
                     <label for="message"><b></b></label>
-                    <textarea name="message" id="message" cols="30" rows="5" maxlength="1000" placeholder="Issue here..." class="w-full py-3 rounded-lg border-2 border-[#2557D6] font-medium text-[#2557D6] outline-none focus:border-[#6A64F1] focus:shadow-md">{{ $report->message }}</textarea>
+                    <textarea name="message" id="message" cols="30" rows="5" maxlength="1000" placeholder="Issue here..." class="w-full py-3 rounded-lg border-2 border-[#2557D6] font-medium text-[#2557D6] outline-none focus:border-[#6A64F1] focus:shadow-md" 
+                    @if ($report->status != 'pending') disabled @endif>{{ $report->message }}</textarea>
                 </div>
 
                 <div class="mb-3">
-                    <button type="submit" class="flex justify-center w-full py-2 px-8 hover:shadow-form rounded-lg bg-[#2557D6] text-base font-semibold text-white outline-none">
-                        Update Report
-                    </button>
+                    @if ($report->status == 'pending')
+                        <button type="submit" class="flex justify-center w-full py-2 px-8 hover:shadow-form rounded-lg bg-[#2557D6] text-base font-semibold text-white outline-none">
+                            Update Report
+                        </button>
+                    @else
+                        <label for="message"><b>Response</b></label>
+                        <textarea name="message" id="message" cols="30" rows="5" maxlength="1000" placeholder="Issue here..." class="w-full py-3 rounded-lg border-2 border-[#2557D6] font-medium text-[#2557D6] outline-none focus:border-[#6A64F1] focus:shadow-md" disabled>{{ $report->response }}</textarea>
+                    @endif
                 </div>
             </form>
 
-            <form action="{{ route('report.destroy', $report) }}" method="POST" class="flex items-center text-base font-semibold text-gray-900 dark:text-white" onsubmit="return confirm('Are you sure you want to cancel your report?')">
-                @method('DELETE')
-                @csrf
-                <button class="w-full mb-2 p-2 border-2 border-red-500 shadow-sm font-bold tracking-wider text-red-500 rounded-lg hover:shadow-lg hover:bg-red-500 hover:text-white">Cancel Report</button>
-            </form>
+            @if ($report->status == 'pending')
+                <form action="{{ route('report.destroy', $report) }}" method="POST" class="flex items-center text-base font-semibold text-gray-900 dark:text-white" onsubmit="return confirm('Are you sure you want to cancel your report?')">
+                    @method('DELETE')
+                    @csrf
+                    <button class="w-full mb-2 p-2 border-2 border-red-500 shadow-sm font-bold tracking-wider text-red-500 rounded-lg hover:shadow-lg hover:bg-red-500 hover:text-white">Cancel Report</button>
+                </form>
+            @endif
         </div>
     </section>
 </section>
