@@ -5,6 +5,8 @@ namespace App\Http\Controllers\admin;
 use App\Http\Controllers\Controller;
 
 use App\Models\User;
+use App\Models\UsersGadget;
+use App\Models\UsersTransaction;
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\Hash;
@@ -80,6 +82,10 @@ class UserController extends Controller
     public function show(User $user)
     {
         //
+        $gadgets = UsersGadget::where('user_id', $user->id)->get();
+        $gadgets_count = UsersGadget::where('user_id', $user->id)->count();
+        $transactions_count = UsersTransaction::where('seller_id', $user->id)->count();
+        return view('admin.user.show', compact('user', 'gadgets', 'gadgets_count', 'transactions_count'));
     }
 
     /**
@@ -105,30 +111,14 @@ class UserController extends Controller
     {
         //
         $request->validate([
-            'email' => 'required|unique:users,email,'.$user->id,
-            'username' => 'required|string',
-            'firstname' => 'required|string',
-            'lastname' => 'required|string',
-            'phone' => 'required|integer',
-            'address' => 'required|string',
+            'status' => 'required|in:enabled,disabled',
         ]);
 
-        if (isset($request->password))
-            $request->validate(['password' => 'required|confirmed']);
-
-        $user->email = $request->email;
-        if (isset($request->password)) $user->password = Hash::make($request->password);
-        $user->name = (object)[
-            'full' => $request->firstname.' '.$request->lastname,
-            'fname' => $request->firstname,
-            'lname' => $request->lastname,
-        ];
-        $user->phone = '+63'.$request->phone;
-        $user->address = $request->address;
+        $user->status = $request->status;
         $user->save();
 
-        return redirect()->route('admin.user.index')
-            ->with('success', 'Successfully updated profile.');
+        return redirect()->route('admin.user.show', $user)
+            ->with('success', 'Successfully '.$request->status.' profile.');
     }
 
     /**

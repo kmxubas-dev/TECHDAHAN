@@ -24,8 +24,8 @@
                             <th class="px-4 py-3">Email</th>
                             <th class="px-4 py-3">Phone</th>
                             <th class="px-4 py-3">Address</th>
+                            <th class="px-4 py-3">Status</th>
                             <th class="px-4 py-3">Actions</th>
-                            {{-- <th class="px-4 py-3">Status</th> --}}
                         </tr>
                     </thead>
                     <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
@@ -48,29 +48,21 @@
                             <td class="px-4 py-3 text-sm">{{ $user->email }}</td>
                             <td class="px-4 py-3 text-sm">{{ $user->phone }}</td>
                             <td class="px-4 py-3 text-sm">{{ $user->address }}</td>
-                            <td class="flex items-center space-x-2 width-100 px-4 py-3 text-sm" >
-                                <a href="{{ route('admin.user.edit', $user) }}">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16" class="w-5 h-5 text-blue-500 hover:text-slate-700 hover:cursor-pointer">
-                                        <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
-                                        <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
-                                    </svg>                     
-                                </a>
-                                <div>
-                                    <form action="{{ route('admin.user.destroy', $user) }}" method="POST" class="flex items-center">
-                                        @method('DELETE')
-                                        @csrf
-                                        <button type="button" onclick="return delete_user(this)">
-                                            <svg fill="currentColor" viewBox="0 0 16 16" class="w-5 h-5 text-red-500 hover:text-slate-700 hover:cursor-pointer">
-                                                <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
-                                                <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
-                                            </svg>
-                                        </button>
-                                    </form>
-                                </div>
+                            <td class="px-4 py-3 text-xs">
+                                @if ($user->status == 'enabled')
+                                    <span class="px-2 py-1 font-semibold leading-tight text-green-700 capitalize bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100"> {{$user->status}} </span>
+                                @else
+                                    <span class="px-2 py-1 font-semibold leading-tight text-red-700 capitalize bg-red-100 rounded-full dark:bg-red-700 dark:text-red-100"> {{$user->status}} </span>
+                                @endif
                             </td>
-                            {{-- <td class="px-4 py-3 text-xs">
-                                <span class="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100"> Approved </span>
-                            </td> --}}
+                            <td class="flex items-center space-x-2 width-100 px-4 py-3 text-sm" >
+                                <a href="{{ route('admin.user.show', $user) }}">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16" class="w-6 h-6 text-blue-500 hover:text-slate-700 hover:cursor-pointer">
+                                        <path fill-rule="evenodd" d="M6 3.5a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-2a.5.5 0 0 0-1 0v2A1.5 1.5 0 0 0 6.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-8A1.5 1.5 0 0 0 5 3.5v2a.5.5 0 0 0 1 0v-2z"/>
+                                        <path fill-rule="evenodd" d="M11.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H1.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z"/>
+                                    </svg>
+                                </a>
+                            </td>
                         </tr>
                         @endforeach
                     </tbody>

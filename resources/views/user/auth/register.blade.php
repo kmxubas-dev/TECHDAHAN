@@ -3,8 +3,9 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="icon" type="image/x-icon" href="{{ asset('img/logo-dark.png') }}">
 
-        <title>Techdahan</title>
+        <title>{{ config('app.name', 'Laravel') }}</title>
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
@@ -26,7 +27,7 @@
                 <div class="flex justify-center" x-data="app justify-center ">
                     <section class="w-full lg:w-1/3 p-6 transform space-y-4 text-center">
                         <div class="flex justify-center">
-                            <img src="{{ asset('img/logo-dark.webp') }}" alt="">
+                            <img src="{{ asset('img/logo-dark.png') }}" alt="" class="h-40">
                         </div>
                         <!-- register content -->
                         <form action="{{ route('user.register_post') }}" method="POST" class="space-y-3">
