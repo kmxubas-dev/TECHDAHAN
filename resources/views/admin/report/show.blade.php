@@ -14,13 +14,16 @@
         <div class="flex flex-col space-y-3 mb-6">
             <div class="flex items-center justify-between p-3 dark:bg-gray-800 border-2">
                 <div class="flex items-center">
-                    <img src="https://vojislavd.com/ta-template-demo/assets/img/message3.jpg" class="rounded-full w-8 h-8 border border-gray-500">
+                    <img src="{{ asset('img/placeholder.jpg') }}" class="rounded-full w-8 h-8 border border-gray-500">
                     <div class="flex flex-col ml-2">
                         <span class="font-semibold">{{ $report->user->name->full }}</span>
                         <span class="text-gray-500">From: {{ $report->user->email }}</span>
                     </div>
                 </div>
                 <span class="text-gray-500">{{ date_format($report->updated_at, 'F d, o') }}</span>
+            </div>
+            <div class="flex justify-center space-y-4 p-3 dark:bg-gray-800 border-2">
+                <img src="{{ asset($report->img) }}" alt="" class="w-1/2">
             </div>
             <div class="flex flex-col space-y-4 p-3 dark:bg-gray-800 border-2">
                 <!-- Subject -->

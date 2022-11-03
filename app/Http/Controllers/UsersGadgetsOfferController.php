@@ -9,6 +9,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Builder;
 
+use App\Notifications\UserNotification;
+
 class UsersGadgetsOfferController extends Controller
 {
     /**
@@ -140,6 +142,14 @@ class UsersGadgetsOfferController extends Controller
             ['status' => 'pending', 'amount' => $request->amount, 'note' => $request->note]
         );
 
+        $gadget->seller->notify(new UserNotification([
+            'offer_id' => $offer->id,
+            'type' => 'offer_add',
+            'link' => route('gadget_offer.show', $offer->id),
+            'message' => Auth::user()->name->full.' made an offer on your gadget - '.
+                $gadget->name,
+        ]));
+
         return redirect()->route('gadget.show', compact('gadget'))
             ->with('success', 'Successfully submitted offer.');
     }
@@ -158,6 +168,14 @@ class UsersGadgetsOfferController extends Controller
                 ->where('id', '!=', $gadget_offer->id)
                 ->update(['status' => 'declined']);
         }
+
+        $gadget_offer->user->notify(new UserNotification([
+            'offer_id' => $gadget_offer->id,
+            'type' => 'offer_response_'.$request->status,
+            'link' => route('gadget_offer.show', $gadget_offer->id),
+            'message' => Auth::user()->name->full.' '.$request->status.' your offer on gadget - '.
+                $gadget->name,
+        ]));
 
         return redirect()->route('gadget.show', compact('gadget'))
             ->with('success', 'Successfully '.$request->status.' offer.');

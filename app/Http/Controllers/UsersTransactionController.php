@@ -109,6 +109,7 @@ class UsersTransactionController extends Controller
                 'type' => $transaction->payment->type,
                 'checkout_url' => $transaction->payment->checkout_url
             ];
+            $transaction->status = 'paid';
             $transaction->save();
 
             if ($request->status == 'success') {
@@ -146,6 +147,10 @@ class UsersTransactionController extends Controller
                     $transaction->offer->status = 'successful';
                     $transaction->offer->save();
                 }
+                if ($transaction->method == 'bid') {
+                    $transaction->bid->status = 'successful';
+                    $transaction->bid->save();
+                }
             } else {
                 $transaction->delete();
             }
@@ -166,8 +171,17 @@ class UsersTransactionController extends Controller
             'payment_amount' => 'required|string',
         ]);
 
+        if ($request->payment == 'credit') {
+            $request->validate([
+                'card_number' => 'required|string',
+                'exp_month' => 'required|string',
+                'exp_year' => 'required|string',
+                'cvc' => 'required|string',
+            ]);
+        }
+
         if ($request->method == 'bid')
-            $bid = $gadget->offers->where('status', 'accepted')->first();
+            $bid = $gadget->bids->where('status', 'winner')->first();
         else 
             $bid = (object)['id' => null];
 
@@ -177,7 +191,8 @@ class UsersTransactionController extends Controller
             $offer = (object)['id' => null];
 
         if ($request->method == 'bid') {
-            $price = 0;
+            $price = $gadget->bids->where('status', 'winner')->first();
+            $price = $price->amount;
         }
         elseif ($request->method == 'offer') {
             $price = $gadget->offers->where('status', 'accepted')->first();
@@ -188,6 +203,7 @@ class UsersTransactionController extends Controller
         }
 
         $transaction = new UsersTransaction;
+        $transaction->status = 'pending';
         $transaction->code = $request->code;
         $transaction->info = $gadget;
         $transaction->price = $price;
@@ -238,12 +254,139 @@ class UsersTransactionController extends Controller
             ];
             $transaction->save();
         } else {
+            try {
+                $response_intent = Http::withBody(
+                    '{
+                        "data":{
+                            "attributes":{
+                                "amount":'.($transaction->price*100).',
+                                "description":"'.$transaction->code.'",
+                                "payment_method_allowed":["card"],
+                                "payment_method_options":{
+                                    "card":{
+                                        "request_three_d_secure":"any",
+                                        "installments":{
+                                            "enabled":true
+                                        }
+                                    }
+                                },
+                                "currency":"PHP",
+                                "capture_type":"automatic"
+                            }
+                        }
+                    }',
+                    'application/json'
+                )
+                ->accept('application/json')
+                ->withBasicAuth('sk_test_JA2xSVCAPbUNXaa1uWajZQnc', '')
+                ->post('https://api.paymongo.com/v1/payment_intents');
+                $card_intent_id = $response_intent->object()->data->id;
+                // dd($response_intent->object());
+    
+                $response_method = Http::withBody(
+                    '{
+                        "data":{
+                            "attributes":{
+                                "details":{
+                                    "card_number":"'.$request->card_number.'",
+                                    "exp_month":'.$request->exp_month.',
+                                    "exp_year":'.$request->exp_year.',
+                                    "cvc":"'.$request->cvc.'"
+                                },
+                                "payment_method_option":{
+                                    "card":{
+                                        "installments":{
+                                            "plan":{
+                                                "tenure":'.$transaction->info->installment->duration.',
+                                                "issuer_id":"00000000000000000000000"
+                                            }
+                                        }
+                                    }
+                                },
+                                "type":"card"
+                            }
+                        }
+                    }',
+                    'application/json'
+                )
+                ->accept('application/json')
+                ->withBasicAuth('sk_test_JA2xSVCAPbUNXaa1uWajZQnc', '')
+                ->post('https://api.paymongo.com/v1/payment_methods');
+                if (isset($response_method->object()->data)) {
+                    $card_method_id = $response_method->object()->data->id;
+                } else {
+                    return back()->withErrors('Something went wrong.');
+                }
+    
+                if ($request->payment_amount == 'installment') {
+                    $payment_data = '{
+                        "data": {
+                            "attributes": {
+                                "payment_method": "'.$card_method_id.'",
+                                "payment_method_options": {
+                                    "card": {
+                                        "installments": {
+                                            "plan": {
+                                                "tenure":'.$transaction->info->installment->duration.',
+                                                "issuer_id":"00000000000000000000000"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }';
+                } else {
+                    $payment_data = '{
+                        "data": {
+                            "attributes": {
+                                "payment_method": "'.$card_method_id.'"
+                            }
+                        }
+                    }';
+                }
+                $response = Http::withBody(
+                    $payment_data,
+                    'application/json'
+                )
+                ->accept('application/json')
+                ->withBasicAuth('sk_test_JA2xSVCAPbUNXaa1uWajZQnc', '')
+                ->post('https://api.paymongo.com/v1/payment_intents/'.
+                    $card_intent_id.'/attach');
+            }
+            catch (Exception $e) {
+                return back()->withErrors('Something went wrong.');
+            }
             $request_url = route('transaction.payment_status',
                 [$transaction, 'status'=>'success']);
         }
 
-        return response()->json([
-            'link' => $request_url
+        return redirect($request_url);
+        // return response()->json([
+        //     'link' => $request_url
+        // ]);
+    }
+
+    
+    public function status_post(Request $request, UsersTransaction $transaction)
+    {
+        //
+        $request->validate([
+            'status' => 'required|in:received'
         ]);
+
+        $transaction->status = $request->status;
+        $transaction->save();
+
+        $transaction->seller->notify(new UserNotification([
+            'transaction_id' => $transaction->id,
+            'type' => 'transaction_status_received',
+            'link' => route('transaction.show', $transaction),
+            'message' => Auth::user()->name->full.' changed the status to received in '.
+                $transaction->code,
+        ]));
+
+        return redirect()->route('transaction.show', $transaction)
+            ->with('success', 'Gadget successfully received.');
     }
 }

@@ -15,6 +15,7 @@ class CreateUsersTransactionsTable extends Migration
     {
         Schema::create('users_transactions', function (Blueprint $table) {
             $table->id();
+            $table->string('status');
             $table->string('code');
             $table->text('info');
             $table->unsignedInteger('price');

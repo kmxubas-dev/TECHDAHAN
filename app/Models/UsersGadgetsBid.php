@@ -20,6 +20,7 @@ class UsersGadgetsBid extends Model
         'gadget_id',
         'user_id',
         'amount',
+        'status',
     ];
 
     /**

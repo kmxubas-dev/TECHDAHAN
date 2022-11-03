@@ -20,6 +20,7 @@ class CreateAppReportsTable extends Migration
             $table->string('subject');
             $table->text('message');
             $table->text('response')->nullable();
+            $table->string('img', 2048)->nullable();
             $table->timestamps();
         });
     }

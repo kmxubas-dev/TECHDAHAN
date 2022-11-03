@@ -128,11 +128,11 @@ class UserController extends Controller
     public function destroy(User $user)
     {
         //
-        $user->password = Hash::make('');
+        $user->status = 'disabled';
         $user->save();
 
-        return redirect()->route('login')
-            ->with('success', 'Successfully deleted account.');
+        Auth::logout();
+        return redirect()->route('login');
     }
 
 

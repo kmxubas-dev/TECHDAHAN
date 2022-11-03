@@ -44,8 +44,15 @@ class AppReportController extends Controller
         $request->validate([
             'message' => 'required|string',
             'subject' => 'required|string',
+            'img' => 'required|file'
         ]);
         $report = new AppReport;
+        $report->img = 'storage/disputes/'.time().'.'
+            .$request->file('img')->getClientOriginalExtension();
+        $request->file('img')->storeAs(
+            'public/disputes/', 
+            time().'.'.$request->file('img')->getClientOriginalExtension()
+        );
         $report->user_id = Auth::user()->id;
         $report->status = 'pending';
         $report->subject = $request->subject;

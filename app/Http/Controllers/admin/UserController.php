@@ -131,7 +131,6 @@ class UserController extends Controller
     {
         //
         $user->type = 'disabled';
-        $user->password = Hash::make('');
         $user->save();
 
         return redirect()->route('admin.user.index')

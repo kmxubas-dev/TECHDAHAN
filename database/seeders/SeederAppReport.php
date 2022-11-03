@@ -20,6 +20,7 @@ class SeederAppReport extends Seeder
         for($i=1; $i<15; $i++) {
             DB::table('app_reports')->insert([
                 'user_id' => 3,
+                'img' => 'img/placeholder.jpg',
                 'status' => 'pending',
                 'subject' => 'Report '.$i,
                 'message' => $i.' Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Dignissim enim sit amet venenatis urna cursus eget.',

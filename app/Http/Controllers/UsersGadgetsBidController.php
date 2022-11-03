@@ -6,8 +6,11 @@ use App\Models\UsersGadgetsBid;
 use App\Models\UsersGadget;
 use Illuminate\Http\Request;
 
+use App\Notifications\UserNotification;
+
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
+use Carbon\Carbon;
 
 class UsersGadgetsBidController extends Controller
 {
@@ -97,6 +100,25 @@ class UsersGadgetsBidController extends Controller
     public function add(UsersGadget $gadget)
     {
         //
+        if (Carbon::parse($gadget->bidding_end)->isPast()) {
+            $bid = UsersGadgetsBid::where('gadget_id', $gadget->id)
+                ->where('status', '!=', 'winner')
+                ->where('status', '!=', 'loser')
+                ->orderBy('amount', 'desc')->first();
+
+            if (isset($bid)) {
+                $bid->status = 'winner';
+                $bid->save();
+
+                $bid->user->notify(new UserNotification([
+                    'bid_id' => $bid->id,
+                    'type' => 'bid_winner',
+                    'link' => route('gadget.bid.add', $gadget),
+                    'message' => 'You are the winner of the bid - '.
+                        $gadget->name,
+                ]));
+            }
+        }
         $bid = UsersGadgetsBid::where('gadget_id', $gadget->id)
             ->where('user_id', Auth::user()->id)->first();
         $bids = UsersGadgetsBid::where('gadget_id', $gadget->id)
@@ -120,9 +142,16 @@ class UsersGadgetsBidController extends Controller
         if ($similarbids > 0) {
             return back()->withErrors('Amount already bidded');
         }
+        
+        if (Carbon::parse($gadget->bidding_end)->isPast()) {
+            return back()->withErrors('Bidding time already past.');
+        }
+        if (Carbon::parse($gadget->bidding_end)->isPast()) {
+            return back()->withErrors('Bidding time already past.');
+        }
 
         $offer = UsersGadgetsBid::updateOrCreate(
-            ['gadget_id' => $gadget->id, 'user_id' => Auth::user()->id],
+            ['gadget_id' => $gadget->id, 'user_id' => Auth::user()->id, 'status'=>'pending'],
             ['amount' => $request->amount]
         );
 
