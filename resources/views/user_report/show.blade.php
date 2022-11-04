@@ -44,6 +44,7 @@
                     <span class="text-red-600 capitalize">{{ $report->status }}</span>
                 @endif
             </h5>
+            <img src="{{ asset($report->img) }}" alt="">
             <form action="{{ route('report.update', $report) }}" method="POST">
                 @method('PUT')
                 @csrf

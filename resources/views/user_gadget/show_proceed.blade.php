@@ -98,6 +98,21 @@
                     </div>
                 </div>
 
+                <div id="card_input" class="hidden flex flex-col mb-3">
+                    <div class="mb-3">
+                        <input type="text" name="card_number" placeholder="Card number" value="{{ old('card_number') }}" class="w-full rounded-md border-2 border-[#2557D6] bg-white py-3 px-6 text-base font-medium text-[#2557D6] outline-none focus:border-[#6A64F1] focus:shadow-md"/>
+                    </div>
+                    <div class="mb-3">
+                        <input type="text" name="exp_month" placeholder="Exp month" value="{{ old('exp_month') }}" class="w-full rounded-md border-2 border-[#2557D6] bg-white py-3 px-6 text-base font-medium text-[#2557D6] outline-none focus:border-[#6A64F1] focus:shadow-md"/>
+                    </div>
+                    <div class="mb-3">
+                        <input type="text" name="exp_year" placeholder="Exp year" value="{{ old('exp_year') }}" class="w-full rounded-md border-2 border-[#2557D6] bg-white py-3 px-6 text-base font-medium text-[#2557D6] outline-none focus:border-[#6A64F1] focus:shadow-md"/>
+                    </div>
+                    <div class="mb-3">
+                        <input type="text" name="cvc" placeholder="CVC" value="{{ old('name') }}" class="w-full rounded-md border-2 border-[#2557D6] bg-white py-3 px-6 text-base font-medium text-[#2557D6] outline-none focus:border-[#6A64F1] focus:shadow-md"/>
+                    </div>
+                </div>
+
                 <div class="text-white">
                     <button type="submit" class="w-full py-3 bg-blue-600 font-bold rounded-xl">Purchase now</button>
                 </div>
@@ -126,36 +141,39 @@
     var input_type2 = document.querySelector("#amount2");
 
     input_method1.addEventListener('click', (event) => {
+        input_type1.checked = true;
         input_type2.checked = false;
         input_type2.disabled = true;
+        document.querySelector("#card_input").classList.add('hidden');
     });
     input_method2.addEventListener('click', (event) => {
         input_type2.disabled = false;
+        document.querySelector("#card_input").classList.remove('hidden');
     });
 
-    document.querySelector('#transaction_form').addEventListener('submit', (event) => {
-        event.preventDefault();
-        let body = {};
-        body.code = document.querySelector('input[name="code"]').value;
-        body.method = document.querySelector('input[name="method"]').value;
-        body.payment = (input_method1.checked) ? input_method1.value:input_method2.value;
-        body.payment_amount = (input_type1.checked) ? input_type1.value:input_type2.value;
+    // document.querySelector('#transaction_form').addEventListener('submit', (event) => {
+    //     event.preventDefault();
+    //     let body = {};
+    //     body.code = document.querySelector('input[name="code"]').value;
+    //     body.method = document.querySelector('input[name="method"]').value;
+    //     body.payment = (input_method1.checked) ? input_method1.value:input_method2.value;
+    //     body.payment_amount = (input_type1.checked) ? input_type1.value:input_type2.value;
 
-        const options = {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
-            },
-            body: JSON.stringify(body)
-        };
-        fetch('{!! route('gadget.transaction_post', $gadget) !!}', options)
-            .then(response => response.json())
-            .then(response => {
-                window.location.href = response.link;
-            })
-            .catch(err => console.error(err));
-    });
+    //     const options = {
+    //         method: 'POST',
+    //         headers: {
+    //             'Accept': 'application/json',
+    //             'Content-Type': 'application/json',
+    //             'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+    //         },
+    //         body: JSON.stringify(body)
+    //     };
+    //     fetch('{!! route('gadget.transaction_post', $gadget) !!}', options)
+    //         .then(response => response.json())
+    //         .then(response => {
+    //             window.location.href = response.link;
+    //         })
+    //         .catch(err => console.error(err));
+    // });
 </script>
 @endsection

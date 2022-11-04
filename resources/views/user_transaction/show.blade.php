@@ -42,6 +42,9 @@
                         <p class="font-normal text-[#2557D6]">
                             <b>{{ $transaction->code }}</b>
                         </p>
+                        <p class="font-normal text-[#2557D6] capitalize">
+                            <b>{{ $transaction->status }}</b>
+                        </p>
                     </a>
 
                     <hr class="my-3">
@@ -130,6 +133,34 @@
                     </div>
                 </div>
             @endif
+
+            @if ($transaction->status == 'paid' && auth()->user()->id == $transaction->buyer_id)
+                <div class="flex mb-1">
+                    <form action="{{ route('transaction.status', $transaction) }}" method="POST" class="w-full">
+                        @csrf
+                        <input type="hidden" name="status" value="received" >
+                        <button type="button" class="w-full px-3 py-3 bg-blue-600 text-center text-white font-bold rounded-xl shadow-xl" onclick="update_status(this)">
+                            Item Received
+                        </button>
+                    </form>
+                </div>
+            @endif
+
+            @if ($transaction->status == 'received' && auth()->user()->id == $transaction->buyer_id)
+                {{-- @if ($gadget->user_id != auth()->user()->id) --}}
+                    <a href="{{ route('gadget.rating.rate', $transaction->gadget_id) }}" class="flex justify-center w-full p-3 text-center font-bold text-white bg-blue-600 rounded-xl shadow-lg">
+                        Rate this product
+                    </a>
+                    <a href="{{ route('report.create') }}" class="flex justify-center w-full mt-3 p-3 text-center font-bold text-white bg-blue-600 rounded-xl shadow-lg">
+                        Dispute transaction
+                    </a>
+                {{-- @endif --}}
+            @endif
+            @if (auth()->user()->id == $transaction->seller_id)
+                <a href="{{ route('report.create') }}" class="flex justify-center w-full mt-3 p-3 text-center font-bold text-white bg-blue-600 rounded-xl shadow-lg">
+                    Dispute transaction
+                </a>
+            @endif
         </div>
     </section>
 </section>
@@ -147,4 +178,14 @@
         overflow: hidden;
     }
 </style>
+@endsection
+
+@section('scripts')
+<script>
+    function update_status (button) {
+        alertify.confirm('Item Received', 'Are you sure you have received the item?',
+        () => button.parentElement.submit(), () => { })
+        .set('labels', {ok:'Yes', cancel:'No'});
+    }
+</script>
 @endsection

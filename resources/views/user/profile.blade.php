@@ -197,11 +197,10 @@
             
             <div class="w-full mb-20 bg-red-300 shadow-inner">
                 <div class="w-full flex flex-col items-center overflow-hidden">
-                    <form method="POST" action="{{ route('user.destroy', auth()->user()) }}" class="w-full"
-                    onsubmit="return confirm('Are you sure you want to delete your account?')">
+                    <form method="POST" action="{{ route('user.destroy', auth()->user()) }}" class="w-full">
                         @method('DELETE')
                         @csrf
-                        <button class="flex gap-3 w-full py-4 pl-6 pr-3 text-gray-800 font-bold border-t border-gray-100 transition duration-150" >
+                        <button type="button" class="flex gap-3 w-full py-4 pl-6 pr-3 text-gray-800 font-bold border-t border-gray-100 transition duration-150" onclick="delete_user(this)">
                             <div class="w-10">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="w-full h-6" viewBox="0 0 16 16">
                                     <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
@@ -240,4 +239,16 @@
         </div>
     </section>
 </section>
+@endsection
+
+
+
+@section('scripts')
+<script>
+    function delete_user (button) {
+        alertify.confirm('Delete User', 'Are you sure you want to delete this account?',
+        () => button.parentElement.submit(), () => { })
+        .set('labels', {ok:'Yes', cancel:'No'});
+    }
+</script>
 @endsection

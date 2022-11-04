@@ -51,6 +51,52 @@
                             </form>
                         @endif
                     </div>
+                    <div class="flex justify-between items-center">
+                        <div class="social-btn-sp my-3">
+                            <div id="social-links">
+                                <div id="social-links">
+                                    <ul class="flex space-x-3">
+                                        <li>
+                                            <a href="https://www.facebook.com/sharer/sharer.php?u={{ route('gadget.show', $gadget) }}" class="social-button " id="" title="" rel="">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-facebook" viewBox="0 0 16 16">
+                                                    <path d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951z"/>
+                                                </svg>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="https://twitter.com/intent/tweet?text=Default+share+text&amp;url={{ route('gadget.show', $gadget) }}" class="social-button " id="" title="" rel="">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-twitter" viewBox="0 0 16 16">
+                                                    <path d="M5.026 15c6.038 0 9.341-5.003 9.341-9.334 0-.14 0-.282-.006-.422A6.685 6.685 0 0 0 16 3.542a6.658 6.658 0 0 1-1.889.518 3.301 3.301 0 0 0 1.447-1.817 6.533 6.533 0 0 1-2.087.793A3.286 3.286 0 0 0 7.875 6.03a9.325 9.325 0 0 1-6.767-3.429 3.289 3.289 0 0 0 1.018 4.382A3.323 3.323 0 0 1 .64 6.575v.045a3.288 3.288 0 0 0 2.632 3.218 3.203 3.203 0 0 1-.865.115 3.23 3.23 0 0 1-.614-.057 3.283 3.283 0 0 0 3.067 2.277A6.588 6.588 0 0 1 .78 13.58a6.32 6.32 0 0 1-.78-.045A9.344 9.344 0 0 0 5.026 15z"/>
+                                                </svg>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="https://www.linkedin.com/sharing/share-offsite?mini=true&amp;url={{ route('gadget.show', $gadget) }}" class="social-button " id="" title="" rel="">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-linkedin" viewBox="0 0 16 16">
+                                                    <path d="M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175C.526 16 0 15.487 0 14.854V1.146zm4.943 12.248V6.169H2.542v7.225h2.401zm-1.2-8.212c.837 0 1.358-.554 1.358-1.248-.015-.709-.52-1.248-1.342-1.248-.822 0-1.359.54-1.359 1.248 0 .694.521 1.248 1.327 1.248h.016zm4.908 8.212V9.359c0-.216.016-.432.08-.586.173-.431.568-.878 1.232-.878.869 0 1.216.662 1.216 1.634v3.865h2.401V9.25c0-2.22-1.184-3.252-2.764-3.252-1.274 0-1.845.7-2.165 1.193v.025h-.016a5.54 5.54 0 0 1 .016-.025V6.169h-2.4c.03.678 0 7.225 0 7.225h2.4z"/>
+                                                </svg>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a target="_blank" href="https://telegram.me/share/url?url={{ route('gadget.show', $gadget) }}" class="social-button " id="" title="" rel="">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-telegram" viewBox="0 0 16 16">
+                                                    <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.287 5.906c-.778.324-2.334.994-4.666 2.01-.378.15-.577.298-.595.442-.03.243.275.339.69.47l.175.055c.408.133.958.288 1.243.294.26.006.549-.1.868-.32 2.179-1.471 3.304-2.214 3.374-2.23.05-.012.12-.026.166.016.047.041.042.12.037.141-.03.129-1.227 1.241-1.846 1.817-.193.18-.33.307-.358.336a8.154 8.154 0 0 1-.188.186c-.38.366-.664.64.015 1.088.327.216.589.393.85.571.284.194.568.387.936.629.093.06.183.125.27.187.331.236.63.448.997.414.214-.02.435-.22.547-.82.265-1.417.786-4.486.906-5.751a1.426 1.426 0 0 0-.013-.315.337.337 0 0 0-.114-.217.526.526 0 0 0-.31-.093c-.3.005-.763.166-2.984 1.09z"/>
+                                                </svg>
+                                            </a>
+                                        </li>
+                                        {{-- <li>
+                                            <a target="_blank" href="https://wa.me/?text=https://makitweb.com/how-to-upload-multiple-files-with-vue-js-and-php/" class="social-button " id="" title="" rel=""><span class="fab fa-whatsapp"></span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a target="_blank" href="https://www.reddit.com/submit?title=Default+share+text&amp;url=https://makitweb.com/how-to-upload-multiple-files-with-vue-js-and-php/" class="social-button " id="" title="" rel=""><span class="fab fa-reddit"></span>
+                                            </a>
+                                        </li> --}}
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 <div id="btn_ratings" class="flex justify-between p-5 py-3  text-[#2557D6] border border-gray-200">
@@ -115,11 +161,11 @@
                     <div class="flex justify-between items-center">
                         <h5 class="text-xl text-white font-bold">Feedbacks</h5>
 
-                        @if ($gadget->user_id != auth()->user()->id)
+                        {{-- @if ($gadget->user_id != auth()->user()->id)
                             <a href="{{ route('gadget.rating.rate', $gadget) }}" class="w-36 p-2 text-sm text-center bg-white border-2 border-gray-300 rounded-xl shadow-lg">
                                 <b>Rate this product</b>
                             </a>
-                        @endif
+                        @endif --}}
                     </div>
 
                     @foreach ($gadget->ratings as $g_rating)
@@ -280,10 +326,27 @@
                         </div>
                     </div>
                 </div>
+
+                <div id="receipt" class="flex justify-between p-5 py-3  text-[#2557D6] border border-gray-200 shadow-lg">
+                    <h5 class="mb-1 font-bold">Original Receipt</h5>
+                    <p class="">Click to open</p>
+                </div>
+                <div id="receipt_body" class="accordion flex flex-col gap-2 p-5 bg-blue-400 shadow-inner" style="display:none">
+                    <a href="{{ asset($gadget->img_receipt) }}" class="w-36 p-1 text-center bg-white border-2 border-gray-300 rounded-xl shadow-lg" download>
+                        <b>Download</b>
+                    </a>
+                    <div class="flex justify-between">
+                        <img class="rounded-xl" src="{{ asset($gadget->img_receipt) }}" alt="">
+                    </div>
+                </div>
                 
                 <div class="p-5">
                     @if (auth()->user()->id == $gadget->user_id)
                         <a href="{{ route('gadget.edit', $gadget) }}" class="flex justify-center w-full px-8 py-2 bg-blue-600 font-bold text-white rounded-xl shadow-xl">Edit</a>
+                        
+                        @if ($gadget->methods->bid)
+                            <a href="{{ route('gadget.bid.add', $gadget) }}" class="flex justify-center w-full mt-3 px-8 py-2 bg-blue-600 font-bold text-white rounded-xl shadow-xl">See bidding</a>
+                        @endif
                     @else
                     <div class="flex mb-3">
                         @if ($gadget->methods->bid)
@@ -338,6 +401,10 @@
 
     $(document).on('click', '#product', function(e) {
         $('#product_body').slideToggle();
+    });
+
+    $(document).on('click', '#receipt', function(e) {
+        $('#receipt_body').slideToggle();
     });
 </script>
 @endsection

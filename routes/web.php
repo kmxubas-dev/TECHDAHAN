@@ -41,6 +41,7 @@ Route::get('/home', function () {
     return view('welcome');
 });
 
+Route::view('/terms-and-condition', 'terms')->name('terms-and-condition');
 
 Route::group(['middleware'=>['guest']], function() {
     Route::get('user/register', [UserController::class, 'register'])
@@ -61,7 +62,7 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 
 Route::resource('user', UserController::class);
 Route::delete('user/{user}', [UserController::class, 'destroy'])
-    ->name('user.destroy')->middleware('password.confirm');;
+    ->name('user.destroy');
 Route::group(['prefix'=>'', 'as'=>'', 'middleware'=>['auth:sanctum', 'verified']], function () {
     Route::get('/index', function () {
         $gadgets = UsersGadget::where('user_id', '!=', Auth::user()->id)
@@ -77,6 +78,8 @@ Route::group(['prefix'=>'', 'as'=>'', 'middleware'=>['auth:sanctum', 'verified']
 
     // GADGET TRANSACTION
     Route::resource('transaction', UsersTransactionController::class);
+    Route::post('transaction/{transaction}/status',[UsersTransactionController::class,
+        'status_post'])->name('transaction.status');
     Route::get('transaction/{transaction}/payment_status',[UsersTransactionController::class,
         'payment_status'])->name('transaction.payment_status');
     Route::post('gadget/{gadget}/transaction',[UsersTransactionController::class,

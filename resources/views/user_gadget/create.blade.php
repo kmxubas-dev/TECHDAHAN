@@ -64,7 +64,6 @@
                         <option value="0" @if (old('installment') == 0) selected @endif>Installment Disabled</option>
                         <option value="3" @if (old('installment') == 3) selected @endif>3 Months Installment</option>
                         <option value="6" @if (old('installment') == 6) selected @endif>6 Months Installment</option>
-                        <option value="9" @if (old('installment') == 9) selected @endif>9 Months Installment</option>
                         <option value="12" @if (old('installment') == 12) selected @endif>12 Months Installment</option>
                     </select>
                 </div>
@@ -99,16 +98,18 @@
                     </div>
                 </div>
 
-                <div class="mb-3">
-                    <input type="text" name="bidding_min" placeholder="Minimum Bidding Price" class="w-full rounded-md border-2 border-[#2557D6] bg-white py-3 px-6 text-base font-medium text-[#2557D6] outline-none focus:border-[#6A64F1] focus:shadow-md"/>
-                </div>
-                <div class="mb-3">
-                    <label for="">Starting Bidding Date</label>
-                    <input type="date" name="bidding_start" placeholder="Minimum Bidding Price" class="w-full rounded-md border-2 border-[#2557D6] bg-white py-3 px-6 text-base font-medium text-[#2557D6] outline-none focus:border-[#6A64F1] focus:shadow-md"/>
-                </div>
-                <div class="mb-3">
-                    <label for="">End Bidding Date</label>
-                    <input type="date" name="bidding_end" placeholder="Minimum Bidding Price" class="w-full rounded-md border-2 border-[#2557D6] bg-white py-3 px-6 text-base font-medium text-[#2557D6] outline-none focus:border-[#6A64F1] focus:shadow-md"/>
+                <div id="bid_inputs" class="hidden">
+                    <div class="mb-3">
+                        <input type="text" name="bidding_min" placeholder="Minimum Bidding Price" class="w-full rounded-md border-2 border-[#2557D6] bg-white py-3 px-6 text-base font-medium text-[#2557D6] outline-none focus:border-[#6A64F1] focus:shadow-md"/>
+                    </div>
+                    <div class="mb-3">
+                        <label for="">Starting Bidding Date</label>
+                        <input type="date" name="bidding_start" placeholder="Minimum Bidding Price" class="w-full rounded-md border-2 border-[#2557D6] bg-white py-3 px-6 text-base font-medium text-[#2557D6] outline-none focus:border-[#6A64F1] focus:shadow-md"/>
+                    </div>
+                    <div class="mb-3">
+                        <label for="">End Bidding Date</label>
+                        <input type="date" name="bidding_end" placeholder="Minimum Bidding Price" class="w-full rounded-md border-2 border-[#2557D6] bg-white py-3 px-6 text-base font-medium text-[#2557D6] outline-none focus:border-[#6A64F1] focus:shadow-md"/>
+                    </div>
                 </div>
                 <div class="my-3"><hr></div>
 
@@ -147,6 +148,18 @@
 
 @section('scripts')
 <script>
+    var method_bid = document.querySelector('input[name="method_bid"]');
+    var method_offer = document.querySelector('input[name="method_offer"]');
+    method_bid.addEventListener('change', (event) => {
+        console.log(method_bid.checked);
+        if (method_bid.checked)
+            document.querySelector("#bid_inputs").classList.remove('hidden');
+        else
+            document.querySelector("#bid_inputs").classList.add('hidden');
+    });
+
+
+
     document.querySelector("#bid").addEventListener('click', (event) => {
         document.querySelector("#offer").disabled = event.target.checked;
     });

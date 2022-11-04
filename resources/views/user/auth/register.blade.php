@@ -128,12 +128,13 @@
                             <footer>
                                 <div class="mt-8 text-sm text-gray-400">
                                     By signing in to TECHDAHAN you agree to our
-                                    <a href="#" class="font-medium text-gray-500">Terms</a> and
-                                    <a href="#" class="font-medium text-gray-500">Privacy Policy</a>.
+                                    <a href="{{ route('terms-and-condition') }}" class="font-medium text-gray-500">
+                                        Terms and Conditions
+                                    </a>.
                                 </div>
                             </footer>
                         </form>
-            
+
                         <div class="flex items-center space-x-4">
                             <hr class="w-full border border-gray-300" />
                             <div class="font-semibold text-gray-400">OR</div>

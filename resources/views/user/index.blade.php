@@ -12,20 +12,21 @@
                 </div>
             </div>
         </div>
-        <div class="grid px-7 py-2  items-center justify-around grid-cols-3 gap-1 text-white divide-x divide-solid ">
+        <div class="grid px-7 py-2  items-center justify-around grid-cols-2 gap-1 text-white divide-x divide-solid ">
             <div class="col-span-1  px-3 flex flex-col items-center text-center">
                 <span class=" font-bold">Featured<br> Seller</span>
                 <span class="text font-medium 0"></span>
             </div>
             <div class="col-span-1 flex items-center">
-                <a href="{{ route('user.edit', auth()->user()) }}" class="flex flex-col w-full text-center">
-                    <span class="text- font-bold font-medium 0">Nearby Gadgets</span>
+                <a href="{{ route('wishlist.index') }}" class="flex flex-col w-full text-center">
+                    <span class=" font-bold">My <br> Wishlist</span>
+                    <span class="text font-medium 0"></span>
                 </a>
             </div>
-            <div class="col-span-1 h-full px-3 flex flex-col items-center text-center">
+            {{-- <div class="col-span-1 h-full px-3 flex flex-col items-center text-center">
                 <span class=" font-bold">My <br> Wishlist</span>
                 <span class="text font-medium 0"></span>
-            </div>
+            </div> --}}
         </div>
     </div>
     
@@ -37,8 +38,12 @@
             <div class="grid grid-cols-2 gap-3 mt-3 md:grid-cols-3">
                 @foreach ($gadgets as $gadget)
                 <a href="{{ route('gadget.show', $gadget->id) }}" class="bg-white shadow-lg border border-gray-200 rounded-lg max-w-sm dark:bg-gray-800 dark:border-gray-700">
-                    <div href="#">
-                        <img class="rounded-t-lg" src="{{ asset($gadget->img) }}" alt="">
+                    <div class="bg-cover rounded-t-lg" style="
+                    height:200px;
+                    background-repeat:no-repeat;
+                    background-position: center;
+                    background-size: cover; 
+                    background-image: url('{{ asset($gadget->img) }}')">
                     </div>
                     <div class="p-2">
                         <div href="#">

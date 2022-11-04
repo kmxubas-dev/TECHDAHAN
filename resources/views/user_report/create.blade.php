@@ -27,8 +27,9 @@
                 <img src="{{ asset('img/app/report/report.webp') }}" alt="" class="w-full lg:w-1/3 mb-5">
             </div>
             <h5 class="mb-8 text-lg text-center font-bold">What is your issue?</h5>
-            <form action="{{ route('report.store') }}" method="POST">
+            <form action="{{ route('report.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
+                <input type="file" name="img" id="input-file-now" class="dropify" data-height="150"/>
                 <div class="mb-3">
                     <label for="subject"><b></b></label>
                     <input type="text" name="subject" placeholder="Subject..." @isset($offer) value="{{ $offer->amount }}" @endisset class="w-full py-3 rounded-md border-2 border-[#2557D6] bg-white text-base font-medium text-[#2557D6] outline-none focus:border-[#6A64F1] focus:shadow-md"/>
@@ -60,6 +61,9 @@
         -webkit-line-clamp: 2;
         -webkit-box-orient: vertical;
         overflow: hidden;
+    }
+    .dropify-wrapper .dropify-message p {
+        font-size: 0.5em;
     }
 </style>
 @endsection
