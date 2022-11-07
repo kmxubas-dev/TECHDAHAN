@@ -2,7 +2,7 @@
 
 @section('main')
 <section>
-    <!-- Client Table -->
+    <!-- Reports Table -->
     <div class="mt-4 mx-4">
         <h3 class="mb-3 text-xl font-semibold">
             Reports
@@ -59,6 +59,6 @@
             </div>
         </div>
     </div>
-    <!-- ./Client Table -->
+    <!-- ./Reports Table -->
 </section>
 @endsection

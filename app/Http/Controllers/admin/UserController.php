@@ -85,7 +85,12 @@ class UserController extends Controller
         $gadgets = UsersGadget::where('user_id', $user->id)->get();
         $gadgets_count = UsersGadget::where('user_id', $user->id)->count();
         $transactions_count = UsersTransaction::where('seller_id', $user->id)->count();
-        return view('admin.user.show', compact('user', 'gadgets', 'gadgets_count', 'transactions_count'));
+        return view('admin.user.show', compact(
+            'user',
+            'gadgets',
+            'gadgets_count',
+            'transactions_count'
+        ));
     }
 
     /**

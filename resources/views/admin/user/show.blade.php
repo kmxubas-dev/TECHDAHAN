@@ -142,7 +142,6 @@
             </div>
         </div>
 
-        
         <div class="container px-3 pt-5 pb-20 mx-auto rounded-tl-xl rounded-tr-xl">
             <h1 class="text-xl font-semibold capitalize dark:text-white">Gadgets</h1>
 
