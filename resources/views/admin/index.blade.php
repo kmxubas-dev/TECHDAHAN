@@ -405,6 +405,52 @@
         </div>
     </div> --}}
     <!-- ./Task Summaries -->
+    
+    <!-- Statistics Cards -->
+    <div id="exportSales" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 p-4 gap-4">
+        <button class="bg-blue-500 dark:bg-gray-800 shadow-lg rounded-md flex items-center justify-between p-3 border-b-4 border-blue-600 dark:border-gray-600 text-white font-medium group">
+            <div class="flex justify-center items-center w-14 h-14 bg-white rounded-full transition-all duration-300 transform group-hover:rotate-12">
+                <svg width="30" height="30" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="stroke-current text-blue-800 dark:text-gray-800 transform transition-transform duration-500 ease-in-out">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
+                </svg>
+            </div>
+            <div class="text-right">
+                <p class="text-xl">Export</p>
+                <p class="text-xl">Sales</p>
+            </div>
+        </button>
+    </div>
+    <!-- ./Statistics Cards -->
+</section>
+
+
+<section class="hidden">
+    <table id="example" class="display nowrap" style="width:100%">
+        <thead>
+            <tr>
+                <th>Code</th>
+                <th>Gadget Name</th>
+                <th>Price</th>
+                <th>Method</th>
+                <th>Payment Type</th>
+                <th>Status</th>
+                <th>Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach ($transactions as $transaction)
+                <tr>
+                    <td>{{$transaction->code}}</td>
+                    <td>{{$transaction->info->name}}</td>
+                    <td>{{ 'PHP'.number_format($transaction->price, 2, ".", ",") }}</td>
+                    <td class="capitalize">{{$transaction->payment->method}}</td>
+                    <td class="capitalize">{{$transaction->payment->type}}</td>
+                    <td class="capitalize">{{$transaction->status}}</td>
+                    <td>{{$transaction->created_at}}</td>
+                </tr>
+            @endforeach
+        </tbody>
+    </table>
 </section>
 @endsection
 
@@ -451,6 +497,30 @@
                 text: 'Predicted world population (millions) in 2050'
             }
         }
+    });
+</script>
+
+<script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.3.2/js/dataTables.buttons.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.3.2/js/buttons.html5.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.3.2/js/buttons.print.min.js"></script>
+<script>
+    $(document).ready(function() {
+        var table = $('#example').DataTable( {
+            dom: 'Bfrtip',
+            buttons: [
+                'copy', 'csv', 'excel', 'pdf', 'print'
+            ]
+        });
+        $("#exportSales").on("click", function() {
+            alertify.confirm('Export Sales', 'Are you sure you want to export sales reports?',
+            () => {table.button( '.buttons-csv' ).trigger()}, () => { })
+            .set('labels', {ok:'Yes', cancel:'No'});
+            
+        });
     });
 </script>
 @endsection

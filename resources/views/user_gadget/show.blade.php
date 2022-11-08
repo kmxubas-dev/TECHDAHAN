@@ -169,7 +169,7 @@
                     </div>
 
                     @foreach ($gadget->ratings as $g_rating)
-                    <div class="relative max-w-md mx-auto md:max-w-2xl mt-10 min-w-0 break-words bg-white w-full shadow-lg rounded-xl">
+                    <div class="rating_wrapper relative max-w-md mx-auto md:max-w-2xl mt-10 min-w-0 break-words bg-white w-full shadow-lg rounded-xl">
                         <div class="px-6">
                             <div class="flex flex-wrap justify-center">
                                 <div class="w-full flex justify-center">
@@ -186,7 +186,7 @@
                             </div>
                             <div class="mt-3 py-b border-t border-slate-200 text-center">
                                 <div class="flex flex-wrap justify-center space-y-3">
-                                    <input type="hidden" value="{{ $g_rating->rate }}" class="rate_input_hidden">
+                                    <input type="hidden" name="rating_input" value="{{ $g_rating->rate }}" class="rate_input_hidden">
                                     <div class='rating flex flex-row justify-center gap-3 bg-sky-300'>
                                         <div>
                                             <svg id="star1" class="h-5 fill-current text-yellow-500 cursor-pointer"
@@ -389,7 +389,20 @@
             else
                 element.children[0].classList.remove('text-yellow-500');
         });
-    })
+    });
+    
+    var rating_wrapper = document.querySelectorAll('.rating_wrapper');
+    rating_wrapper.forEach((tr, tr_i) => {
+        let rating = tr.querySelectorAll('.rating')[0];
+        let rating_value = tr.querySelector('input[name="rating_input"]').value;
+        let rating_input_children = Array.from(rating.children);
+        rating_input_children.forEach((element, i) => {
+            if (i < rating_value)
+                element.children[0].classList.add('text-yellow-500');
+            else
+                element.children[0].classList.remove('text-yellow-500');
+        });
+    });
 
     @isset($rating)
         rating_input_children[{!! $rating->rate !!}-1].click();

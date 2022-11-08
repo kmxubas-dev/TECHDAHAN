@@ -25,11 +25,11 @@
             <main class="relative min-h-screen w-full bg-white">
                 <!-- component -->
                 <div class="flex justify-center" x-data="app justify-center ">
-                    <section class="w-full p-3 pt-14 lg:w-1/3 transform space-y-0 text-center">
+                    <section class="w-full p-6 lg:w-1/3 transform space-y-0 text-center">
                         <div class="flex justify-center">
                             <img src="{{ asset('img/logo-dark.png') }}" alt="" class="h-40">
                         </div>
-                        <div class="p-5 pb-12">
+                        <div class=" pb-12">
                             <form method="POST" action="{{ route('login') }}">
                                 @csrf
 
@@ -57,7 +57,7 @@
                                     @enderror
                                 </div>
                                 <!-- PASSWORD -->
-                                <div class="mb-8">
+                                <div class="mb-3">
                                     <x-jet-label for="password" value="{{ __('Password') }}" />
                                     <div class="w-full px-3 bg-gray-100 rounded-2xl border-2 border-blue-300 focus-within:border-blue-500">
                                         <input type="password" name="password" placeholder="Password" class="my-1 w-full border-0 bg-transparent outline-0 focus:ring-0" required autocomplete="current-password"/>
@@ -65,6 +65,19 @@
                                     @error('password')
                                         <div class="error text-red-600">{{ $message }}</div>
                                     @enderror
+                                </div>
+                                
+                                <div class="flex justify-center items-center space-x-3 mb-8">
+                                    <input id="showPassword" type="checkbox" onclick="showPassword()">
+                                    <label for="showPassword">Show Password</label>
+                                </div>
+
+                                <div class="mb-8">
+                                    @if (Route::has('password.request'))
+                                        <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('password.request') }}">
+                                            {{ __('Forgot your password?') }}
+                                        </a>
+                                    @endif
                                 </div>
 
                                 <button type="submit" class="w-full rounded-2xl border-b-4 border-b-blue-600 bg-blue-500 py-3 font-bold text-white hover:bg-blue-400 active:translate-y-[0.125rem] active:border-b-blue-400">
@@ -111,5 +124,16 @@
                 </div>
             </main>
         </div>
+
+        <script>
+            function showPassword() {
+                var x = document.querySelector('input[name="password"]');
+                if (x.type === "password") {
+                    x.type = "text";
+                } else {
+                    x.type = "password";
+                }
+            }
+        </script>
     </body>
 </html>

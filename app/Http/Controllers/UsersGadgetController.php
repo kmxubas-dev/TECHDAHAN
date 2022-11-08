@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\UsersGadget;
+use App\Models\UsersGadgetsRating;
 use App\Models\UsersPayment;
 use Illuminate\Http\Request;
 
@@ -114,6 +115,8 @@ class UsersGadgetController extends Controller
     public function show(UsersGadget $gadget)
     {
         //
+        $gadget->ratings = UsersGadgetsRating::where('gadget_id', $gadget->id)
+            ->orderBy('updated_at', 'DESC')->get();
         return view('user_gadget.show', compact('gadget'));
     }
 

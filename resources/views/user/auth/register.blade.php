@@ -45,7 +45,45 @@
                             </div>
                             <!-- PASSWORD -->
                             <div>
-                                <div class="w-full px-3 bg-gray-100 rounded-2xl border-2 border-blue-300 focus-within:border-blue-500">
+                                <div class="flex items-center w-full px-3 bg-gray-100 rounded-2xl border-2 border-blue-300 focus-within:border-blue-500">
+                                    <a  tabindex="0" role="link" aria-label="tooltip 2" class="focus:outline-none focus:ring-gray-300 rounded-full focus:ring-offset-2 focus:ring-2 focus:bg-gray-200 relative" onmouseover="showTooltip(2)" onfocus="showTooltip(2)" onmouseout="hideTooltip(2)">
+                                        <div class=" cursor-pointer">
+                                            <svg aria-haspopup="true" xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-info-circle" width="25" height="25" viewBox="0 0 24 24" stroke-width="1.5" stroke="#A0AEC0" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                                <path stroke="none" d="M0 0h24v24H0z" />
+                                                <circle cx="12" cy="12" r="9" />
+                                                <line x1="12" y1="8" x2="12.01" y2="8" />
+                                                <polyline points="11 12 12 12 12 16 13 16" />
+                                            </svg>
+                                        </div>
+                                        <div id="tooltip2" role="tooltip" class="z-20 -mt-36 w-64 absolute transition duration-150 ease-in-out left-0 ml-8 shadow-lg bg-blue-600 p-4 rounded">
+                                            <svg class="absolute left-0 -ml-2 -mt-3 bottom-0 top-0 h-full fill-current text-blue-600" width="9px" height="16px" viewBox="0 0 9 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                                <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                    <g id="Tooltips-" transform="translate(-874.000000, -1029.000000)" fill="#2563EB">
+                                                        <g id="Group-3-Copy-16" transform="translate(850.000000, 975.000000)">
+                                                            <g id="Group-2" transform="translate(24.000000, 0.000000)">
+                                                                <polygon id="Triangle" transform="translate(4.500000, 62.000000) rotate(-90.000000) translate(-4.500000, -62.000000) " points="4.5 57.5 12.5 66.5 -3.5 66.5"></polygon>
+                                                            </g>
+                                                        </g>
+                                                    </g>
+                                                </g>
+                                            </svg>
+                                            <ul class="text-left  text-white">
+                                                <li>• The password must be at least 8 characters.</li>
+                                                <li>• The password must contain at least one uppercase and one lowercase letter.</li>
+                                                <li>• The password must contain at least one symbol.</li>
+                                                <li>• The password must contain at least one number.</li>
+                                            </ul>
+                                            <div class="flex justify-between mt-3">
+                                                <div class="flex items-center">
+                                                    {{-- <span class="text-xs font-bold text-white">Step 1 of 4</span> --}}
+                                                </div>
+                                                <div class="flex items-center">
+                                                    <!-- <button class="focus:outline-none focus:underline focus:text-indigo-200 text-xs text-white underline mr-2 cursor-pointer">Skip Tour</button> -->
+                                                    <button type="button" onclick="hideTooltip()" onblur="hideTooltip()" class="focus:ring-2 focus:ring-offset-2 focus:ring-indigo-700 focus:bg-indigo-400 focus:outline-none focus:text-white bg-white transition duration-150 ease-in-out focus:outline-none hover:bg-gray-200 rounded text-indigo-700 px-5 py-1">Okay</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </a>
                                     <input type="password" name="password" placeholder="Password" class="my-1 w-full border-0 bg-transparent outline-0 focus:ring-0" />
                                 </div>
                                 @error('password')
@@ -62,6 +100,11 @@
                                 @error('password_confirmation')
                                     <div class="error text-red-600">{{ $message }}</div>
                                 @enderror
+                            </div>
+
+                            <div class="flex justify-center items-center space-x-3 mb-8">
+                                <input id="showPassword" type="checkbox" onclick="showPassword1()">
+                                <label for="showPassword">Show Password</label>
                             </div>
 
                             <div class="flex items-center space-x-4">
@@ -156,13 +199,32 @@
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.19/js/intlTelInput.min.js" integrity="sha512-+gShyB8GWoOiXNwOlBaYXdLTiZt10Iy6xjACGadpqMs20aJOoh+PJt3bwUVA6Cefe7yF7vblX6QwyXZiVwTWGg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
         <script>
-          var input = document.querySelector("#phone");
-          window.intlTelInput(input, {
-            // any initialisation options go here
-            initialCountry: 'ph',
-            onlyCountries: ['ph'],
-            customContainer: 'w-full my-1',
-          });
+            var input = document.querySelector("#phone");
+            window.intlTelInput(input, {
+                // any initialisation options go here
+                initialCountry: 'ph',
+                onlyCountries: ['ph'],
+                customContainer: 'w-full my-1',
+            });
+
+            function showTooltip(flag) {
+                document.getElementById("tooltip2").classList.remove("hidden");
+            }
+            function hideTooltip(flag) {
+                document.getElementById("tooltip2").classList.add("hidden");
+            }
+            
+            function showPassword1() {
+                var x = document.querySelector('input[name="password"]');
+                var xx = document.querySelector('input[name="password_confirmation"]');
+                if (x.type === "password") {
+                    x.type = "text";
+                    xx.type = "text";
+                } else {
+                    x.type = "password";
+                    xx.type = "password";
+                }
+            }
         </script>
     </body>
 </html>

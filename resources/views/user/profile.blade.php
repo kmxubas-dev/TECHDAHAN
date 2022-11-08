@@ -69,9 +69,11 @@
                             <span class="text- font-bold font-medium 0">Profile</span>
                         </a>
                     </div>
-                    <div class="col-span-1 px-3 flex flex-col items-center ">
-                        <span class="text-lg font-bold">{{ $transactions_count }}</span>
-                        <span class="text font-medium 0">Sales</span>
+                    <div class="col-span-1 px-3 flex flex-col items-center">
+                        <button id="exportSales" class="flex flex-col items-center">
+                            <span class="text-lg font-bold">{{ $transactions_count }}</span>
+                            <span class="text font-medium 0">Sales</span>
+                        </button>
                     </div>
                 </div>
             </div>
@@ -239,6 +241,35 @@
         </div>
     </section>
 </section>
+
+<section class="hidden">
+    <table id="example" class="display nowrap" style="width:100%">
+        <thead>
+            <tr>
+                <th>Code</th>
+                <th>Gadget Name</th>
+                <th>Price</th>
+                <th>Method</th>
+                <th>Payment Type</th>
+                <th>Status</th>
+                <th>Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (auth()->user()->transactions as $transaction)
+                <tr>
+                    <td>{{$transaction->code}}</td>
+                    <td>{{$transaction->info->name}}</td>
+                    <td>{{ 'PHP'.number_format($transaction->price, 2, ".", ",") }}</td>
+                    <td class="capitalize">{{$transaction->payment->method}}</td>
+                    <td class="capitalize">{{$transaction->payment->type}}</td>
+                    <td class="capitalize">{{$transaction->status}}</td>
+                    <td>{{$transaction->created_at}}</td>
+                </tr>
+            @endforeach
+        </tbody>
+    </table>
+</section>
 @endsection
 
 
@@ -250,5 +281,29 @@
         () => button.parentElement.submit(), () => { })
         .set('labels', {ok:'Yes', cancel:'No'});
     }
+</script>
+
+<script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.3.2/js/dataTables.buttons.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.3.2/js/buttons.html5.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.3.2/js/buttons.print.min.js"></script>
+<script>
+    $(document).ready(function() {
+        var table = $('#example').DataTable( {
+            dom: 'Bfrtip',
+            buttons: [
+                'copy', 'csv', 'excel', 'pdf', 'print'
+            ]
+        });
+        $("#exportSales").on("click", function() {
+            alertify.confirm('Export Sales', 'Are you sure you want to export sales reports?',
+            () => {table.button( '.buttons-csv' ).trigger()}, () => { })
+            .set('labels', {ok:'Yes', cancel:'No'});
+            
+        });
+    });
 </script>
 @endsection

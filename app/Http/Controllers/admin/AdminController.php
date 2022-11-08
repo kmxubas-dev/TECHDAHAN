@@ -21,6 +21,7 @@ class AdminController extends Controller
     public function index()
     {
         //
+        $transactions = UsersTransaction::all();
         $users_count = User::count();
         $gadgets_count = UsersGadget::count();
         $transactions_count = UsersTransaction::count();
@@ -52,7 +53,8 @@ class AdminController extends Controller
             'transactions_count',
             'transactions_sum',
             'topsellers',
-            'sales'
+            'sales',
+            'transactions'
         ));
     }
 }
