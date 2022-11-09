@@ -16,7 +16,7 @@
             <h5 class="text-center font-bold">Add Gadget</h5>
         </div>
     </div>
-    
+
     <!-- Content -->
     <section class="items-center justify-center p-5">
         <div class="mx-auto w-full max-w-[550px]">
@@ -67,7 +67,7 @@
                         <option value="12" @if (old('installment') == 12) selected @endif>12 Months Installment</option>
                     </select>
                 </div>
-                
+
                 <div class="my-3"><hr></div>
 
                 <div class="mb-3">

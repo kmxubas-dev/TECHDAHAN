@@ -19,7 +19,7 @@
             </div>
         </div>
     </div>
-    
+
     <!-- Content -->
     <section class="items-center justify-center px-5 py-8">
         <div class="mx-auto w-full max-w-[550px]">

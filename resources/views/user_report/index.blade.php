@@ -19,7 +19,7 @@
             </div>
         </div>
     </div>
-    
+
     <!-- Content -->
     <section class="items-center justify-center p-4">
         <div class="flow-root">

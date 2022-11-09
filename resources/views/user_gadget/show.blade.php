@@ -112,7 +112,7 @@
                                             ></path>
                                     </svg>
                                 </div>
-        
+
                                 <div>
                                     <svg id="star2" class="h-5 fill-current text-gray-400 cursor-pointer"
                                         viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
@@ -122,7 +122,7 @@
                                             ></path>
                                     </svg>
                                 </div>
-        
+
                                 <div>
                                     <svg id="star3" class="h-5 fill-current text-gray-400 cursor-pointer"
                                         viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
@@ -132,7 +132,7 @@
                                             ></path>
                                     </svg>
                                 </div>
-        
+
                                 <div>
                                     <svg id="star4"class="h-5 fill-current text-gray-400 cursor-pointer"
                                         viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
@@ -142,7 +142,7 @@
                                             ></path>
                                     </svg>
                                 </div>
-        
+
                                 <div>
                                     <svg id="star5" class="h-5 fill-current text-gray-400 cursor-pointer"
                                         viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
@@ -197,7 +197,7 @@
                                                     ></path>
                                             </svg>
                                         </div>
-                
+
                                         <div>
                                             <svg id="star2" class="h-5 fill-current text-gray-400 cursor-pointer"
                                                 viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
@@ -207,7 +207,7 @@
                                                     ></path>
                                             </svg>
                                         </div>
-                
+
                                         <div>
                                             <svg id="star3" class="h-5 fill-current text-gray-400 cursor-pointer"
                                                 viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
@@ -217,7 +217,7 @@
                                                     ></path>
                                             </svg>
                                         </div>
-                
+
                                         <div>
                                             <svg id="star4"class="h-5 fill-current text-gray-400 cursor-pointer"
                                                 viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
@@ -227,7 +227,7 @@
                                                     ></path>
                                             </svg>
                                         </div>
-                
+
                                         <div>
                                             <svg id="star5" class="h-5 fill-current text-gray-400 cursor-pointer"
                                                 viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
@@ -339,7 +339,7 @@
                         <img class="rounded-xl" src="{{ asset($gadget->img_receipt) }}" alt="">
                     </div>
                 </div>
-                
+
                 <div class="p-5">
                     @if (auth()->user()->id == $gadget->user_id)
                         <a href="{{ route('gadget.edit', $gadget) }}" class="flex justify-center w-full px-8 py-2 bg-blue-600 font-bold text-white rounded-xl shadow-xl">Edit</a>
@@ -390,7 +390,7 @@
                 element.children[0].classList.remove('text-yellow-500');
         });
     });
-    
+
     var rating_wrapper = document.querySelectorAll('.rating_wrapper');
     rating_wrapper.forEach((tr, tr_i) => {
         let rating = tr.querySelectorAll('.rating')[0];

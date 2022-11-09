@@ -16,7 +16,7 @@
             <h5 class="text-center font-bold">Notifications</h5>
         </div>
     </div>
-    
+
     <!-- Content -->
     <section class="items-center justify-center">
         <div class="flex flex-col space-y-2 p-3  2xl:w-4/12 bg-gray-100 h-screen overflow-y-auto pb-20">

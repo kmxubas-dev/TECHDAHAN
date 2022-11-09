@@ -112,7 +112,7 @@
                                 </p>
                             </a>
                         </li>
-                        
+
                         <li class="text-white rounded-xl bg-blue-600 shadow-xl">
                             <a href="{{ route('gadget_offer.index', ['type' => 'seller']) }}" class="flex py-3 px-5 items-center space-x-4">
                                 <p class="text-lg font-medium truncate hover:text-white font-bold">

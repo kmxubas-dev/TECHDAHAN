@@ -67,19 +67,3 @@
     }
 </style>
 @endsection
-
-@section('scripts')
-<script>
-    document.querySelector("#payment1").addEventListener('click', (event) => {
-        if (event.target && event.target.matches("input[type='radio']")) {
-            document.querySelector("#amount2").checked = false;
-            document.querySelector("#amount2").disabled = true;
-        }
-    });
-    document.querySelector("#payment2").addEventListener('click', (event) => {
-        if (event.target && event.target.matches("input[type='radio']")) {
-            document.querySelector("#amount2").disabled = false;
-        }
-    });
-</script>
-@endsection

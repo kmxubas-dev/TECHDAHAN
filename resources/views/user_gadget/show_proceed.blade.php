@@ -116,6 +116,18 @@
                 <div class="text-white">
                     <button type="submit" class="w-full py-3 bg-blue-600 font-bold rounded-xl">Purchase now</button>
                 </div>
+
+                <footer>
+                    <div class="mt-8 text- text-gray-500">
+                        By purchasing this gadget in TECHDAHAN you agree to our
+                        <a href="{{ route('terms-and-condition') }}" class="font-medium text-blue-800">
+                            Terms and Conditions
+                        </a> and the issuing of
+                        <a href="{{ asset('TECHDAHAN-DEED-OF-SALE.docx') }}" class="font-medium text-blue-800" download>
+                            Deed of Sale
+                        </a>.
+                    </div>
+                </footer>
             </form>
         </div>
     </section>

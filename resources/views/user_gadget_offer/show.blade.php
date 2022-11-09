@@ -182,6 +182,18 @@
                                 <button type="submit" class="flex justify-center w-full py-2 px-8 hover:shadow-form rounded-lg bg-[#2557D6] text-base font-semibold text-white outline-none">Purchase now</button>
                             </div>
                         </form>
+
+                        <footer>
+                            <div class="mt-8 text- text-gray-500">
+                                By purchasing this gadget in TECHDAHAN you agree to our
+                                <a href="{{ route('terms-and-condition') }}" class="font-medium text-blue-800">
+                                    Terms and Conditions
+                                </a> and the issuing of
+                                <a href="{{ asset('TECHDAHAN-DEED-OF-SALE.docx') }}" class="font-medium text-blue-800" download>
+                                    Deed of Sale
+                                </a>.
+                            </div>
+                        </footer>
                     </div>
                 @elseif ($offer->status == 'declined')
                     <div class="w-full p-4 bg-white text-[#2557D6] border border-gray-200 rounded-lg shadow-md">

@@ -167,7 +167,7 @@
                             <button type="submit" class="w-full rounded-2xl border-b-4 border-b-blue-600 bg-blue-500 py-3 font-bold text-white hover:bg-blue-400 active:translate-y-[0.125rem] active:border-b-blue-400">
                                 CREATE ACCOUNT
                             </button>
-            
+
                             <footer>
                                 <div class="mt-8 text-sm text-gray-400">
                                     By signing in to TECHDAHAN you agree to our
@@ -213,7 +213,7 @@
             function hideTooltip(flag) {
                 document.getElementById("tooltip2").classList.add("hidden");
             }
-            
+
             function showPassword1() {
                 var x = document.querySelector('input[name="password"]');
                 var xx = document.querySelector('input[name="password_confirmation"]');
